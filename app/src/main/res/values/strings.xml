@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">La hora del idiota</string>
+    <string name="image_description">image</string>
+    <string name="title">title</string>
+    <string name="nivel_de_idiotez">nidel de idiotes</string>
+    <string name="sitio_frecuente">sitio frecuente del idiota</string>
+    <string name="Habilidad_especial">Habilidad Especial</string>
+    <string name="descripcion">Descripcion</string>
+    <string name="habilidad_especial">Habilidad Especial</string>
+    <string name="button">button</string>
+</resources>
