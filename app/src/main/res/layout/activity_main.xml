@@ -7,11 +7,20 @@
 
     <data>
     </data>
-
+    
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".main.MainActivity">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/maintoolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/black"
+            app:title="La Hora del Idiota"
+            app:titleTextColor="@color/white"
+            android:elevation="6dp"/>
 
     <androidx.recyclerview.widget.RecyclerView
 
@@ -27,7 +36,7 @@
             android:layout_margin="16dp"
             android:elevation="@dimen/cardview_compat_inset_shadow"
             android:src="@drawable/baseline_arrow_forward_ios_24"
-            app:backgroundTint="@color/background_item"
+            app:backgroundTint="@color/black"
             android:contentDescription="@string/button" />
 
     </FrameLayout>

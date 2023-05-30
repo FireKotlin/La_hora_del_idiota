@@ -8,4 +8,5 @@
     <string name="descripcion">Descripcion</string>
     <string name="habilidad_especial">Habilidad Especial</string>
     <string name="button">button</string>
+    <string name="log_in">Log in</string>
 </resources>

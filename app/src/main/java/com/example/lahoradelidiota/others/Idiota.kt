@@ -1,4 +1,4 @@
-package com.example.lahoradelidiota
+package com.example.lahoradelidiota.others
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
