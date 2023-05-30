@@ -1,4 +1,4 @@
-package com.example.lahoradelidiota
+package com.example.lahoradelidiota.others
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil

@@ -1,9 +1,13 @@
-package com.example.lahoradelidiota
+package com.example.lahoradelidiota.photoactivity
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.GridLayoutManager
+import com.example.lahoradelidiota.R
 import com.example.lahoradelidiota.databinding.ActivityImageBinding
+import com.example.lahoradelidiota.main.MainActivity
+import com.example.lahoradelidiota.photoAdapter
 
 
 class ImageActivity : AppCompatActivity() {
@@ -20,7 +24,8 @@ class ImageActivity : AppCompatActivity() {
         imageList.add(image(R.drawable.p1, "Iditota tomando un baño"))
         imageList.add(image(R.drawable.p2, "Idiota con exceso de flow"))
         imageList.add(image(R.drawable.p3, "Idiota con un poco de hambre"))
-        imageList.add(image(R.drawable.p4, "Encuentra las 5 diferencias️‼️"))
+        imageList.add(image(R.drawable.p4, "Encuentra las 5 " +
+                "diferencias️‼️"))
         imageList.add(image(R.drawable.p5, "Idiota pidiendo piedra SEEEE!!"))
         imageList.add(image(R.drawable.p6, "Triste se cayó su torta"))
         imageList.add(image(R.drawable.p7, "Pasó el Omar enfrente, hagan sus teorías!! "))
@@ -30,10 +35,14 @@ class ImageActivity : AppCompatActivity() {
         imageList.add(image(R.drawable.p11, "Idiota ansado!!"))
         imageList.add(image(R.drawable.p12, "Perlita antes de los tacos!!"))
         imageList.add(image(R.drawable.p13, "Idiota sediento de fierro!!!"))
-        imageList.add(image(R.drawable.p14, "Encuentra las 5 diferencias️‼️"))
+        imageList.add(image(R.drawable.p14, "Encuentra las 5 " +
+                "diferencias️‼️"))
         imageList.add(image(R.drawable.p15, "El pabro maquillandose"))
-        imageList.add(image(R.drawable.p16, "A grabar un disco juntos" +
-                "       Ya pa que te digo!!"))
+        imageList.add(
+            image(
+                R.drawable.p16, "A grabar un disco juntos" +
+                "       Ya pa que te digo!!")
+        )
         imageList.add(image(R.drawable.p17, "Feliz Navidad!!"))
         imageList.add(image(R.drawable.p18, "Idiota Belico!!"))
         imageList.add(image(R.drawable.p19, "Reunion de Idiotas, SEEEEEEEEEEE!!!"))
@@ -68,5 +77,10 @@ class ImageActivity : AppCompatActivity() {
         binding.recyclerView.adapter = adapter
         adapter.setDataList(imageList)
 
+        val itoolbar = binding.imagetoolbar
+        itoolbar.setNavigationIcon(R.drawable.baseline_arrow_back_24)
+        itoolbar.setNavigationOnClickListener {
+            startActivity(Intent(this, MainActivity::class.java))
+        }
     }
 }
