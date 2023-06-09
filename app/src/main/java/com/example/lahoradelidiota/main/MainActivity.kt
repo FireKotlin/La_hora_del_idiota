@@ -6,7 +6,9 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.view.menu.MenuBuilder
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView.ItemDecoration
 import com.example.lahoradelidiota.detail.IDetailActivity
 import com.example.lahoradelidiota.others.Idiota
 import com.example.lahoradelidiota.others.IdiotaAdapter
@@ -24,6 +26,8 @@ class MainActivity : AppCompatActivity() {
         binding.recyclerIdiot.layoutManager = LinearLayoutManager(this)
 
 
+
+
         val idiotList = mutableListOf<Idiota>()
         idiotList.add(
             Idiota(
@@ -34,7 +38,7 @@ class MainActivity : AppCompatActivity() {
                 "La tienda de doña huevas",
                 "Cagarla",
                 "Este idiota se caracteriza por ser extremadamente idiota y por no tener nariz, su cuerpo no esta diseñado para soportar tanta idiotez y por eso se suicida.\n" +
-                        "El nivel de idiotez de este especimen es respaldado por sus mas de doce intentos de suicidio, suele ahorcarse con la longaniza y cortarse con corcholatas, el primer intento de la lagartija parada fue despues de cagarse en la express.\n" +
+                        "El nivel de idiotez de este especimen es respaldado por sus mas de 37 intentos de suicidio, suele ahorcarse con la longaniza y cortarse con corcholatas, el primer intento de la lagartija parada fue despues de cagarse en la express.\n" +
                         "Todas las noches pasa a visitar a doña huevas para comprar barritas para cortarse con ellas, antes de cada intento grita SIN MIEDO AL ÉXITO!!, SEEE un idiota ejemplar, YA NO LE SIGO ESCRIBIENDO POR QUE SI NO SE SUICIDA!!!!"
             )
         )
@@ -272,13 +276,13 @@ class MainActivity : AppCompatActivity() {
         )
         idiotList.add(
             Idiota(
-                R.drawable.misterioso,
+                R.drawable.piezas,
                 "21",
-                "Idiota Misterioso!!",
+                "El Piezas",
                 "1000/10",
                 "Da vueltas vendiendo piezas",
                 "Vender piezas",
-                "Este pequeño idiota solo vende piezas, adivina quien es SEEEEE!!."
+                "Este pequeño idiota solo vende piezas, parece alumno del piña por que vende puras porquerias SEEEEE!!."
             )
         )
         idiotList.add(
@@ -338,10 +342,25 @@ class MainActivity : AppCompatActivity() {
                 "Lo unico que se sabe de el es que es un idiotaaaa SEEE!!"
             )
         )
+
+        idiotList.add(
+            Idiota(
+                R.drawable.login,
+                "27",
+                "El vaca",
+                "55457/10",
+                "El bote",
+                "Robar bicicletas",
+                "Esté idiota es el mejor amigo del vaca, todas las fotos en la hora del idiota lo confirman, compañero de monas del chucho," +
+                        "lider la banda cangrena" +
+                        "Le encanta robarse las bicicletas."
+            )
+        )
+
         idiotList.add(
             Idiota(
                 R.drawable.concha,
-                "27",
+                "28",
                 "La Concha",
                 "∞",
                 "El Casino del Compa",
@@ -354,7 +373,8 @@ class MainActivity : AppCompatActivity() {
                         "Le toma y luego le escupe a la cerveza del piña antes de entregarla.\n" +
                         "Los sonidos que emite este idiota son muy característicos (a veces ladra) y reflejan lo idiota que es.\n" +
                         "Grita de emoción cada que llega el robocop.\n" +
-                        "Sin duda el idiota más idiota de todos SEEEEEEEEEEEEEEE!!!!.\n"
+                        "Sin duda el idiota más idiota de todos SEEEEEEEEEEEEEEE!!!!." +
+                        "Es la hora CONFIRMADOO!!!!\n"
             )
         )
 

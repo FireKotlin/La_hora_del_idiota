@@ -12,8 +12,14 @@
         android:theme="@style/Theme.LaHoraDelIdiota"
         tools:targetApi="31">
         <activity
-            android:name=".database.LoginActivity"
+            android:name=".database.DbIdiotRecycler"
             android:exported="false" />
+        <activity
+            android:name=".database.PantallaIdiota"
+            android:exported="false" />
+        <activity
+            android:name=".database.LoginActivity"
+            android:exported="true" />
         <activity
             android:name=".main.MainActivity"
             android:exported="true">

@@ -21,7 +21,7 @@ class ImageActivity : AppCompatActivity() {
 
         val imageList = mutableListOf<image>()
 
-        imageList.add(image(R.drawable.p1, "Iditota tomando un baño"))
+        imageList.add(image(R.drawable.p1, "Idiota tomando un baño"))
         imageList.add(image(R.drawable.p2, "Idiota con exceso de flow"))
         imageList.add(image(R.drawable.p3, "Idiota con un poco de hambre"))
         imageList.add(image(R.drawable.p4, "Encuentra las 5 " +

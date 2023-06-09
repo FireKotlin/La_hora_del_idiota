@@ -23,7 +23,7 @@
             android:elevation="6dp"/>
 
     <androidx.recyclerview.widget.RecyclerView
-
+        android:layout_marginTop="54dp"
         android:id="@+id/recyclerIdiot"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
