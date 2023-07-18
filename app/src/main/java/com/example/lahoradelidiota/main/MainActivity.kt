@@ -2,13 +2,8 @@ package com.example.lahoradelidiota.main
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.view.menu.MenuBuilder
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView.ItemDecoration
 import com.example.lahoradelidiota.detail.IDetailActivity
 import com.example.lahoradelidiota.others.Idiota
 import com.example.lahoradelidiota.others.IdiotaAdapter
@@ -24,8 +19,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.recyclerIdiot.layoutManager = LinearLayoutManager(this)
-
-
 
 
         val idiotList = mutableListOf<Idiota>()
