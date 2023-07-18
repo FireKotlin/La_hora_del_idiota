@@ -14,6 +14,10 @@ import com.example.lahoradelidiota.photoactivity.ImageActivity
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
+
+        Thread.sleep(760)
+        setTheme(R.style.Theme_LaHoraDelIdiota)
+
         super.onCreate(savedInstanceState)
         val binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
