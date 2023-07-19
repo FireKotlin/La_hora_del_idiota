@@ -15,7 +15,7 @@ import com.example.lahoradelidiota.photoactivity.ImageActivity
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
 
-        Thread.sleep(760)
+        Thread.sleep(1000)
         setTheme(R.style.Theme_LaHoraDelIdiota)
 
         super.onCreate(savedInstanceState)

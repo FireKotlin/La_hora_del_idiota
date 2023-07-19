@@ -8,9 +8,12 @@
     </data>
 
 
-
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <ScrollView
+        android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -160,8 +163,62 @@
             tools:text="El Pabro es el lider de los idiotas, la experiencia obtenida con mas de 12 intentos de suicidio hacen a este idiota el mas idiota de todos." />
 
 
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>
 
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/extendedFab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_margin="16dp"
+        app:backgroundTint="@color/black"
+        android:tint="@color/white"
+        android:clickable="true"
+        android:focusable="true"
+        android:src="@drawable/baseline_keyboard_double_arrow_up_24"
+        android:visibility="visible"
+        android:contentDescription="TODO"
+        app:layout_anchor="@id/scrollView"
+        app:layout_anchorGravity="bottom|end"
+        app:extended="true"
+        app:icon="@drawable/baseline_keyboard_double_arrow_up_24"
+        app:iconTint="@color/white"
+        tools:text="FAB" />
+
+    <LinearLayout
+        android:id="@+id/menuContainer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_above="@id/extendedFab"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:visibility="gone">
+
+        <Button
+            android:id="@+id/buttonOption1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Botón 1"
+            android:layout_marginBottom="8dp" />
+
+        <Button
+            android:id="@+id/buttonOption2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Botón 2" />
+
+    </LinearLayout>
+
+
+</RelativeLayout>
+
 </layout>
+
+
