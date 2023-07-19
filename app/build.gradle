@@ -59,7 +59,7 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
     apply plugin: 'com.google.gms.google-services'
 
-    implementation 'com.google.android.material:material:1.5.0'
+    implementation 'com.google.android.material:material:1.9.0'
 
     //PHOTO ZOOM
     implementation 'com.github.MikeOrtiz:TouchImageView:1.4.1'
