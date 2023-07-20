@@ -28,6 +28,8 @@ class IDetailActivity : AppCompatActivity() {
     private lateinit var hideFabRunnable: Runnable
     private lateinit var binding: DetailActivityBinding
     private var fabHidden = false
+    // Agregar una variable para controlar el temporizador
+    private var stopHideFabTimer = false
 
     // Expandible
     private val rotateOpen: Animation by lazy { AnimationUtils.loadAnimation(this, R.anim.rotate_open_anim) }
@@ -49,7 +51,7 @@ class IDetailActivity : AppCompatActivity() {
 
         handler = Handler()
         hideFabRunnable = Runnable {
-            if (!fabHidden) {
+            if (!fabHidden && !stopHideFabTimer) {
                 // Oculta el FAB si no está oculto
                 fadeOutFab(binding.extendedFab)
                 fabHidden = true
@@ -69,17 +71,19 @@ class IDetailActivity : AppCompatActivity() {
 
                     // Reinicia el temporizador de ocultar el FAB
                     handler.removeCallbacks(hideFabRunnable)
-                    handler.postDelayed(hideFabRunnable, 7000) // Oculta el FAB después de 1 segundo
+                    handler.postDelayed(hideFabRunnable, 6000) // Oculta el FAB después de 7 segundos
                 }
             }
             false
         }
 
         // Inicia el temporizador de ocultar el FAB al iniciar la actividad
-        handler.postDelayed(hideFabRunnable, 7000) // Oculta el FAB después de 1 segundo
+        handler.postDelayed(hideFabRunnable, 6000) // Oculta el FAB después de 7 segundos
 
         // Mostrar el FAB inicialmente
         binding.extendedFab.visibility = View.VISIBLE
+        binding.extendedFab1.visibility = View.GONE
+        binding.extendedFab2.visibility = View.GONE
 
         val idiota = intent.extras?.getParcelable<Idiota>(IDIOT_KEY)!!
 
@@ -98,6 +102,8 @@ class IDetailActivity : AppCompatActivity() {
         }
 
         binding.extendedFab.setOnClickListener {
+            // Detener el temporizador de ocultar el FAB
+            stopHideFabTimer = true
             onAddButtonClicked()
         }
         binding.extendedFab1.setOnClickListener {
@@ -110,21 +116,34 @@ class IDetailActivity : AppCompatActivity() {
 
     override fun onPause() {
         super.onPause()
-        // Detiene el temporizador de ocultar el FAB al pausar la actividad
+        // Detener el temporizador de ocultar el FAB al pausar la actividad
         handler.removeCallbacks(hideFabRunnable)
     }
 
     private fun fadeOutFab(extendedFab: View) {
-        ViewCompat.animate(extendedFab)
-            .alpha(0f)
-            .withEndAction { extendedFab.visibility = View.GONE }
-            .start()
+        if (!stopHideFabTimer && !fabHidden) {
+            ViewCompat.animate(extendedFab)
+                .alpha(0f)
+                .withEndAction {
+                    extendedFab.visibility = View.GONE
+                    stopHideFabTimer = false // Restablecer el temporizador cuando se oculte el FAB
+                }
+                .start()
+        }
     }
 
     private fun onAddButtonClicked() {
         setVisibility(clicked)
         setAnimation(clicked)
         clicked = !clicked
+
+        // Oculta el botón principal si ambos botones adicionales también están ocultos
+        if (binding.extendedFab1.visibility == View.INVISIBLE && binding.extendedFab2.visibility == View.INVISIBLE) {
+            fabHidden = true
+            fadeOutFab(binding.extendedFab)
+        } else {
+            fabHidden = false
+        }
     }
 
     private fun setVisibility(clicked: Boolean) {

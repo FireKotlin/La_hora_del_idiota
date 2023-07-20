@@ -358,6 +358,27 @@ class MainActivity : AppCompatActivity() {
             Idiota(
                 R.drawable.concha,
                 "28",
+                "Doña huevas",
+                "100/10",
+                "Sur 14",
+                "Vender caro",
+                "Esté idiota a parte de ser el más cabezón también es el más idiota de todos, su nivel de idiotez no miente.\n" +
+                        "En sus aportaciones más grandes a la hora del idiota está ''El Pablo es puto y su novio es el Pablo'', su idiotez se refleja en su cara cabra hambreada, Piña y Pablo lo respetan por qué les pone sus cabezazos, en sus tiempos libres es decir todo el día, viola al piña.\n" +
+                        "Presenció cómo un mototaxi voló al de las nieves.\n" +
+                        "Hace cisternas a cabezazos, cuando se cae hace baches en las calles, un día un taxi lo atropelló y partió el carro a la mitad.\n" +
+                        "Come cada vez que existe la oportunidad y le gusta visitar a su papá en el bote.\n" +
+                        "Le toma y luego le escupe a la cerveza del piña antes de entregarla.\n" +
+                        "Los sonidos que emite este idiota son muy característicos (a veces ladra) y reflejan lo idiota que es.\n" +
+                        "Grita de emoción cada que llega el robocop.\n" +
+                        "Sin duda el idiota más idiota de todos SEEEEEEEEEEEEEEE!!!!." +
+                        "Es la hora CONFIRMADOO!!!!\n"
+            )
+        )
+
+        idiotList.add(
+            Idiota(
+                R.drawable.concha,
+                "29",
                 "La Concha",
                 "∞",
                 "El Casino del Compa",
