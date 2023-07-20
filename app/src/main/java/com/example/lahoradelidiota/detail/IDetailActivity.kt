@@ -1,9 +1,19 @@
 package com.example.lahoradelidiota.detail
 
+import android.Manifest
 import android.annotation.SuppressLint
+import android.app.AlertDialog
+import android.content.ContentValues
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.graphics.Bitmap
+import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.os.Environment
 import android.os.Handler
+import android.provider.MediaStore
+import android.provider.Settings
 import android.view.MotionEvent
 import android.view.View
 import android.view.animation.AlphaAnimation
@@ -12,7 +22,11 @@ import android.view.animation.AnimationUtils
 import android.widget.TextView
 import android.widget.Toast
 import android.widget.Toolbar
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
+import androidx.core.graphics.drawable.toBitmap
 import androidx.core.view.ViewCompat
 import com.example.lahoradelidiota.R
 import com.example.lahoradelidiota.databinding.ActivityMainBinding
@@ -40,9 +54,11 @@ class IDetailActivity : AppCompatActivity() {
     private var clicked = false
 
     companion object {
+        private const val REQUEST_WRITE_STORAGE_PERMISSION = 101
         const val IDIOT_KEY = "idiota"
     }
 
+    @RequiresApi(Build.VERSION_CODES.R)
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -107,7 +123,7 @@ class IDetailActivity : AppCompatActivity() {
             onAddButtonClicked()
         }
         binding.extendedFab1.setOnClickListener {
-            Toast.makeText(this, "Download Button Clicked", Toast.LENGTH_SHORT).show()
+            saveImageToGallery()
         }
         binding.extendedFab2.setOnClickListener {
             Toast.makeText(this, "Share Button Clicked", Toast.LENGTH_SHORT).show()
@@ -182,6 +198,49 @@ class IDetailActivity : AppCompatActivity() {
 
             binding.extendedFab.apply {
                 rotation = 180f
+            }
+        }
+    }
+
+    private fun saveImageToGallery() {
+        val bitmap = binding.detailImage.drawable.toBitmap()
+        val displayName = "my_image_${System.currentTimeMillis()}.jpg"
+
+        val contentValues = ContentValues().apply {
+            put(MediaStore.Images.Media.DISPLAY_NAME, displayName)
+            put(MediaStore.Images.Media.MIME_TYPE, "image/jpeg")
+        }
+
+        val resolver = contentResolver
+        val uri = resolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues)
+
+        if (uri != null) {
+            resolver.openOutputStream(uri).use { outputStream ->
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream!!)
+                Toast.makeText(this, "Image saved to gallery", Toast.LENGTH_SHORT).show()
+            }
+        } else {
+            Toast.makeText(this, "Failed to save image", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    @RequiresApi(Build.VERSION_CODES.R)
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == REQUEST_WRITE_STORAGE_PERMISSION) {
+            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                // Si el usuario otorgó los permisos, procedemos a guardar la imagen
+                saveImageToGallery()
+            } else {
+                Toast.makeText(
+                    this,
+                    "Permission denied. Cannot save image to gallery.",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         }
     }
