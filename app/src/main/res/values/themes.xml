@@ -18,4 +18,10 @@
         <item name="android:windowBackground">@drawable/splashscreen</item>
     </style>
 
+    <style name="NavigationViewStyle" parent="Widget.Design.NavigationView">
+        <!-- Cambia el color del texto del menú a negro -->
+        <item name="android:textColor">@android:color/black</item>
+        <!-- Agrega otros atributos de estilo aquí si es necesario -->
+    </style>
+
 </resources>

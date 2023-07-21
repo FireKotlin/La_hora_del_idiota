@@ -3,6 +3,8 @@ package com.example.lahoradelidiota.main
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.GravityCompat
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.lahoradelidiota.detail.IDetailActivity
 import com.example.lahoradelidiota.others.Idiota
@@ -11,8 +13,11 @@ import com.example.lahoradelidiota.R
 import com.example.lahoradelidiota.database.LoginActivity
 import com.example.lahoradelidiota.databinding.ActivityMainBinding
 import com.example.lahoradelidiota.photoactivity.ImageActivity
+import com.google.android.material.navigation.NavigationView
 
 class MainActivity : AppCompatActivity() {
+
+    private lateinit var drawerLayout: DrawerLayout
     override fun onCreate(savedInstanceState: Bundle?) {
 
         Thread.sleep(1000)
@@ -410,12 +415,38 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        setSupportActionBar(binding.maintoolbar)
         val mainToolbar = binding.maintoolbar
-        mainToolbar.setNavigationIcon(R.drawable.baseline_login_24)
+        mainToolbar.setNavigationIcon(R.drawable.baseline_menu_24)
         mainToolbar.setNavigationOnClickListener {
 
-            startActivity(Intent(this, LoginActivity::class.java))
+            drawerLayout.openDrawer(GravityCompat.START)
         }
+
+        drawerLayout = binding.drawerLayout
+        val navigationView: NavigationView = binding.navigationView
+
+
+        navigationView.setNavigationItemSelectedListener { menuItem ->
+
+            drawerLayout.closeDrawers()
+
+            when (menuItem.itemId) {
+                R.id.menu_option1 -> {
+
+                }
+                R.id.menu_option2 -> {
+
+                }
+                R.id.menu_option3 -> {
+
+                }
+
+            }
+
+            true
+        }
+
     }
 
     private fun openDetailActivity(earthquake: Idiota) {
