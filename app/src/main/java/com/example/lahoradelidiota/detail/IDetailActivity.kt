@@ -1,38 +1,32 @@
 package com.example.lahoradelidiota.detail
 
-import android.Manifest
 import android.annotation.SuppressLint
-import android.app.AlertDialog
 import android.content.ContentValues
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
-import android.net.Uri
+import android.graphics.Canvas
 import android.os.Build
 import android.os.Bundle
-import android.os.Environment
 import android.os.Handler
 import android.provider.MediaStore
-import android.provider.Settings
 import android.view.MotionEvent
 import android.view.View
-import android.view.animation.AlphaAnimation
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
-import android.widget.TextView
 import android.widget.Toast
-import android.widget.Toolbar
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
+import androidx.core.content.FileProvider
 import androidx.core.graphics.drawable.toBitmap
 import androidx.core.view.ViewCompat
+import com.example.lahoradelidiota.BuildConfig
 import com.example.lahoradelidiota.R
-import com.example.lahoradelidiota.databinding.ActivityMainBinding
 import com.example.lahoradelidiota.others.Idiota
 import com.example.lahoradelidiota.databinding.DetailActivityBinding
 import com.example.lahoradelidiota.main.MainActivity
+import java.io.File
+import java.io.FileOutputStream
 
 @Suppress("DEPRECATION")
 class IDetailActivity : AppCompatActivity() {
@@ -42,14 +36,35 @@ class IDetailActivity : AppCompatActivity() {
     private lateinit var hideFabRunnable: Runnable
     private lateinit var binding: DetailActivityBinding
     private var fabHidden = false
+
     // Agregar una variable para controlar el temporizador
     private var stopHideFabTimer = false
 
     // Expandible
-    private val rotateOpen: Animation by lazy { AnimationUtils.loadAnimation(this, R.anim.rotate_open_anim) }
-    private val rotateClose: Animation by lazy { AnimationUtils.loadAnimation(this, R.anim.rotate_close_anim) }
-    private val fromBottom: Animation by lazy { AnimationUtils.loadAnimation(this, R.anim.from_bottom_anim) }
-    private val toBottom: Animation by lazy { AnimationUtils.loadAnimation(this, R.anim.to_bottom_anim) }
+    private val rotateOpen: Animation by lazy {
+        AnimationUtils.loadAnimation(
+            this,
+            R.anim.rotate_open_anim
+        )
+    }
+    private val rotateClose: Animation by lazy {
+        AnimationUtils.loadAnimation(
+            this,
+            R.anim.rotate_close_anim
+        )
+    }
+    private val fromBottom: Animation by lazy {
+        AnimationUtils.loadAnimation(
+            this,
+            R.anim.from_bottom_anim
+        )
+    }
+    private val toBottom: Animation by lazy {
+        AnimationUtils.loadAnimation(
+            this,
+            R.anim.to_bottom_anim
+        )
+    }
 
     private var clicked = false
 
@@ -68,7 +83,7 @@ class IDetailActivity : AppCompatActivity() {
         handler = Handler()
         hideFabRunnable = Runnable {
             if (!fabHidden && !stopHideFabTimer) {
-                // Oculta el FAB si no está oculto
+
                 fadeOutFab(binding.extendedFab)
                 fabHidden = true
             }
@@ -87,7 +102,9 @@ class IDetailActivity : AppCompatActivity() {
 
                     // Reinicia el temporizador de ocultar el FAB
                     handler.removeCallbacks(hideFabRunnable)
-                    handler.postDelayed(hideFabRunnable, 6000) // Oculta el FAB después de 7 segundos
+                    handler.postDelayed(
+                        hideFabRunnable,
+                        6000)
                 }
             }
             false
@@ -117,6 +134,7 @@ class IDetailActivity : AppCompatActivity() {
             startActivity(Intent(this, MainActivity::class.java))
         }
 
+
         binding.extendedFab.setOnClickListener {
             // Detener el temporizador de ocultar el FAB
             stopHideFabTimer = true
@@ -126,7 +144,7 @@ class IDetailActivity : AppCompatActivity() {
             saveImageToGallery()
         }
         binding.extendedFab2.setOnClickListener {
-            Toast.makeText(this, "Share Button Clicked", Toast.LENGTH_SHORT).show()
+            shareScreenshot()
         }
     }
 
@@ -233,7 +251,7 @@ class IDetailActivity : AppCompatActivity() {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == REQUEST_WRITE_STORAGE_PERMISSION) {
             if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                // Si el usuario otorgó los permisos, procedemos a guardar la imagen
+
                 saveImageToGallery()
             } else {
                 Toast.makeText(
@@ -243,5 +261,50 @@ class IDetailActivity : AppCompatActivity() {
                 ).show()
             }
         }
+    }
+
+    private fun captureScrollViewContent(): Bitmap {
+        // Capturar la vista completa en un Bitmap
+        val bitmap = Bitmap.createBitmap(binding.scrollView.width, binding.scrollView.getChildAt(0).height, Bitmap.Config.ARGB_8888)
+        val canvas = Canvas(bitmap)
+        binding.scrollView.draw(canvas)
+
+        supportActionBar?.show()
+
+        return bitmap
+    }
+
+    private fun shareScreenshot() {
+        // Capturar la vista completa en un Bitmap
+        val bitmap = captureScrollViewContent()
+
+        // Añadir fondo blanco alrededor del Bitmap
+        val width = bitmap.width
+        val height = bitmap.height
+        val whiteBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
+        whiteBitmap.eraseColor(android.graphics.Color.WHITE)
+        val canvas = Canvas(whiteBitmap)
+        canvas.drawBitmap(bitmap, 0f, 0f, null)
+
+        // Guardar el Bitmap en un archivo temporal
+        val cachePath = File(this.cacheDir, "images")
+        cachePath.mkdirs()
+        val filePath = File(cachePath, "screenshot.png")
+        val outputStream = FileOutputStream(filePath)
+        whiteBitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream)
+        outputStream.close()
+
+        // Crear un URI para el archivo temporal
+        val uri = FileProvider.getUriForFile(this, "${BuildConfig.APPLICATION_ID}.provider", filePath)
+
+        // Crear un Intent para compartir la imagen
+        val shareIntent = Intent(Intent.ACTION_SEND).apply {
+            type = "image/*"
+            putExtra(Intent.EXTRA_STREAM, uri)
+            addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+        }
+
+        // Iniciar el Intent para compartir
+        startActivity(Intent.createChooser(shareIntent, "Compartir captura de pantalla"))
     }
 }

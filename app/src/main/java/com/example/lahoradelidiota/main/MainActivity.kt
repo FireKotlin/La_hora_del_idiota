@@ -220,9 +220,9 @@ class MainActivity : AppCompatActivity() {
         )
         idiotList.add(
             Idiota(
-                R.drawable.misterioso,
+                R.drawable.compa,
                 "16",
-                "Idiota Misterioso!!",
+                "Compaa compaa!!",
                 "9/10",
                 "Oaxaca",
                 "Vender caro y estafar niños",
