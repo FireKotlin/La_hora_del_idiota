@@ -109,7 +109,7 @@ class MainActivity : AppCompatActivity() {
         )
         idiotList.add(
             Idiota(
-                R.drawable.thomas,
+                R.drawable.olmecota,
                 "7",
                 "Olmecota",
                 "1000000/10",
@@ -361,7 +361,7 @@ class MainActivity : AppCompatActivity() {
 
         idiotList.add(
             Idiota(
-                R.drawable.concha,
+                R.drawable.misterioso,
                 "28",
                 "Doña huevas",
                 "100/10",
@@ -382,7 +382,7 @@ class MainActivity : AppCompatActivity() {
 
         idiotList.add(
             Idiota(
-                R.drawable.concha,
+                R.drawable.olmeca,
                 "29",
                 "La Concha",
                 "∞",
