@@ -7,6 +7,6 @@
         android:id="@+id/logbutton"
         android:icon="@drawable/baseline_login_24"
         android:title="Log In"
-        app:showAsAction="always" />
+        android:visible="true" />
 </menu>
 

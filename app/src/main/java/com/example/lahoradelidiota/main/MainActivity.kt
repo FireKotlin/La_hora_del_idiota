@@ -2,7 +2,11 @@ package com.example.lahoradelidiota.main
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.SpannableString
+import android.text.style.ForegroundColorSpan
+import android.view.Menu
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -10,7 +14,12 @@ import com.example.lahoradelidiota.detail.IDetailActivity
 import com.example.lahoradelidiota.others.Idiota
 import com.example.lahoradelidiota.others.IdiotaAdapter
 import com.example.lahoradelidiota.R
+import com.example.lahoradelidiota.R.color.background_view
+import com.example.lahoradelidiota.R.color.black
+import com.example.lahoradelidiota.R.color.nav
+import com.example.lahoradelidiota.R.color.white
 import com.example.lahoradelidiota.database.LoginActivity
+import com.example.lahoradelidiota.database.PantallaIdiota
 import com.example.lahoradelidiota.databinding.ActivityMainBinding
 import com.example.lahoradelidiota.photoactivity.ImageActivity
 import com.google.android.material.navigation.NavigationView
@@ -228,7 +237,8 @@ class MainActivity : AppCompatActivity() {
                 "Vender caro y estafar niños",
                 "Este idiota solo sabe decir compaaaaaa, no vende nada y da bien caro.\n" +
                         "Dice ''Compaaa ya llego al casino de las Vegas Nevada'' pero solo tiene tres maquinitas, dos no sirven y la otra roba.\n" +
-                        "Estafa a lo niños por eso le roban las cocas."
+                        "Estafa a lo niños por eso le roban las cocas." +
+                        "No lw quiere vender pepsis al suicida."
             )
         )
         idiotList.add(
@@ -367,16 +377,7 @@ class MainActivity : AppCompatActivity() {
                 "100/10",
                 "Sur 14",
                 "Vender caro",
-                "Esté idiota a parte de ser el más cabezón también es el más idiota de todos, su nivel de idiotez no miente.\n" +
-                        "En sus aportaciones más grandes a la hora del idiota está ''El Pablo es puto y su novio es el Pablo'', su idiotez se refleja en su cara cabra hambreada, Piña y Pablo lo respetan por qué les pone sus cabezazos, en sus tiempos libres es decir todo el día, viola al piña.\n" +
-                        "Presenció cómo un mototaxi voló al de las nieves.\n" +
-                        "Hace cisternas a cabezazos, cuando se cae hace baches en las calles, un día un taxi lo atropelló y partió el carro a la mitad.\n" +
-                        "Come cada vez que existe la oportunidad y le gusta visitar a su papá en el bote.\n" +
-                        "Le toma y luego le escupe a la cerveza del piña antes de entregarla.\n" +
-                        "Los sonidos que emite este idiota son muy característicos (a veces ladra) y reflejan lo idiota que es.\n" +
-                        "Grita de emoción cada que llega el robocop.\n" +
-                        "Sin duda el idiota más idiota de todos SEEEEEEEEEEEEEEE!!!!." +
-                        "Es la hora CONFIRMADOO!!!!\n"
+                ""
             )
         )
 
@@ -425,6 +426,8 @@ class MainActivity : AppCompatActivity() {
 
         drawerLayout = binding.drawerLayout
         val navigationView: NavigationView = binding.navigationView
+        val backgroundColor = ContextCompat.getColor(this, nav)
+        navigationView.setBackgroundColor(backgroundColor)
 
 
         navigationView.setNavigationItemSelectedListener { menuItem ->
@@ -433,13 +436,14 @@ class MainActivity : AppCompatActivity() {
 
             when (menuItem.itemId) {
                 R.id.menu_option1 -> {
-
+                    val intent = Intent(this, LoginActivity::class.java)
+                    startActivity(intent)
                 }
                 R.id.menu_option2 -> {
-
+                    val intent = Intent(this, PantallaIdiota::class.java)
+                    startActivity(intent)
                 }
                 R.id.menu_option3 -> {
-
                 }
 
             }
@@ -454,5 +458,6 @@ class MainActivity : AppCompatActivity() {
         intent.putExtra(IDetailActivity.IDIOT_KEY, earthquake)
         startActivity(intent)
     }
+
 
 }

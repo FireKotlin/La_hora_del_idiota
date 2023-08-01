@@ -2,10 +2,12 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/menu_option1"
-        android:title="Opción 1" />
+        android:title="Iniciar sesion"
+        android:iconTint="@color/black"
+        />
     <item
         android:id="@+id/menu_option2"
-        android:title="Opción 2" />
+        android:title="Pantalla idiota" />
     <item
         android:id="@+id/menu_option3"
         android:title="Opción 3" />
