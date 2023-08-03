@@ -16,7 +16,7 @@ class IdiotaAdapter: ListAdapter<Idiota, IdiotaAdapter.ViewHolder>(
         }
 
         override fun areContentsTheSame(oldItem: Idiota, newItem: Idiota): Boolean {
-            return oldItem.Imagenid == newItem.Imagenid
+            return oldItem.imageUrl == newItem.imageUrl
         }
     }
 
@@ -35,19 +35,22 @@ class IdiotaAdapter: ListAdapter<Idiota, IdiotaAdapter.ViewHolder>(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val idiota = getItem(position)
         holder.bind(idiota)
+
     }
 
     inner class ViewHolder(private val binding: ListItemBinding):
         RecyclerView.ViewHolder(binding.root) {
 
+
+
         fun bind(idiota: Idiota) {
             binding.idiotNumber.text = idiota.numeroDeIdiota
             binding.nameTextview.text = idiota.nombre
 
-
             binding.root.setOnClickListener {
                 if (::onItemClickListener.isInitialized) {
                     onItemClickListener(idiota)
+
                 }
             }
         }

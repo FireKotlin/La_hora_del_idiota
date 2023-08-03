@@ -12,14 +12,13 @@ import android.os.Handler
 import android.provider.MediaStore
 import android.view.MotionEvent
 import android.view.View
-import android.view.animation.Animation
-import android.view.animation.AnimationUtils
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
 import androidx.core.graphics.drawable.toBitmap
 import androidx.core.view.ViewCompat
+import com.bumptech.glide.Glide
 import com.example.lahoradelidiota.BuildConfig
 import com.example.lahoradelidiota.R
 import com.example.lahoradelidiota.others.Idiota
@@ -39,32 +38,6 @@ class IDetailActivity : AppCompatActivity() {
 
     // Agregar una variable para controlar el temporizador
     private var stopHideFabTimer = false
-
-    // Expandible
-    private val rotateOpen: Animation by lazy {
-        AnimationUtils.loadAnimation(
-            this,
-            R.anim.rotate_open_anim
-        )
-    }
-    private val rotateClose: Animation by lazy {
-        AnimationUtils.loadAnimation(
-            this,
-            R.anim.rotate_close_anim
-        )
-    }
-    private val fromBottom: Animation by lazy {
-        AnimationUtils.loadAnimation(
-            this,
-            R.anim.from_bottom_anim
-        )
-    }
-    private val toBottom: Animation by lazy {
-        AnimationUtils.loadAnimation(
-            this,
-            R.anim.to_bottom_anim
-        )
-    }
 
     private var clicked = false
 
@@ -120,7 +93,11 @@ class IDetailActivity : AppCompatActivity() {
 
         val idiota = intent.extras?.getParcelable<Idiota>(IDIOT_KEY)!!
 
-        binding.detailImage.setImageResource(idiota.Imagenid)
+
+        Glide.with(this)
+            .load(idiota.imageUrl)
+            .into(binding.detailImage)
+
         binding.detailName.text = idiota.nombre
         binding.nivelDeIdiotes.text = idiota.nivel
         binding.sitioFrecuente.text = idiota.site

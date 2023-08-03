@@ -2,9 +2,6 @@ package com.example.lahoradelidiota.main
 
 import android.content.Intent
 import android.os.Bundle
-import android.text.SpannableString
-import android.text.style.ForegroundColorSpan
-import android.view.Menu
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
@@ -14,10 +11,7 @@ import com.example.lahoradelidiota.detail.IDetailActivity
 import com.example.lahoradelidiota.others.Idiota
 import com.example.lahoradelidiota.others.IdiotaAdapter
 import com.example.lahoradelidiota.R
-import com.example.lahoradelidiota.R.color.background_view
-import com.example.lahoradelidiota.R.color.black
 import com.example.lahoradelidiota.R.color.nav
-import com.example.lahoradelidiota.R.color.white
 import com.example.lahoradelidiota.database.LoginActivity
 import com.example.lahoradelidiota.database.PantallaIdiota
 import com.example.lahoradelidiota.databinding.ActivityMainBinding
@@ -39,10 +33,11 @@ class MainActivity : AppCompatActivity() {
         binding.recyclerIdiot.layoutManager = LinearLayoutManager(this)
 
 
+
         val idiotList = mutableListOf<Idiota>()
         idiotList.add(
             Idiota(
-                R.drawable.pabro,
+                "https://firebasestorage.googleapis.com/v0/b/la-hora-del-idiota.appspot.com/o/Detail%2Fpabro.jpeg?alt=media&token=05059b0a-e8a0-41b0-8b05-27cb0ec68e6b",
                 "1",
                 "El Pabro",
                 "Incalculable",
@@ -55,7 +50,7 @@ class MainActivity : AppCompatActivity() {
         )
         idiotList.add(
             Idiota(
-                R.drawable.pina,
+                "https://firebasestorage.googleapis.com/v0/b/la-hora-del-idiota.appspot.com/o/Detail%2Fpina.jpg?alt=media&token=f4633c45-262d-46a0-85b9-9243e2d567f1",
                 "2",
                 "Piña",
                 "11/10",
@@ -68,7 +63,7 @@ class MainActivity : AppCompatActivity() {
         )
         idiotList.add(
             Idiota(
-                R.drawable.chapopote,
+                "https://firebasestorage.googleapis.com/v0/b/la-hora-del-idiota.appspot.com/o/Detail%2Fchapopote.jpg?alt=media&token=81c4fe45-2c28-4be7-a15f-864501be60e9",
                 "3",
                 "Chapopote",
                 "Nivel de idiotez: 100/10",
@@ -83,7 +78,7 @@ class MainActivity : AppCompatActivity() {
         )
         idiotList.add(
             Idiota(
-                R.drawable.botas,
+                "https://firebasestorage.googleapis.com/v0/b/la-hora-del-idiota.appspot.com/o/Detail%2Fbotas.jpeg?alt=media&token=e656c4d0-d2e0-4256-9e67-d392338373c4",
                 "4",
                 "El Botas",
                 "10/10",
@@ -94,7 +89,7 @@ class MainActivity : AppCompatActivity() {
         )
         idiotList.add(
             Idiota(
-                R.drawable.sonrix,
+                "https://firebasestorage.googleapis.com/v0/b/la-hora-del-idiota.appspot.com/o/Detail%2Fsonrix.jpg?alt=media&token=25db81bb-7bdc-44e4-be41-155b84bf6e91",
                 "5",
                 "Sonrix",
                 "9.5/10",
@@ -106,7 +101,7 @@ class MainActivity : AppCompatActivity() {
         )
         idiotList.add(
             Idiota(
-                R.drawable.robocot,
+                "https://firebasestorage.googleapis.com/v0/b/la-hora-del-idiota.appspot.com/o/Detail%2Frobocot.jpg?alt=media&token=76150a47-937b-4c72-b6d8-71ffd2a5e133",
                 "6",
                 "Robocot",
                 "9/10",
@@ -118,7 +113,7 @@ class MainActivity : AppCompatActivity() {
         )
         idiotList.add(
             Idiota(
-                R.drawable.olmecota,
+                "https://firebasestorage.googleapis.com/v0/b/la-hora-del-idiota.appspot.com/o/Detail%2Folmecota.jpeg?alt=media&token=fcdaa0eb-b65d-4556-a2b6-197815f5c256",
                 "7",
                 "Olmecota",
                 "1000000/10",
@@ -130,7 +125,7 @@ class MainActivity : AppCompatActivity() {
         )
         idiotList.add(
             Idiota(
-                R.drawable.pedro,
+                "https://firebasestorage.googleapis.com/v0/b/la-hora-del-idiota.appspot.com/o/Detail%2Fpedro.jpeg?alt=media&token=a7ac53e0-6c42-40b3-8c39-f9356694f3c0",
                 "8",
                 "Pedro",
                 "7/10",
@@ -141,7 +136,7 @@ class MainActivity : AppCompatActivity() {
         )
         idiotList.add(
             Idiota(
-                R.drawable.chanpo,
+                "https://firebasestorage.googleapis.com/v0/b/la-hora-del-idiota.appspot.com/o/Detail%2Fchanpo.jpg?alt=media&token=bcc8086e-7361-40d8-a782-68e2e8749634",
                 "9",
                 "Pancholin",
                 "Incalculable",
@@ -159,7 +154,7 @@ class MainActivity : AppCompatActivity() {
         )
         idiotList.add(
             Idiota(
-                R.drawable.chucho,
+                "https://firebasestorage.googleapis.com/v0/b/la-hora-del-idiota.appspot.com/o/Detail%2Fchucho.jpg?alt=media&token=041eac05-2d64-4d80-ad73-19fa85e9e21a",
                 "10",
                 "Chucho",
                 "105/10",
@@ -171,7 +166,7 @@ class MainActivity : AppCompatActivity() {
         )
         idiotList.add(
             Idiota(
-                R.drawable.perrochucho,
+                "https://firebasestorage.googleapis.com/v0/b/la-hora-del-idiota.appspot.com/o/Detail%2Fperrochucho.jpg?alt=media&token=9797b796-d2a9-4231-a4f1-7b5ec7b11567",
                 "11",
                 "Perro Chucho",
                 "1/10",
@@ -182,7 +177,7 @@ class MainActivity : AppCompatActivity() {
         )
         idiotList.add(
             Idiota(
-                R.drawable.cono,
+                "https://firebasestorage.googleapis.com/v0/b/la-hora-del-idiota.appspot.com/o/Detail%2Fcono.jpg?alt=media&token=5248353e-7b22-4255-a979-97544ca1cd87",
                 "12",
                 "Coño",
                 "10 puntos por kilo",
@@ -195,7 +190,7 @@ class MainActivity : AppCompatActivity() {
         )
         idiotList.add(
             Idiota(
-                R.drawable.toques,
+                "https://firebasestorage.googleapis.com/v0/b/la-hora-del-idiota.appspot.com/o/Detail%2Ftoques.jpg?alt=media&token=8a660a9d-109e-409e-b0be-0ac420234efe",
                 "13",
                 "Toques",
                 "10/10",
@@ -206,7 +201,7 @@ class MainActivity : AppCompatActivity() {
         )
         idiotList.add(
             Idiota(
-                R.drawable.misterioso,
+                "https://firebasestorage.googleapis.com/v0/b/la-hora-del-idiota.appspot.com/o/Detail%2Fmisterioso.jpg?alt=media&token=c48df941-8631-4b47-b8f9-787e1c461f7a",
                 "14",
                 "Idiota Misterioso!!",
                 "Aumenta cada dia",
@@ -218,7 +213,7 @@ class MainActivity : AppCompatActivity() {
         )
         idiotList.add(
             Idiota(
-                R.drawable.pajeroloco,
+                "https://firebasestorage.googleapis.com/v0/b/la-hora-del-idiota.appspot.com/o/Detail%2Fpajeroloco.jpg?alt=media&token=ef51718a-6eee-44d3-a7ed-99b5b48d5fef",
                 "15",
                 "Pajero Loco",
                 "8/10",
@@ -229,7 +224,7 @@ class MainActivity : AppCompatActivity() {
         )
         idiotList.add(
             Idiota(
-                R.drawable.compa,
+                "https://firebasestorage.googleapis.com/v0/b/la-hora-del-idiota.appspot.com/o/Detail%2Fcompa.jpeg?alt=media&token=c909cf8d-3487-4dc8-b1ee-8c110567563b",
                 "16",
                 "Compaa compaa!!",
                 "9/10",
@@ -238,12 +233,12 @@ class MainActivity : AppCompatActivity() {
                 "Este idiota solo sabe decir compaaaaaa, no vende nada y da bien caro.\n" +
                         "Dice ''Compaaa ya llego al casino de las Vegas Nevada'' pero solo tiene tres maquinitas, dos no sirven y la otra roba.\n" +
                         "Estafa a lo niños por eso le roban las cocas." +
-                        "No lw quiere vender pepsis al suicida."
+                        "No le quiere vender pepsi al suicida."
             )
         )
         idiotList.add(
             Idiota(
-                R.drawable.machero,
+                "https://firebasestorage.googleapis.com/v0/b/la-hora-del-idiota.appspot.com/o/Detail%2Fmachero.jpg?alt=media&token=86a55198-2fbe-456d-8719-80364f16a9b7",
                 "17",
                 "El Machero",
                 "10/10",
@@ -254,7 +249,7 @@ class MainActivity : AppCompatActivity() {
         )
         idiotList.add(
             Idiota(
-                R.drawable.pijsd,
+                "https://firebasestorage.googleapis.com/v0/b/la-hora-del-idiota.appspot.com/o/Detail%2Fpijsd.jpg?alt=media&token=09e8362b-0760-46d4-857e-26d4ab92a334",
                 "18",
                 "El Pijas",
                 "1000/10",
@@ -265,7 +260,7 @@ class MainActivity : AppCompatActivity() {
         )
         idiotList.add(
             Idiota(
-                R.drawable.ajaa,
+                "https://firebasestorage.googleapis.com/v0/b/la-hora-del-idiota.appspot.com/o/Detail%2Fajaa.jpg?alt=media&token=8adc41de-4366-482f-94fa-ac05a3f79fd0",
                 "19",
                 "El Ajaaa",
                 "Extremooo",
@@ -276,7 +271,7 @@ class MainActivity : AppCompatActivity() {
         )
         idiotList.add(
             Idiota(
-                R.drawable.buenasnoches,
+                "https://firebasestorage.googleapis.com/v0/b/la-hora-del-idiota.appspot.com/o/Detail%2Fbuenasnoches.jpg?alt=media&token=0b8f94f6-e278-4262-a0c8-22afd6ebd74d",
                 "20",
                 "El Buenas Noches",
                 "100/10",
@@ -288,7 +283,7 @@ class MainActivity : AppCompatActivity() {
         )
         idiotList.add(
             Idiota(
-                R.drawable.piezas,
+                "https://firebasestorage.googleapis.com/v0/b/la-hora-del-idiota.appspot.com/o/Detail%2Fpiezas.jpg?alt=media&token=7a246650-c85b-4554-9da1-eaf1bea7cebb",
                 "21",
                 "El Piezas",
                 "1000/10",
@@ -299,7 +294,7 @@ class MainActivity : AppCompatActivity() {
         )
         idiotList.add(
             Idiota(
-                R.drawable.cacahuates,
+                "https://firebasestorage.googleapis.com/v0/b/la-hora-del-idiota.appspot.com/o/Detail%2Fcacahuates.jpg?alt=media&token=8cfc84de-524e-4d79-9423-6908be6c7ba6",
                 "22",
                 "El Cacahuates",
                 "100/10",
@@ -310,7 +305,7 @@ class MainActivity : AppCompatActivity() {
         )
         idiotList.add(
             Idiota(
-                R.drawable.chillon2,
+                "https://firebasestorage.googleapis.com/v0/b/la-hora-del-idiota.appspot.com/o/Detail%2Fchillon2.jpg?alt=media&token=db403833-b2bd-437b-b2b5-c2f0000e0e05",
                 "23",
                 "El Chillon",
                 "1000/10",
@@ -321,7 +316,7 @@ class MainActivity : AppCompatActivity() {
         )
         idiotList.add(
             Idiota(
-                R.drawable.misterioso,
+                "https://firebasestorage.googleapis.com/v0/b/la-hora-del-idiota.appspot.com/o/Detail%2Fmisterioso.jpg?alt=media&token=c48df941-8631-4b47-b8f9-787e1c461f7a",
                 "24",
                 "Idiota Misterioso!!",
                 "100000000000/10",
@@ -333,7 +328,7 @@ class MainActivity : AppCompatActivity() {
         )
         idiotList.add(
             Idiota(
-                R.drawable.misterioso,
+                "https://firebasestorage.googleapis.com/v0/b/la-hora-del-idiota.appspot.com/o/Detail%2Fmisterioso.jpg?alt=media&token=c48df941-8631-4b47-b8f9-787e1c461f7a",
                 "25",
                 "Idiota Misterioso!!",
                 "10/10",
@@ -345,7 +340,7 @@ class MainActivity : AppCompatActivity() {
         )
         idiotList.add(
             Idiota(
-                R.drawable.nono,
+                "https://firebasestorage.googleapis.com/v0/b/la-hora-del-idiota.appspot.com/o/Detail%2Fnono.jpeg?alt=media&token=ae58fa9e-9f46-40bc-8246-d884c0929de9",
                 "26",
                 "Ñoño",
                 "10/10",
@@ -357,7 +352,7 @@ class MainActivity : AppCompatActivity() {
 
         idiotList.add(
             Idiota(
-                R.drawable.login,
+                "https://firebasestorage.googleapis.com/v0/b/la-hora-del-idiota.appspot.com/o/Detail%2Fvaca.jpg?alt=media&token=c9f4ae73-6fba-42e9-92f6-afba79685b93",
                 "27",
                 "El vaca",
                 "55457/10",
@@ -371,7 +366,7 @@ class MainActivity : AppCompatActivity() {
 
         idiotList.add(
             Idiota(
-                R.drawable.misterioso,
+                "https://firebasestorage.googleapis.com/v0/b/la-hora-del-idiota.appspot.com/o/Detail%2Fmisterioso.jpg?alt=media&token=c48df941-8631-4b47-b8f9-787e1c461f7a",
                 "28",
                 "Doña huevas",
                 "100/10",
@@ -383,8 +378,21 @@ class MainActivity : AppCompatActivity() {
 
         idiotList.add(
             Idiota(
-                R.drawable.olmeca,
+                "https://firebasestorage.googleapis.com/v0/b/la-hora-del-idiota.appspot.com/o/Detail%2Fbisconde.jpeg?alt=media&token=cb4c3c2b-1af3-4901-9a87-ccc2dfc57881",
                 "29",
+                "El vizconde",
+                "100/10",
+                "Sur 14",
+                "Vender caro",
+                ""
+            )
+        )
+
+
+        idiotList.add(
+            Idiota(
+                 "https://firebasestorage.googleapis.com/v0/b/la-hora-del-idiota.appspot.com/o/Detail%2Folmeca.jpeg?alt=media&token=6fcf6ca8-1084-446b-b556-87e16d7b5bd5",
+                "30",
                 "La Concha",
                 "∞",
                 "El Casino del Compa",
@@ -395,13 +403,13 @@ class MainActivity : AppCompatActivity() {
                         "Hace cisternas a cabezazos, cuando se cae hace baches en las calles, un día un taxi lo atropelló y partió el carro a la mitad.\n" +
                         "Come cada vez que existe la oportunidad y le gusta visitar a su papá en el bote.\n" +
                         "Le toma y luego le escupe a la cerveza del piña antes de entregarla.\n" +
-                        "Los sonidos que emite este idiota son muy característicos (a veces ladra) y reflejan lo idiota que es.\n" +
+                        "Los sonidos que emite este idiota son muy característicos (a veces ladra) y reflejan maltrato y lo idiota que es.\n" +
                         "Grita de emoción cada que llega el robocop.\n" +
                         "Sin duda el idiota más idiota de todos SEEEEEEEEEEEEEEE!!!!." +
                         "Es la hora CONFIRMADOO!!!!\n"
+
             )
         )
-
 
         val adapter = IdiotaAdapter()
         binding.recyclerIdiot.adapter = adapter
@@ -447,9 +455,9 @@ class MainActivity : AppCompatActivity() {
                 }
 
             }
-
             true
         }
+
 
     }
 
@@ -457,7 +465,7 @@ class MainActivity : AppCompatActivity() {
         val intent = Intent(this, IDetailActivity::class.java)
         intent.putExtra(IDetailActivity.IDIOT_KEY, earthquake)
         startActivity(intent)
-    }
 
+    }
 
 }
