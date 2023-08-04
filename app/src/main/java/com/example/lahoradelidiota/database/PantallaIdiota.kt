@@ -8,9 +8,6 @@ import com.example.lahoradelidiota.databinding.ActivityPantallaIdiotaBinding
 
 class PantallaIdiota : AppCompatActivity() {
 
-    private lateinit var binding: ActivityPantallaIdiotaBinding
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val binding = ActivityPantallaIdiotaBinding.inflate(layoutInflater)

@@ -25,6 +25,9 @@ class DbIdiotRecycler : AppCompatActivity() {
             startActivity(Intent(this, PantallaIdiota::class.java))
         }
 
+        binding.fab.setOnClickListener{
+            startActivity(Intent(this, AddIdiot::class.java))
+        }
     }
 
 }

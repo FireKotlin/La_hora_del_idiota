@@ -10,6 +10,6 @@
         android:title="Pantalla idiota" />
     <item
         android:id="@+id/menu_option3"
-        android:title="Opción 3" />
+        android:title="DB" />
     <!-- Agrega más opciones aquí -->
 </menu>

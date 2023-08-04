@@ -10,4 +10,7 @@
     <string name="button">button</string>
     <string name="log_in">Log in</string>
     <string name="iniciar_sesi_n">Iniciar sesión</string>
+    <string name="ingresa_url">Ingresa Url:</string>
+    <string name="ingresa_urll">Ingresa Url</string>
+    <string name="ingresa_numero">Ingresa Numero:</string>
 </resources>

@@ -12,11 +12,19 @@ import com.example.lahoradelidiota.others.Idiota
 import com.example.lahoradelidiota.others.IdiotaAdapter
 import com.example.lahoradelidiota.R
 import com.example.lahoradelidiota.R.color.nav
+import com.example.lahoradelidiota.R.color.nav2
+import com.example.lahoradelidiota.R.color.white
+import com.example.lahoradelidiota.database.DbIdiotRecycler
 import com.example.lahoradelidiota.database.LoginActivity
 import com.example.lahoradelidiota.database.PantallaIdiota
 import com.example.lahoradelidiota.databinding.ActivityMainBinding
 import com.example.lahoradelidiota.photoactivity.ImageActivity
 import com.google.android.material.navigation.NavigationView
+import com.google.firebase.firestore.FirebaseFirestore
+import kotlinx.coroutines.DelicateCoroutinesApi
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
 
@@ -32,6 +40,7 @@ class MainActivity : AppCompatActivity() {
 
         binding.recyclerIdiot.layoutManager = LinearLayoutManager(this)
 
+        val db = FirebaseFirestore.getInstance()
 
 
         val idiotList = mutableListOf<Idiota>()
@@ -391,7 +400,7 @@ class MainActivity : AppCompatActivity() {
 
         idiotList.add(
             Idiota(
-                 "https://firebasestorage.googleapis.com/v0/b/la-hora-del-idiota.appspot.com/o/Detail%2Folmeca.jpeg?alt=media&token=6fcf6ca8-1084-446b-b556-87e16d7b5bd5",
+                "https://firebasestorage.googleapis.com/v0/b/la-hora-del-idiota.appspot.com/o/Detail%2Folmeca.jpeg?alt=media&token=6fcf6ca8-1084-446b-b556-87e16d7b5bd5",
                 "30",
                 "La Concha",
                 "∞",
@@ -410,6 +419,7 @@ class MainActivity : AppCompatActivity() {
 
             )
         )
+        uploadIdiotListToFirestore(idiotList)
 
         val adapter = IdiotaAdapter()
         binding.recyclerIdiot.adapter = adapter
@@ -434,7 +444,7 @@ class MainActivity : AppCompatActivity() {
 
         drawerLayout = binding.drawerLayout
         val navigationView: NavigationView = binding.navigationView
-        val backgroundColor = ContextCompat.getColor(this, nav)
+        val backgroundColor = ContextCompat.getColor(this, nav2)
         navigationView.setBackgroundColor(backgroundColor)
 
 
@@ -447,11 +457,15 @@ class MainActivity : AppCompatActivity() {
                     val intent = Intent(this, LoginActivity::class.java)
                     startActivity(intent)
                 }
+
                 R.id.menu_option2 -> {
                     val intent = Intent(this, PantallaIdiota::class.java)
                     startActivity(intent)
                 }
+
                 R.id.menu_option3 -> {
+                    val intent = Intent(this, DbIdiotRecycler::class.java)
+                    startActivity(intent)
                 }
 
             }
@@ -461,11 +475,41 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    private fun openDetailActivity(earthquake: Idiota) {
+    fun openDetailActivity(earthquake: Idiota) {
         val intent = Intent(this, IDetailActivity::class.java)
         intent.putExtra(IDetailActivity.IDIOT_KEY, earthquake)
         startActivity(intent)
 
     }
 
+
+    @OptIn(DelicateCoroutinesApi::class)
+    private fun uploadIdiotListToFirestore(idiotList: List<Idiota>) {
+        val firestore = FirebaseFirestore.getInstance()
+        val collectionReference = firestore.collection("idiotas")
+
+        GlobalScope.launch(Dispatchers.IO) {
+            for (idiota in idiotList) {
+                val id = idiota.numeroDeIdiota// Asegúrate de que "id" sea único para cada idiota
+                val data = hashMapOf(
+                    "imagenUrl" to idiota.imageUrl,
+                    "numeroDeIdiota" to idiota.numeroDeIdiota,
+                    "nombre" to idiota.nombre,
+                    "nivel" to idiota.nivel,
+                    "site" to idiota.site,
+                    "habilidad" to idiota.habilidadEspecial,
+                    "descripcion" to idiota.descripcion
+
+                )
+
+                collectionReference.document(id).set(data)
+            }
+        }
+    }
+
 }
+
+
+
+
+

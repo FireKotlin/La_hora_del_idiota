@@ -42,7 +42,7 @@
                 android:layout_margin="16dp"
                 android:elevation="@dimen/cardview_compat_inset_shadow"
                 app:backgroundTint="@color/white"
-                android:src="@drawable/icon"
+                android:src="@drawable/baseline_add_24"
                 android:contentDescription="@string/button" />
 
         </FrameLayout>

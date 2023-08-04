@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/background_view">
+
+    <data>
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/addToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/black"
+        app:title="La Hora del Idiota"
+        app:titleTextColor="@color/white"
+        android:elevation="6dp" />
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:context=".database.AddIdiot"
+        android:layout_marginTop="30dp">
+
+        <TextView
+            android:id="@+id/urlText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/ingresa_url"
+            android:textSize="20sp"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginTop="36dp"
+            android:gravity="center"/>
+
+        <EditText
+            android:id="@+id/urlEdit"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:hint="@string/ingresa_urll"
+            android:textColorHint="@color/background_item"
+            android:textColor="@color/black"
+            app:layout_constraintTop_toBottomOf="@id/urlText"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginTop="6dp"
+            android:gravity="center" />
+
+        <TextView
+            android:id="@+id/numText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/ingresa_numero"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/urlEdit"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginTop="16dp"
+            android:gravity="center"/>
+
+        <EditText
+            android:id="@+id/numEdit"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:hint="Ingresa Numero"
+            android:textColorHint="@color/background_item"
+            android:textColor="@color/black"
+            android:inputType="number"
+            app:layout_constraintTop_toBottomOf="@id/numText"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginTop="6dp"
+            android:gravity="center"/>
+
+        <TextView
+            android:id="@+id/nombreText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Ingresa Nombre:"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/numEdit"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginTop="16dp"
+            android:gravity="center"/>
+
+        <EditText
+            android:id="@+id/nombreEdit"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:hint="Ingresa Nombre"
+            android:textColorHint="@color/background_item"
+            android:textColor="@color/black"
+            app:layout_constraintTop_toBottomOf="@id/nombreText"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginTop="6dp"
+            android:gravity="center"/>
+        <TextView
+            android:id="@+id/nivelText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Ingresa Nivel de idiotez:"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/nombreEdit"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginTop="16dp"
+            android:gravity="center"/>
+
+        <EditText
+            android:id="@+id/nivelEdit"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:hint="Ingresa Nivel"
+            android:textColorHint="@color/background_item"
+            android:textColor="@color/black"
+            app:layout_constraintTop_toBottomOf="@id/nivelText"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginTop="6dp"
+            android:gravity="center"/>
+
+        <TextView
+            android:id="@+id/siteText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Ingresa Sitio Frecuente:"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/nivelEdit"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginTop="16dp"
+            android:gravity="center"/>
+
+        <EditText
+            android:id="@+id/sitedit"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:hint="Ingresa Sitio"
+            android:textColorHint="@color/background_item"
+            android:textColor="@color/black"
+            app:layout_constraintTop_toBottomOf="@id/siteText"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginTop="6dp"
+            android:gravity="center"/>
+
+        <TextView
+            android:id="@+id/habilidadText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Ingresa Habilidad Especial:"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/sitedit"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginTop="16dp"
+            android:gravity="center"/>
+
+        <EditText
+            android:id="@+id/habilidadEdit"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:hint="Ingresa habilidad"
+            android:textColorHint="@color/background_item"
+            android:textColor="@color/black"
+            app:layout_constraintTop_toBottomOf="@id/habilidadText"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginTop="6dp"
+            android:gravity="center"/>
+
+        <TextView
+            android:id="@+id/descripcionText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Ingresa Descripcion:"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/habilidadEdit"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginTop="16dp"
+            android:gravity="center"/>
+
+        <EditText
+            android:id="@+id/descripcionEdit"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:hint="Ingresa Descripcion"
+            android:textColorHint="@color/background_item"
+            android:textColor="@color/black"
+            app:layout_constraintTop_toBottomOf="@id/descripcionText"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginTop="6dp"
+            android:gravity="center"/>
+        
+
+        <Button
+            android:id="@+id/acceptButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            app:layout_constraintTop_toBottomOf="@id/descripcionEdit"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginBottom="38dp"
+            android:text="Añadir"/>
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+    </RelativeLayout>
+</layout>
