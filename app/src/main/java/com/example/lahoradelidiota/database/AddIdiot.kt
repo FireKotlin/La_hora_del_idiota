@@ -7,6 +7,7 @@ import android.util.Log
 import com.example.lahoradelidiota.R
 import com.example.lahoradelidiota.databinding.ActivityAddIdiotBinding
 import com.example.lahoradelidiota.databinding.ActivityDbIdiotRecyclerBinding
+import com.example.lahoradelidiota.main.MainActivity
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -21,6 +22,10 @@ class AddIdiot : AppCompatActivity() {
 
         val addtoolbar = binding.addToolbar
         addtoolbar.title = "Añadir idiota"
+        addtoolbar.setNavigationIcon(R.drawable.baseline_arrow_back_24)
+        addtoolbar.setNavigationOnClickListener {
+            startActivity(Intent(this, DbIdiotRecycler::class.java))
+        }
 
 
         binding.acceptButton.setOnClickListener {
