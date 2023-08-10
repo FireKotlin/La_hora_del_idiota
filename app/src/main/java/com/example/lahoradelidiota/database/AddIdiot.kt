@@ -41,7 +41,7 @@ class AddIdiot : AppCompatActivity() {
                 "Descripcion" to binding.descripcionEdit.text.toString()
             )
 
-            db.collection("Idiotas").document(id).set(data)
+            db.collection("idiotas").document(id).set(data)
                 .addOnSuccessListener {
                 }
                 .addOnFailureListener { e ->

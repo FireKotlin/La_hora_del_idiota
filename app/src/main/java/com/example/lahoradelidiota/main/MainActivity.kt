@@ -1,5 +1,6 @@
 package com.example.lahoradelidiota.main
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -29,6 +30,7 @@ import kotlinx.coroutines.launch
 class MainActivity : AppCompatActivity() {
 
     private lateinit var drawerLayout: DrawerLayout
+    @SuppressLint("NotifyDataSetChanged")
     override fun onCreate(savedInstanceState: Bundle?) {
 
         Thread.sleep(1000)
@@ -39,8 +41,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.recyclerIdiot.layoutManager = LinearLayoutManager(this)
-
-        val db = FirebaseFirestore.getInstance()
 
 
         val idiotList = mutableListOf<Idiota>()
@@ -424,6 +424,7 @@ class MainActivity : AppCompatActivity() {
         val adapter = IdiotaAdapter()
         binding.recyclerIdiot.adapter = adapter
         adapter.submitList(idiotList)
+        adapter.notifyDataSetChanged()
 
         adapter.setOnItemClickListener {
             openDetailActivity(it)
@@ -506,6 +507,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
+
 
 }
 

@@ -19,8 +19,6 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var firebaseAuth: FirebaseAuth
     private lateinit var sharedPreferences: SharedPreferences
 
-    private val SHARED_PREFS_NAME = "MiSharedPreferences"
-    private val KEY_TEXTO_GUARDADO = "correoGuardado"
     private val KEY_PASSWOR_SAVE = "passwordGuardado"
 
     override fun onCreate(savedInstanceState: Bundle?) {
