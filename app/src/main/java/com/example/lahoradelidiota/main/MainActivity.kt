@@ -3,6 +3,7 @@ package com.example.lahoradelidiota.main
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
@@ -12,9 +13,7 @@ import com.example.lahoradelidiota.detail.IDetailActivity
 import com.example.lahoradelidiota.others.Idiota
 import com.example.lahoradelidiota.others.IdiotaAdapter
 import com.example.lahoradelidiota.R
-import com.example.lahoradelidiota.R.color.nav
 import com.example.lahoradelidiota.R.color.nav2
-import com.example.lahoradelidiota.R.color.white
 import com.example.lahoradelidiota.database.DbIdiotRecycler
 import com.example.lahoradelidiota.database.LoginActivity
 import com.example.lahoradelidiota.database.PantallaIdiota
@@ -30,6 +29,7 @@ import kotlinx.coroutines.launch
 class MainActivity : AppCompatActivity() {
 
     private lateinit var drawerLayout: DrawerLayout
+
     @SuppressLint("NotifyDataSetChanged")
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -42,6 +42,8 @@ class MainActivity : AppCompatActivity() {
 
         binding.recyclerIdiot.layoutManager = LinearLayoutManager(this)
 
+        val firestore = FirebaseFirestore.getInstance()
+        val collectionReference = firestore.collection("idiotas")
 
         val idiotList = mutableListOf<Idiota>()
         idiotList.add(
@@ -397,7 +399,6 @@ class MainActivity : AppCompatActivity() {
             )
         )
 
-
         idiotList.add(
             Idiota(
                 "https://firebasestorage.googleapis.com/v0/b/la-hora-del-idiota.appspot.com/o/Detail%2Folmeca.jpeg?alt=media&token=6fcf6ca8-1084-446b-b556-87e16d7b5bd5",
@@ -420,6 +421,7 @@ class MainActivity : AppCompatActivity() {
             )
         )
         uploadIdiotListToFirestore(idiotList)
+
 
         val adapter = IdiotaAdapter()
         binding.recyclerIdiot.adapter = adapter
@@ -448,7 +450,6 @@ class MainActivity : AppCompatActivity() {
         val backgroundColor = ContextCompat.getColor(this, nav2)
         navigationView.setBackgroundColor(backgroundColor)
 
-
         navigationView.setNavigationItemSelectedListener { menuItem ->
 
             drawerLayout.closeDrawers()
@@ -468,47 +469,76 @@ class MainActivity : AppCompatActivity() {
                     val intent = Intent(this, DbIdiotRecycler::class.java)
                     startActivity(intent)
                 }
-
             }
             true
         }
 
+        collectionReference.addSnapshotListener { snapshot, e ->
+            if (e != null) {
+                Log.e("MainActivity", "Error al obtener la lista de idiotas", e)
+                return@addSnapshotListener
+            }
 
-    }
+            snapshot?.let {
+                idiotList.clear()
+                for (document in it) {
+                    val imageUrl = document.getString("imageUrl") ?: ""
+                    val numeroDeIdiota = document.getString("numeroDeIdiota") ?: ""
+                    val nombre = document.getString("nombre") ?: ""
+                    val nivel = document.getString("nivel") ?: ""
+                    val site = document.getString("site") ?: ""
+                    val habilidadEspecial = document.getString("habilidadEspecial") ?: ""
+                    val descripcion = document.getString("descripcion") ?: ""
 
-    fun openDetailActivity(earthquake: Idiota) {
-        val intent = Intent(this, IDetailActivity::class.java)
-        intent.putExtra(IDetailActivity.IDIOT_KEY, earthquake)
-        startActivity(intent)
 
-    }
+                    val idiota = Idiota(
+                        imageUrl,
+                        numeroDeIdiota,
+                        nombre,
+                        nivel,
+                        site,
+                        habilidadEspecial,
+                        descripcion
+                    )
+                    idiotList.add(idiota)
+                }
+                idiotList.sortBy { it.numeroDeIdiota.toInt() }
 
-
-    @OptIn(DelicateCoroutinesApi::class)
-    private fun uploadIdiotListToFirestore(idiotList: List<Idiota>) {
-        val firestore = FirebaseFirestore.getInstance()
-        val collectionReference = firestore.collection("idiotas")
-
-        GlobalScope.launch(Dispatchers.IO) {
-            for (idiota in idiotList) {
-                val id = idiota.numeroDeIdiota// Asegúrate de que "id" sea único para cada idiota
-                val data = hashMapOf(
-                    "imagenUrl" to idiota.imageUrl,
-                    "numeroDeIdiota" to idiota.numeroDeIdiota,
-                    "nombre" to idiota.nombre,
-                    "nivel" to idiota.nivel,
-                    "site" to idiota.site,
-                    "habilidad" to idiota.habilidadEspecial,
-                    "descripcion" to idiota.descripcion
-
-                )
-
-                collectionReference.document(id).set(data)
+                adapter.notifyDataSetChanged()
             }
         }
     }
 
+            private fun openDetailActivity(earthquake: Idiota) {
+                val intent = Intent(this, IDetailActivity::class.java)
+                intent.putExtra(IDetailActivity.IDIOT_KEY, earthquake)
+                startActivity(intent)
 
+            }
+
+            @OptIn(DelicateCoroutinesApi::class)
+            fun uploadIdiotListToFirestore(idiotList: List<Idiota>) {
+                val firestore = FirebaseFirestore.getInstance()
+                val collectionReference = firestore.collection("idiotas")
+
+                GlobalScope.launch(Dispatchers.IO) {
+                    for (idiota in idiotList) {
+                        val id =
+                            idiota.numeroDeIdiota// Asegúrate de que "id" sea único para cada idiota
+                        val data = hashMapOf(
+                            "imagenUrl" to idiota.imageUrl,
+                            "numeroDeIdiota" to idiota.numeroDeIdiota,
+                            "nombre" to idiota.nombre,
+                            "nivel" to idiota.nivel,
+                            "site" to idiota.site,
+                            "habilidad" to idiota.habilidadEspecial,
+                            "descripcion" to idiota.descripcion
+
+                        )
+                        collectionReference.document(id).set(data)
+                    }
+                }
+            }
 }
 
 
