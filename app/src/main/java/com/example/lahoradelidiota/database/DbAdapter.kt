@@ -53,7 +53,9 @@ class DbAdapter(private val context: Context) : ListAdapter<Idiota, DbAdapter.Vi
                 showDeleteConfirmationDialog(idiota)
             }
             binding.editBttn.setOnClickListener {
-                val intent = Intent()
+                val intent = Intent(context, AddIdiot::class.java)
+                intent.putExtra("idiota", idiota) // Pasa los datos del idiota a la actividad de edición
+                context.startActivity(intent)
             }
         }
     }

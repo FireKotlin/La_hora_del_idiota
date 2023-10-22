@@ -420,7 +420,8 @@ class MainActivity : AppCompatActivity() {
 
             )
         )
-        uploadIdiotListToFirestore(idiotList)
+
+        //uploadIdiotListToFirestore(idiotList)
 
 
         val adapter = IdiotaAdapter()
@@ -482,12 +483,12 @@ class MainActivity : AppCompatActivity() {
             snapshot?.let {
                 idiotList.clear()
                 for (document in it) {
-                    val imageUrl = document.getString("imageUrl") ?: ""
+                    val imageUrl = document.getString("imagenUrl") ?: ""
                     val numeroDeIdiota = document.getString("numeroDeIdiota") ?: ""
                     val nombre = document.getString("nombre") ?: ""
                     val nivel = document.getString("nivel") ?: ""
                     val site = document.getString("site") ?: ""
-                    val habilidadEspecial = document.getString("habilidadEspecial") ?: ""
+                    val habilidadEspecial = document.getString("habilidad") ?: ""
                     val descripcion = document.getString("descripcion") ?: ""
 
 

@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import com.example.lahoradelidiota.R
 import com.example.lahoradelidiota.databinding.ActivityAddIdiotBinding
+import com.example.lahoradelidiota.others.Idiota
 import com.google.firebase.firestore.FirebaseFirestore
 class AddIdiot : AppCompatActivity() {
 
@@ -23,12 +24,22 @@ class AddIdiot : AppCompatActivity() {
             startActivity(Intent(this, DbIdiotRecycler::class.java))
         }
 
+        val idiota = intent.getParcelableExtra<Idiota>("idiota")
+        if (idiota != null) {
+
+            binding.numEdit.setText(idiota.numeroDeIdiota)
+            binding.urlEdit.setText(idiota.imageUrl)
+            binding.nombreEdit.setText(idiota.nombre)
+            binding.nivelEdit.setText(idiota.nivel)
+            binding.sitedit.setText(idiota.site)
+            binding.habilidadEdit.setText(idiota.habilidadEspecial)
+            binding.descripcionEdit.setText(idiota.descripcion)
 
         binding.acceptButton.setOnClickListener {
             val id = binding.numEdit.text.toString()
 
             val data = hashMapOf(
-                "imageUrl" to binding.urlEdit.text.toString(),
+                "imagenUrl" to binding.urlEdit.text.toString(),
                 "numeroDeIdiota" to binding.numEdit.text.toString(),
                 "nombre" to binding.nombreEdit.text.toString(),
                 "nivel" to binding.nivelEdit.text.toString(),
@@ -43,6 +54,7 @@ class AddIdiot : AppCompatActivity() {
                 .addOnFailureListener { e ->
                     Log.e("AddIdiot", "Error al agregar el idiota", e)
                 }
-        }
+             }
+         }
     }
 }
