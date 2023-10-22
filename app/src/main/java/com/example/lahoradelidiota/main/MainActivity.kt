@@ -487,7 +487,7 @@ class MainActivity : AppCompatActivity() {
                     val nombre = document.getString("nombre") ?: ""
                     val nivel = document.getString("nivel") ?: ""
                     val site = document.getString("site") ?: ""
-                    val habilidadEspecial = document.getString("habilidadEspecial") ?: ""
+                    val habilidadEspecial = document.getString("habilidad") ?: ""
                     val descripcion = document.getString("descripcion") ?: ""
 
 
