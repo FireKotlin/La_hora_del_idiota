@@ -33,7 +33,7 @@ class MainActivity : AppCompatActivity() {
     @SuppressLint("NotifyDataSetChanged")
     override fun onCreate(savedInstanceState: Bundle?) {
 
-        Thread.sleep(1000)
+        Thread.sleep(800)
         setTheme(R.style.Theme_LaHoraDelIdiota)
 
         super.onCreate(savedInstanceState)
