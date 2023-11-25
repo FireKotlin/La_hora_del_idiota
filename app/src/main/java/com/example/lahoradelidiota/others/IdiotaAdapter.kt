@@ -16,7 +16,7 @@ class IdiotaAdapter: ListAdapter<Idiota, IdiotaAdapter.ViewHolder>(
         }
 
         override fun areContentsTheSame(oldItem: Idiota, newItem: Idiota): Boolean {
-            return oldItem.imageUrl == newItem.imageUrl
+            return oldItem.imagenUrl == newItem.imagenUrl
         }
     }
 

@@ -28,7 +28,7 @@ class AddIdiot : AppCompatActivity() {
             val id = binding.numEdit.text.toString()
 
             val data = hashMapOf(
-                "imageUrl" to binding.urlEdit.text.toString(),
+                "imagenUrl" to binding.urlEdit.text.toString(),
                 "numeroDeIdiota" to binding.numEdit.text.toString(),
                 "nombre" to binding.nombreEdit.text.toString(),
                 "nivel" to binding.nivelEdit.text.toString(),

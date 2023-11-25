@@ -36,7 +36,6 @@ class IDetailActivity : AppCompatActivity() {
     private lateinit var binding: DetailActivityBinding
     private var fabHidden = false
 
-    // Agregar una variable para controlar el temporizador
     private var stopHideFabTimer = false
 
     private var clicked = false
@@ -83,19 +82,18 @@ class IDetailActivity : AppCompatActivity() {
             false
         }
 
-        // Inicia el temporizador de ocultar el FAB al iniciar la actividad
-        handler.postDelayed(hideFabRunnable, 6000) // Oculta el FAB después de 7 segundos
+        handler.postDelayed(hideFabRunnable, 6000)
 
-        // Mostrar el FAB inicialmente
         binding.extendedFab.visibility = View.VISIBLE
         binding.extendedFab1.visibility = View.GONE
         binding.extendedFab2.visibility = View.GONE
 
         val idiota = intent.extras?.getParcelable<Idiota>(IDIOT_KEY)!!
 
+        val images = idiota.imagenUrl
 
         Glide.with(this)
-            .load(idiota.imageUrl)
+            .load(images)
             .into(binding.detailImage)
 
         binding.detailName.text = idiota.nombre
@@ -113,7 +111,6 @@ class IDetailActivity : AppCompatActivity() {
 
 
         binding.extendedFab.setOnClickListener {
-            // Detener el temporizador de ocultar el FAB
             stopHideFabTimer = true
             onAddButtonClicked()
         }

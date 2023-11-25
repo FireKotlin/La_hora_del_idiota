@@ -40,7 +40,7 @@ class DbIdiotRecycler : AppCompatActivity() {
             .addOnSuccessListener { result ->
                 val idiotaList = mutableListOf<Idiota>() // Cambio de Task a Idiota
                 for (document in result) {
-                    val imageUrl = document.getString("imageUrl") ?: ""
+                    val imagenUrl = document.getString("imagenUrl") ?: ""
                     val numeroDeIdiota = document.getString("numeroDeIdiota") ?: ""
                     val nombre = document.getString("nombre") ?: ""
                     val nivel = document.getString("nivel") ?: ""
@@ -48,7 +48,7 @@ class DbIdiotRecycler : AppCompatActivity() {
                     val habilidadEspecial = document.getString("habilidadEspecial") ?: ""
                     val descripcion = document.getString("descripcion") ?: ""
 
-                    val idiota = Idiota(imageUrl, numeroDeIdiota, nombre, nivel, site, habilidadEspecial, descripcion)
+                    val idiota = Idiota(imagenUrl, numeroDeIdiota, nombre, nivel, site, habilidadEspecial, descripcion)
                     idiotaList.add(idiota)
                 }
                 val sortedIdiotaList = idiotaList.sortedBy { it.numeroDeIdiota.toIntOrNull() }

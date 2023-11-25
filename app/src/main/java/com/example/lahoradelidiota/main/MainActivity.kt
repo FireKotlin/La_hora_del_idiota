@@ -89,7 +89,7 @@ class MainActivity : AppCompatActivity() {
         )
         idiotList.add(
             Idiota(
-                "https://firebasestorage.googleapis.com/v0/b/la-hora-del-idiota.appspot.com/o/Detail%2Fbotas.jpeg?alt=media&token=e656c4d0-d2e0-4256-9e67-d392338373c4",
+                "https://loremflickr.com/320/240",
                 "4",
                 "El Botas",
                 "10/10",
@@ -271,7 +271,7 @@ class MainActivity : AppCompatActivity() {
         )
         idiotList.add(
             Idiota(
-                "https://firebasestorage.googleapis.com/v0/b/la-hora-del-idiota.appspot.com/o/Detail%2Fajaa.jpg?alt=media&token=8adc41de-4366-482f-94fa-ac05a3f79fd0",
+                "https://firebasestorage.googleapis.com/v0/b/la-hora-del-idiota.appspot.com/o/Detail%2Fajaa.jpg?alt=media&token=8adc41de-4366-482f-94fa-ac05a3f79fd0&_gl=1*1wdutkw*_ga*MjIzNTk0NDkyLjE2OTAxNDExNzQ.*_ga_CW55HF8NVT*MTY5ODUyOTIzOC43LjEuMTY5ODUyOTk4NS42MC4wLjA.",
                 "19",
                 "El Ajaaa",
                 "Extremooo",
@@ -482,7 +482,7 @@ class MainActivity : AppCompatActivity() {
             snapshot?.let {
                 idiotList.clear()
                 for (document in it) {
-                    val imageUrl = document.getString("imageUrl") ?: ""
+                    val imagenUrl = document.getString("imagenUrl") ?: ""
                     val numeroDeIdiota = document.getString("numeroDeIdiota") ?: ""
                     val nombre = document.getString("nombre") ?: ""
                     val nivel = document.getString("nivel") ?: ""
@@ -492,7 +492,7 @@ class MainActivity : AppCompatActivity() {
 
 
                     val idiota = Idiota(
-                        imageUrl,
+                        imagenUrl,
                         numeroDeIdiota,
                         nombre,
                         nivel,
@@ -524,9 +524,9 @@ class MainActivity : AppCompatActivity() {
                 GlobalScope.launch(Dispatchers.IO) {
                     for (idiota in idiotList) {
                         val id =
-                            idiota.numeroDeIdiota// Asegúrate de que "id" sea único para cada idiota
+                            idiota.numeroDeIdiota
                         val data = hashMapOf(
-                            "imagenUrl" to idiota.imageUrl,
+                            "imagenUrl" to idiota.imagenUrl,
                             "numeroDeIdiota" to idiota.numeroDeIdiota,
                             "nombre" to idiota.nombre,
                             "nivel" to idiota.nivel,

@@ -4,7 +4,7 @@ import kotlinx.android.parcel.Parcelize
 
 @Suppress("DEPRECATED_ANNOTATION")
 @Parcelize
-data class Idiota(val imageUrl: String ,
+data class Idiota(val imagenUrl: String ,
                   val numeroDeIdiota: String,
                   val nombre: String,
                   val nivel: String,
