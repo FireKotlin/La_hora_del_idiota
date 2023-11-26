@@ -13,4 +13,7 @@
     <string name="ingresa_url">Ingresa Url:</string>
     <string name="ingresa_urll">Ingresa Url</string>
     <string name="ingresa_numero">Ingresa Numero:</string>
+    <string name="iniciar_sesion">Iniciar sesion</string>
+    <string name="pantalla_idiota">Pantalla idiota</string>
+    <string name="videos_idiotas">Videos Idiotas</string>
 </resources>

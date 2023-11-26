@@ -14,6 +14,7 @@ import com.example.lahoradelidiota.others.Idiota
 import com.example.lahoradelidiota.others.IdiotaAdapter
 import com.example.lahoradelidiota.R
 import com.example.lahoradelidiota.R.color.nav2
+import com.example.lahoradelidiota.VideoActivity
 import com.example.lahoradelidiota.database.DbIdiotRecycler
 import com.example.lahoradelidiota.database.LoginActivity
 import com.example.lahoradelidiota.database.PantallaIdiota
@@ -467,6 +468,10 @@ class MainActivity : AppCompatActivity() {
 
                 R.id.menu_option3 -> {
                     val intent = Intent(this, DbIdiotRecycler::class.java)
+                    startActivity(intent)
+                }
+                R.id.videoBtn-> {
+                    val intent = Intent(this, VideoActivity::class.java)
                     startActivity(intent)
                 }
             }

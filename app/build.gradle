@@ -61,6 +61,9 @@ dependencies {
     //PHOTO ZOOM
     implementation 'com.github.MikeOrtiz:TouchImageView:1.4.1'
 
+    //Video
+    implementation 'com.google.android.exoplayer:exoplayer:2.19.1'
+
     implementation 'com.github.bumptech.glide:glide:4.14.2'
     implementation "com.google.android.material:material:1.10.0"
 
