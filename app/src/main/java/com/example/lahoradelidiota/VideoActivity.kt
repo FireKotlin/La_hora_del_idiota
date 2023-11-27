@@ -10,7 +10,6 @@ class VideoActivity : AppCompatActivity() {
 
     private lateinit var playerView: PlayerView
     private lateinit var player: SimpleExoPlayer
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_video)
@@ -23,16 +22,13 @@ class VideoActivity : AppCompatActivity() {
             "https://firebasestorage.googleapis.com/v0/b/la-hora-del-idiota.appspot.com/o/Videos%2FWhatsApp%20Video%202023-08-07%20at%2010.05.42%20PM.mp4?alt=media&token=5cb12864-1cea-49d9-8b42-aba9f399c901",
             "https://firebasestorage.googleapis.com/v0/b/la-hora-del-idiota.appspot.com/o/Videos%2FWhatsApp%20Video%202023-07-26%20at%201.37.47%20AM.mp4?alt=media&token=4c203fcf-377a-459e-ac15-5c879a5a5ea6"
         )
-
         val mediaItems = videoUrls.map { MediaItem.fromUri(Uri.parse(it)) }
-
         player.addMediaItems(mediaItems)
         player.prepare()
         player.play()
 
         playerView.player = player
     }
-
     override fun onDestroy() {
         super.onDestroy()
         player.release()

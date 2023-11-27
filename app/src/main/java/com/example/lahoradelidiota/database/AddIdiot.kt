@@ -23,11 +23,10 @@ class AddIdiot : AppCompatActivity() {
             startActivity(Intent(this, DbIdiotRecycler::class.java))
         }
 
-
         binding.acceptButton.setOnClickListener {
             val id = binding.numEdit.text.toString()
-
             val data = hashMapOf(
+
                 "imagenUrl" to binding.urlEdit.text.toString(),
                 "numeroDeIdiota" to binding.numEdit.text.toString(),
                 "nombre" to binding.nombreEdit.text.toString(),
@@ -36,7 +35,6 @@ class AddIdiot : AppCompatActivity() {
                 "habilidad" to binding.habilidadEdit.text.toString(),
                 "descripcion" to binding.descripcionEdit.text.toString()
             )
-
             db.collection("idiotas").document(id).set(data)
                 .addOnSuccessListener {
                 }

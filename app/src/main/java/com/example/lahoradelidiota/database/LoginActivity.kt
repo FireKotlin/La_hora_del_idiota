@@ -15,10 +15,8 @@ import com.google.firebase.auth.FirebaseAuth
 
 class LoginActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityLoginBinding
     private lateinit var firebaseAuth: FirebaseAuth
     private lateinit var sharedPreferences: SharedPreferences
-
     private val KEY_PASSWOR_SAVE = "passwordGuardado"
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -63,20 +61,14 @@ class LoginActivity : AppCompatActivity() {
                     Toast.LENGTH_SHORT
                 ).show()
             }
-
         }
-
-
-
 
         binding.signInButton.setOnClickListener {
             val email = binding.correoedit.text.toString()
 
             val pass = binding.passwordedit.text.toString()
 
-
-
-            if (email.isNotEmpty() && pass.isNotEmpty()) {
+    if (email.isNotEmpty() && pass.isNotEmpty()) {
 
                 firebaseAuth.signInWithEmailAndPassword(email, pass).addOnCompleteListener {
                     if (it.isSuccessful) {
@@ -93,22 +85,17 @@ class LoginActivity : AppCompatActivity() {
                 }
             } else {
                 Toast.makeText(this, "Revisa tus datos Seeee !!", Toast.LENGTH_SHORT).show()
-
             }
         }
-
     }
     fun guardarCorreo(texto: String) {
         val editor: SharedPreferences.Editor = sharedPreferences.edit()
         editor.putString("correoGuardado", texto)
         editor.apply()
     }
-
     fun guardarContraseña(otroTexto: String) {
         val editor: SharedPreferences.Editor = sharedPreferences.edit()
         editor.putString(KEY_PASSWOR_SAVE, otroTexto)
         editor.apply()
     }
-
-
 }

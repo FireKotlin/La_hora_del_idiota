@@ -18,7 +18,6 @@ class ImageActivity : AppCompatActivity() {
 
         binding.recyclerView.layoutManager = GridLayoutManager(applicationContext, 2)
 
-
         val imageList = mutableListOf<image>()
 
         imageList.add(image(R.drawable.p1, "Idiota tomando un baño"))
@@ -70,8 +69,6 @@ class ImageActivity : AppCompatActivity() {
         imageList.add(image(R.drawable.p41, "WhatsApp ️‼️"))
         imageList.add(image(R.drawable.p42, "Al fin encontraron a su jefe!!!"))
         imageList.add(image(R.drawable.p43, "El creador de la hora miando despues de darle los limones mas secos a los clientes SEEEE‼️"))
-
-
 
         val adapter = photoAdapter()
         binding.recyclerView.adapter = adapter

@@ -24,7 +24,10 @@
                 android:background="@color/black"
                 app:title="La Hora del Idiota"
                 app:titleTextColor="@color/white"
-                android:elevation="6dp" />
+                android:elevation="6dp" >
+
+
+            </androidx.appcompat.widget.Toolbar>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:layout_marginTop="54dp"

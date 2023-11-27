@@ -35,16 +35,13 @@ class IDetailActivity : AppCompatActivity() {
     private lateinit var hideFabRunnable: Runnable
     private lateinit var binding: DetailActivityBinding
     private var fabHidden = false
-
     private var stopHideFabTimer = false
-
     private var clicked = false
 
     companion object {
         private const val REQUEST_WRITE_STORAGE_PERMISSION = 101
         const val IDIOT_KEY = "idiota"
     }
-
     @RequiresApi(Build.VERSION_CODES.R)
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -109,7 +106,6 @@ class IDetailActivity : AppCompatActivity() {
             startActivity(Intent(this, MainActivity::class.java))
         }
 
-
         binding.extendedFab.setOnClickListener {
             stopHideFabTimer = true
             onAddButtonClicked()
@@ -145,7 +141,6 @@ class IDetailActivity : AppCompatActivity() {
         setAnimation(clicked)
         clicked = !clicked
 
-        // Oculta el botón principal si ambos botones adicionales también están ocultos
         if (binding.extendedFab1.visibility == View.INVISIBLE && binding.extendedFab2.visibility == View.INVISIBLE) {
             fabHidden = true
             fadeOutFab(binding.extendedFab)
@@ -153,7 +148,6 @@ class IDetailActivity : AppCompatActivity() {
             fabHidden = false
         }
     }
-
     private fun setVisibility(clicked: Boolean) {
         if (!clicked) {
             binding.extendedFab1.visibility = View.VISIBLE
@@ -163,7 +157,6 @@ class IDetailActivity : AppCompatActivity() {
             binding.extendedFab2.visibility = View.INVISIBLE
         }
     }
-
     private fun setAnimation(clicked: Boolean) {
         if (!clicked) {
             binding.extendedFab1.apply {
@@ -193,7 +186,6 @@ class IDetailActivity : AppCompatActivity() {
             }
         }
     }
-
     private fun saveImageToGallery() {
         val bitmap = binding.detailImage.drawable.toBitmap()
         val displayName = "my_image_${System.currentTimeMillis()}.jpg"
@@ -215,7 +207,6 @@ class IDetailActivity : AppCompatActivity() {
             Toast.makeText(this, "Failed to save image", Toast.LENGTH_SHORT).show()
         }
     }
-
     @RequiresApi(Build.VERSION_CODES.R)
     override fun onRequestPermissionsResult(
         requestCode: Int,
@@ -236,23 +227,20 @@ class IDetailActivity : AppCompatActivity() {
             }
         }
     }
-
     private fun captureScrollViewContent(): Bitmap {
-        // Capturar la vista completa en un Bitmap
+
         val bitmap = Bitmap.createBitmap(binding.scrollView.width, binding.scrollView.getChildAt(0).height, Bitmap.Config.ARGB_8888)
         val canvas = Canvas(bitmap)
-        binding.scrollView.draw(canvas)
 
+        binding.scrollView.draw(canvas)
         supportActionBar?.show()
 
         return bitmap
     }
-
     private fun shareScreenshot() {
-        // Capturar la vista completa en un Bitmap
+
         val bitmap = captureScrollViewContent()
 
-        // Añadir fondo blanco alrededor del Bitmap
         val width = bitmap.width
         val height = bitmap.height
         val whiteBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
@@ -260,7 +248,6 @@ class IDetailActivity : AppCompatActivity() {
         val canvas = Canvas(whiteBitmap)
         canvas.drawBitmap(bitmap, 0f, 0f, null)
 
-        // Guardar el Bitmap en un archivo temporal
         val cachePath = File(this.cacheDir, "images")
         cachePath.mkdirs()
         val filePath = File(cachePath, "screenshot.png")
@@ -268,17 +255,14 @@ class IDetailActivity : AppCompatActivity() {
         whiteBitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream)
         outputStream.close()
 
-        // Crear un URI para el archivo temporal
         val uri = FileProvider.getUriForFile(this, "${BuildConfig.APPLICATION_ID}.provider", filePath)
 
-        // Crear un Intent para compartir la imagen
         val shareIntent = Intent(Intent.ACTION_SEND).apply {
             type = "image/*"
             putExtra(Intent.EXTRA_STREAM, uri)
             addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
         }
 
-        // Iniciar el Intent para compartir
         startActivity(Intent.createChooser(shareIntent, "Compartir captura de pantalla"))
     }
 }

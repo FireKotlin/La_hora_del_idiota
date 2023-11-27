@@ -17,8 +17,6 @@ class DbIdiotRecycler : AppCompatActivity() {
 
     private lateinit var binding: ActivityDbIdiotRecyclerBinding
     private val db = FirebaseFirestore.getInstance()
-
-
     @SuppressLint("NotifyDataSetChanged")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,7 +32,6 @@ class DbIdiotRecycler : AppCompatActivity() {
             deleteIdiota(idiota)
         }
 
-        // Obtener la lista de idiotas de Firestore y configurar el adaptador
         db.collection("idiotas")
             .get()
             .addOnSuccessListener { result ->
@@ -58,7 +55,7 @@ class DbIdiotRecycler : AppCompatActivity() {
             .addOnFailureListener { e ->
                 Log.e("DbIdiotRecycler", "Error al obtener la lista de idiotas", e)
             }
-        // Toolbar
+
         val dbToolbar = binding.dbToolbar
         dbToolbar.title = "Base de datos idiota"
         dbToolbar.setNavigationIcon(R.drawable.baseline_arrow_back_24)
@@ -77,7 +74,6 @@ class DbIdiotRecycler : AppCompatActivity() {
         documentRef.delete()
             .addOnSuccessListener {
                 Toast.makeText(this, "Elemento eliminado exitosamente", Toast.LENGTH_SHORT).show()
-                // Obtén nuevamente la lista actualizada y actualiza el adaptador
                 refreshAdapter()
             }
             .addOnFailureListener { e ->
