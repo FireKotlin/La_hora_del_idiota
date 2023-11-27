@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/menu_option1"
+        android:title="@string/iniciar_sesion"
+        android:iconTint="@color/black"
+        />
+    <item
+        android:id="@+id/menu_option2"
+        android:title="Pantalla idiota" />
+    <item
+        android:id="@+id/menu_option3"
+        android:title="DB" />
+    <item
+        android:id="@+id/videoBtn"
+        android:title="Videos Idiotas" />
+</menu>
