@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.SearchView
 import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
@@ -22,11 +23,16 @@ import com.example.lahoradelidiota.databinding.ActivityMainBinding
 import com.example.lahoradelidiota.photoactivity.ImageActivity
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.firestore.FirebaseFirestore
+import java.util.Locale
 
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var drawerLayout: DrawerLayout
+    private var idiotList = mutableListOf<Idiota>()
+    private lateinit var searchView: SearchView
+    val adapter = IdiotaAdapter()
+
     @SuppressLint("NotifyDataSetChanged")
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -42,9 +48,9 @@ class MainActivity : AppCompatActivity() {
         val firestore = FirebaseFirestore.getInstance()
         val collectionReference = firestore.collection("idiotas")
 
-        val idiotList = mutableListOf<Idiota>()
 
-        val adapter = IdiotaAdapter()
+
+
         binding.recyclerIdiot.adapter = adapter
         adapter.submitList(idiotList)
         adapter.notifyDataSetChanged()
@@ -90,7 +96,8 @@ class MainActivity : AppCompatActivity() {
                     val intent = Intent(this, DbIdiotRecycler::class.java)
                     startActivity(intent)
                 }
-                R.id.videoBtn-> {
+
+                R.id.videoBtn -> {
                     val intent = Intent(this, VideoActivity::class.java)
                     startActivity(intent)
                 }
@@ -103,7 +110,6 @@ class MainActivity : AppCompatActivity() {
                 Log.e("MainActivity", "Error al obtener la lista de idiotas", e)
                 return@addSnapshotListener
             }
-
             snapshot?.let { it ->
                 idiotList.clear()
                 for (document in it) {
@@ -131,11 +137,29 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-    }
+        searchView = binding.searchView
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                // No necesitas hacer nada aquí, ya que se manejará en onQueryTextChange
+                return true
+            }
 
+            override fun onQueryTextChange(newText: String?): Boolean {
+                filterIdiotList(newText)
+                return true
+            }
+        })
+    }
     private fun openDetailActivity(earthquake: Idiota) {
-                val intent = Intent(this, IDetailActivity::class.java)
-                intent.putExtra(IDetailActivity.IDIOT_KEY, earthquake)
-                startActivity(intent)
+        val intent = Intent(this, IDetailActivity::class.java)
+        intent.putExtra(IDetailActivity.IDIOT_KEY, earthquake)
+        startActivity(intent)
+    }
+    private fun filterIdiotList(query: String?) {
+        val filteredList = idiotList.filter {
+            it.nombre.toLowerCase(Locale.getDefault()).contains(query?.toLowerCase(Locale.getDefault()) ?: "")
+        }
+        adapter.submitList(filteredList)
+        adapter.notifyDataSetChanged()
     }
 }
