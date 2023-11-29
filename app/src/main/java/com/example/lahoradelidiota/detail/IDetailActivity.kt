@@ -50,7 +50,6 @@ class IDetailActivity : AppCompatActivity() {
         binding = DetailActivityBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
         handler = Handler()
         hideFabRunnable = Runnable {
             if (!fabHidden && !stopHideFabTimer) {

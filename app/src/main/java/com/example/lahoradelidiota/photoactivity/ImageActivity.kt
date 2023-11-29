@@ -21,7 +21,6 @@ class ImageActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityImageBinding.inflate(layoutInflater) // Asignar a la propiedad
         setContentView(binding.root)
-        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
 
         binding.recyclerView.layoutManager = GridLayoutManager(applicationContext, 2)
 

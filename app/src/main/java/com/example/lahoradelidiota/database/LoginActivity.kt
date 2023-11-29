@@ -23,7 +23,6 @@ class LoginActivity : AppCompatActivity() {
         FirebaseApp.initializeApp(this)
         val binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
 
         firebaseAuth = FirebaseAuth.getInstance()
         sharedPreferences = getSharedPreferences("MiSharedPreferences", Context.MODE_PRIVATE)

@@ -43,7 +43,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         val binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
 
         binding.recyclerIdiot.layoutManager = LinearLayoutManager(this)
 

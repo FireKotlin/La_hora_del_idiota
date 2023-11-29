@@ -13,7 +13,6 @@ class PantallaIdiota : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         val binding = ActivityPantallaIdiotaBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
 
         val mediaPlayer = MediaPlayer.create(this, R.raw.idiotsound)
 
