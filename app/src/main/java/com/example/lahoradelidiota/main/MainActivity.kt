@@ -48,9 +48,6 @@ class MainActivity : AppCompatActivity() {
         val firestore = FirebaseFirestore.getInstance()
         val collectionReference = firestore.collection("idiotas")
 
-
-
-
         binding.recyclerIdiot.adapter = adapter
         adapter.submitList(idiotList)
         adapter.notifyDataSetChanged()
