@@ -1,3 +1,3 @@
 package com.example.lahoradelidiota.photoactivity
 
-class image(val imagenId: Int, val description : String)
+class image(val number: Int, var url: String, val description : String)

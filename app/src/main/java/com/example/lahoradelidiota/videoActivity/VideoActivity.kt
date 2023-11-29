@@ -1,9 +1,9 @@
-package com.example.lahoradelidiota
+package com.example.lahoradelidiota.videoActivity
 
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.example.lahoradelidiota.photoactivity.VideoItem
+import com.example.lahoradelidiota.R
 import com.google.android.exoplayer2.MediaItem
 import com.google.android.exoplayer2.SimpleExoPlayer
 import com.google.android.exoplayer2.ui.PlayerView
@@ -22,7 +22,6 @@ class VideoActivity : AppCompatActivity() {
         playerView = findViewById(R.id.playerView)
         player = SimpleExoPlayer.Builder(this).build()
 
-        // Obtener datos de la base de datos y actualizar la lista de reproducción
         fetchVideoData()
 
         playerView.player = player

@@ -3,6 +3,7 @@ package com.example.lahoradelidiota.detail
 import android.annotation.SuppressLint
 import android.content.ContentValues
 import android.content.Intent
+import android.content.pm.ActivityInfo
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.Canvas
@@ -49,6 +50,7 @@ class IDetailActivity : AppCompatActivity() {
         binding = DetailActivityBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
         handler = Handler()
         hideFabRunnable = Runnable {
             if (!fabHidden && !stopHideFabTimer) {

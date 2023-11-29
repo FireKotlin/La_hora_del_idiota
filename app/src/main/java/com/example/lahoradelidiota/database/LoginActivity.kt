@@ -3,10 +3,9 @@ package com.example.lahoradelidiota.database
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.content.pm.ActivityInfo
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.text.InputType
-import android.view.inputmethod.EditorInfo
 import android.widget.Toast
 import com.example.lahoradelidiota.databinding.ActivityLoginBinding
 import com.example.lahoradelidiota.photoactivity.ImageActivity
@@ -24,6 +23,7 @@ class LoginActivity : AppCompatActivity() {
         FirebaseApp.initializeApp(this)
         val binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
 
         firebaseAuth = FirebaseAuth.getInstance()
         sharedPreferences = getSharedPreferences("MiSharedPreferences", Context.MODE_PRIVATE)
