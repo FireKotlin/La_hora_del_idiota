@@ -17,6 +17,8 @@ class DbIdiotRecycler : AppCompatActivity() {
 
     private lateinit var binding: ActivityDbIdiotRecyclerBinding
     private val db = FirebaseFirestore.getInstance()
+
+
     @SuppressLint("NotifyDataSetChanged")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,7 +39,7 @@ class DbIdiotRecycler : AppCompatActivity() {
             .addOnSuccessListener { result ->
                 val idiotaList = mutableListOf<Idiota>() // Cambio de Task a Idiota
                 for (document in result) {
-                    val imagenUrl = document.getString("imagenUrl") ?: ""
+                    val imageUrl = document.getString("imageUrl") ?: ""
                     val numeroDeIdiota = document.getString("numeroDeIdiota") ?: ""
                     val nombre = document.getString("nombre") ?: ""
                     val nivel = document.getString("nivel") ?: ""
@@ -45,7 +47,7 @@ class DbIdiotRecycler : AppCompatActivity() {
                     val habilidadEspecial = document.getString("habilidadEspecial") ?: ""
                     val descripcion = document.getString("descripcion") ?: ""
 
-                    val idiota = Idiota(imagenUrl, numeroDeIdiota, nombre, nivel, site, habilidadEspecial, descripcion)
+                    val idiota = Idiota(imageUrl, numeroDeIdiota, nombre, nivel, site, habilidadEspecial, descripcion)
                     idiotaList.add(idiota)
                 }
                 val sortedIdiotaList = idiotaList.sortedBy { it.numeroDeIdiota.toIntOrNull() }
@@ -74,6 +76,7 @@ class DbIdiotRecycler : AppCompatActivity() {
         documentRef.delete()
             .addOnSuccessListener {
                 Toast.makeText(this, "Elemento eliminado exitosamente", Toast.LENGTH_SHORT).show()
+                // Obtén nuevamente la lista actualizada y actualiza el adaptador
                 refreshAdapter()
             }
             .addOnFailureListener { e ->

@@ -14,4 +14,8 @@
     <item
         android:id="@+id/videoBtn"
         android:title="@string/videos_idiotas" />
+    <item
+        android:id="@+id/localBttn"
+        android:title="@string/mis_idiotas" />
+
 </menu>

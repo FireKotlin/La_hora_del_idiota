@@ -14,28 +14,35 @@ import com.example.lahoradelidiota.others.Idiota
 class DbAdapter(private val context: Context) : ListAdapter<Idiota, DbAdapter.ViewHolder>(
     DiffCallback
 ) {
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = DbItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding)
     }
+
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val idiota = getItem(position)
         holder.bind(idiota)
     }
+
     companion object DiffCallback : DiffUtil.ItemCallback<Idiota>() {
         override fun areItemsTheSame(oldItem: Idiota, newItem: Idiota): Boolean {
             return oldItem.numeroDeIdiota == newItem.numeroDeIdiota
         }
+
         override fun areContentsTheSame(oldItem: Idiota, newItem: Idiota): Boolean {
             return oldItem == newItem
         }
     }
 
     private lateinit var onItemClickListener: ((idiota: Idiota) -> Unit)
+
     fun setOnItemClickListener(listener: (Idiota) -> Unit) {
         onItemClickListener = listener
     }
+
     inner class ViewHolder(private val binding: DbItemBinding) : RecyclerView.ViewHolder(binding.root) {
+
         fun bind(idiota: Idiota) {
             binding.idiotNumber.text = idiota.numeroDeIdiota
             binding.nameTextview.text = idiota.nombre
@@ -44,7 +51,9 @@ class DbAdapter(private val context: Context) : ListAdapter<Idiota, DbAdapter.Vi
                 showDeleteConfirmationDialog(idiota)
             }
             binding.editBttn.setOnClickListener {
-
+                val intent = Intent(context, AddIdiot::class.java)
+                intent.putExtra("idiota", idiota)
+                context.startActivity(intent)
             }
         }
     }

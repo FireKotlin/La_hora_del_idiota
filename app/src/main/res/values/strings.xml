@@ -16,4 +16,5 @@
     <string name="iniciar_sesion">Iniciar sesion</string>
     <string name="pantalla_idiota">Pantalla idiota</string>
     <string name="videos_idiotas">Videos Idiotas</string>
+    <string name="mis_idiotas">Mis Idiotas</string>
 </resources>

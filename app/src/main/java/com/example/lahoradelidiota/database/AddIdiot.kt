@@ -5,6 +5,7 @@ import android.content.pm.ActivityInfo
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import com.example.lahoradelidiota.R
 import com.example.lahoradelidiota.databinding.ActivityAddIdiotBinding
 import com.google.firebase.firestore.FirebaseFirestore
@@ -27,7 +28,6 @@ class AddIdiot : AppCompatActivity() {
         binding.acceptButton.setOnClickListener {
             val id = binding.numEdit.text.toString()
             val data = hashMapOf(
-
                 "imagenUrl" to binding.urlEdit.text.toString(),
                 "numeroDeIdiota" to binding.numEdit.text.toString(),
                 "nombre" to binding.nombreEdit.text.toString(),
@@ -38,6 +38,11 @@ class AddIdiot : AppCompatActivity() {
             )
             db.collection("idiotas").document(id).set(data)
                 .addOnSuccessListener {
+                    Toast.makeText(
+                        this,
+                        "Idiota agregado correctamente",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
                 .addOnFailureListener { e ->
                     Log.e("AddIdiot", "Error al agregar el idiota", e)

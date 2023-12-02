@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/background_view">
+
+    <data>
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/addToolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/black"
+            app:title="La Hora del Idiota"
+            app:titleTextColor="@color/white"
+            android:elevation="6dp" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:context=".database.AddIdiot"
+                android:layout_marginTop="30dp">
+
+
+                <ImageView
+                    android:id="@+id/insertImage"
+                    android:layout_width="200dp"
+                    android:layout_height="200dp"
+                    android:src="@drawable/addimagee"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginTop="38dp"
+                    android:onClick="selectImageFromGallery"/>
+
+                <TextView
+                    android:id="@+id/numText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/ingresa_numero"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/insertImage"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="16dp"/>
+
+                <EditText
+                    android:id="@+id/numEdit"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:hint="Ingresa Numero"
+                    android:textColorHint="@color/background_item"
+                    android:textColor="@color/black"
+                    android:inputType="number"
+                    app:layout_constraintTop_toBottomOf="@id/numText"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="2dp"/>
+
+                <TextView
+                    android:id="@+id/nombreText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Ingresa Nombre:"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/numEdit"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="16dp"/>
+
+                <EditText
+                    android:id="@+id/nombreEdit"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:hint="Ingresa Nombre"
+                    android:textColorHint="@color/background_item"
+                    android:textColor="@color/black"
+                    app:layout_constraintTop_toBottomOf="@id/nombreText"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="2dp"/>
+                <TextView
+                    android:id="@+id/nivelText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Ingresa Nivel de idiotez:"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/nombreEdit"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="16dp"/>
+
+                <EditText
+                    android:id="@+id/nivelEdit"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:hint="Ingresa Nivel"
+                    android:textColorHint="@color/background_item"
+                    android:textColor="@color/black"
+                    app:layout_constraintTop_toBottomOf="@id/nivelText"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="2dp"/>
+
+                <TextView
+                    android:id="@+id/siteText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Ingresa Sitio Frecuente:"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/nivelEdit"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="16dp"/>
+
+                <EditText
+                    android:id="@+id/sitedit"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:hint="Ingresa Sitio"
+                    android:textColorHint="@color/background_item"
+                    android:textColor="@color/black"
+                    app:layout_constraintTop_toBottomOf="@id/siteText"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="2dp"/>
+
+                <TextView
+                    android:id="@+id/habilidadText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Ingresa Habilidad Especial:"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/sitedit"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="16dp" />
+
+                <EditText
+                    android:id="@+id/habilidadEdit"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:hint="Ingresa habilidad"
+                    android:textColorHint="@color/background_item"
+                    android:textColor="@color/black"
+                    app:layout_constraintTop_toBottomOf="@id/habilidadText"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="2dp"/>
+
+                <TextView
+                    android:id="@+id/descripcionText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Ingresa Descripcion:"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/habilidadEdit"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="2dp"/>
+
+                <EditText
+                    android:id="@+id/descripcionEdit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Ingresa Descripcion"
+                    android:textAlignment="center"
+                    android:textColorHint="@color/background_item"
+                    android:textColor="@color/black"
+                    android:inputType="textMultiLine"
+                    android:maxLines="9"
+                    app:layout_constraintTop_toBottomOf="@id/descripcionText"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="2dp"/>
+
+
+                <Button
+                    android:id="@+id/acceptButton"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:text="Añadir Idiota"
+                    android:textColor="@color/white"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="26dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/descripcionEdit"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </ScrollView>
+    </RelativeLayout>
+</layout>

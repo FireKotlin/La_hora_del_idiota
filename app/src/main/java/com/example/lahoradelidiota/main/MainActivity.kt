@@ -21,6 +21,7 @@ import com.example.lahoradelidiota.database.DbIdiotRecycler
 import com.example.lahoradelidiota.database.LoginActivity
 import com.example.lahoradelidiota.database.PantallaIdiota
 import com.example.lahoradelidiota.databinding.ActivityMainBinding
+import com.example.lahoradelidiota.localList.LocalList
 import com.example.lahoradelidiota.photoactivity.ImageActivity
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.firestore.FirebaseFirestore
@@ -97,6 +98,10 @@ class MainActivity : AppCompatActivity() {
 
                 R.id.videoBtn -> {
                     val intent = Intent(this, VideoActivity::class.java)
+                    startActivity(intent)
+                }
+                R.id.localBttn -> {
+                    val intent = Intent(this, LocalList::class.java)
                     startActivity(intent)
                 }
             }
