@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import com.example.lahoradelidiota.databinding.ActivityLoginBinding
+import com.example.lahoradelidiota.localList.IdiotaLocal
 import com.example.lahoradelidiota.photoactivity.ImageActivity
 import com.google.firebase.FirebaseApp
 import com.google.firebase.auth.FirebaseAuth
@@ -26,6 +27,9 @@ class LoginActivity : AppCompatActivity() {
 
         firebaseAuth = FirebaseAuth.getInstance()
         sharedPreferences = getSharedPreferences("MiSharedPreferences", Context.MODE_PRIVATE)
+        val idiotaLocal: IdiotaLocal? = intent.getParcelableExtra("idiotaLocal")
+
+
 
         val textoGuardado = sharedPreferences.getString("textoGuardado", "")
         binding.correoedit.setText(textoGuardado)
@@ -39,6 +43,7 @@ class LoginActivity : AppCompatActivity() {
                 guardarCorreo(texto)
             }
         }
+
 
         binding.signUpButton.setOnClickListener {
             val email = binding.correoedit.text.toString()

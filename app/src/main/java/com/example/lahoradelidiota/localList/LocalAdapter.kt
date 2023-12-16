@@ -48,7 +48,7 @@ class LocalAdapter : ListAdapter<IdiotaLocal, LocalAdapter.ViewHolder>(DiffCallb
         }
 
         override fun areContentsTheSame(oldItem: IdiotaLocal, newItem: IdiotaLocal): Boolean {
-            return oldItem == newItem && oldItem.imagenUriString == newItem.imagenUriString
+            return oldItem == newItem && oldItem.imagenUri == newItem.imagenUri
         }
     }
 }

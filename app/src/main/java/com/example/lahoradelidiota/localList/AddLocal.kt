@@ -5,8 +5,6 @@ import android.net.Uri
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.lahoradelidiota.databinding.ActivityAddLocalBinding
-import android.app.Activity
-
 class AddLocal : AppCompatActivity() {
 
     private lateinit var binding: ActivityAddLocalBinding
@@ -41,7 +39,7 @@ class AddLocal : AppCompatActivity() {
         val descripcion = binding.descripcionEdit.text.toString()
 
         val nuevoIdiota = IdiotaLocal(
-            imagenUriString = selectedImageUri.toString(),
+            imagenUri = selectedImageUri,
             numeroDeIdiota = numeroDeIdiota,
             nombre = nombre,
             nivel = nivel,
@@ -52,7 +50,7 @@ class AddLocal : AppCompatActivity() {
 
         val intent = Intent()
         intent.putExtra("nuevoIdiota", nuevoIdiota)
-        setResult(Activity.RESULT_OK, intent)
+        setResult(RESULT_OK, intent)
         finish()
     }
 
@@ -68,3 +66,4 @@ class AddLocal : AppCompatActivity() {
         private const val PICK_IMAGE_REQUEST = 1
     }
 }
+

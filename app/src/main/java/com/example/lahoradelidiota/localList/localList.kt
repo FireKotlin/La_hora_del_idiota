@@ -60,11 +60,14 @@ class LocalList : AppCompatActivity() {
             addLocalLauncher.launch(intent)
         }
 
-        // Configurar el evento de clic en el adaptador
+
         adapter.setOnItemClickListener { idiotaLocal ->
-            // Lógica para manejar el clic en un elemento de la lista
-            // Puedes abrir la pantalla de detalles o hacer lo que sea necesario
+            // Abrir la actividad de detalles con el idiota seleccionado
+            val intent = Intent(this, DetailLocal::class.java)
+            intent.putExtra("idiotaLocal", idiotaLocal)
+            startActivity(intent)
         }
+
 
         // Cargar la lista en el adaptador
         adapter.submitList(localItems)

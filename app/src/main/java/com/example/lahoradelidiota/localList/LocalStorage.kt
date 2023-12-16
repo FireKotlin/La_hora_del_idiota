@@ -38,7 +38,7 @@ class LocalStorage private constructor(context: Context) {
 
         // Reconstruir la Uri para cada IdiotaLocal
         return localItems.map { idiotaLocal ->
-            idiotaLocal.copy(imagenUriString = idiotaLocal.imagenUriString)
+            idiotaLocal.copy(imagenUri = idiotaLocal.imagenUri)
         }
     }
 }
