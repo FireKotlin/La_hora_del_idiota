@@ -3,15 +3,13 @@ package com.example.lahoradelidiota.database
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.text.InputType
-import android.view.inputmethod.EditorInfo
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.example.lahoradelidiota.databinding.ActivityLoginBinding
-import com.example.lahoradelidiota.photoactivity.ImageActivity
 import com.google.firebase.FirebaseApp
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.*
 
 class LoginActivity : AppCompatActivity() {
 
@@ -19,7 +17,9 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var firebaseAuth: FirebaseAuth
     private lateinit var sharedPreferences: SharedPreferences
 
-    private val KEY_PASSWOR_SAVE = "passwordGuardado"
+    private val KEY_PASSWORD_SAVE = "passwordGuardado"
+    private val KEY_ROLE = "role"
+    private val KEY_USER_LOGGED_IN = "userLoggedIn"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,82 +33,62 @@ class LoginActivity : AppCompatActivity() {
         val textoGuardado = sharedPreferences.getString("textoGuardado", "")
         binding.correoedit.setText(textoGuardado)
 
-        val otroTextoGuardado = sharedPreferences.getString(KEY_PASSWOR_SAVE, "")
+        val otroTextoGuardado = sharedPreferences.getString(KEY_PASSWORD_SAVE, "")
         binding.passwordedit.setText(otroTextoGuardado)
 
-        binding.signInButton.setOnClickListener {
-            val texto = binding.correoedit.text.toString()
-            if (texto.isNotEmpty()) {
-                guardarCorreo(texto)
-            }
-        }
+        val user = firebaseAuth.currentUser
+        val userId = user?.uid
 
-        binding.signUpButton.setOnClickListener {
-            val email = binding.correoedit.text.toString()
-            val pass = binding.passwordedit.text.toString()
-
-
-            if (email.isNotEmpty() && pass.isNotEmpty()) {
-                firebaseAuth.createUserWithEmailAndPassword(email, pass).addOnCompleteListener {
-                    if (it.isSuccessful) {
-                        val intent = Intent(this, ImageActivity::class.java)
-                    } else {
-                        Toast.makeText(this, it.exception.toString(), Toast.LENGTH_SHORT).show()
-                    }
-                }
-            } else {
-                Toast.makeText(
-                    this,
-                    "Revisa que los datos sean correctos SEEE!!",
-                    Toast.LENGTH_SHORT
-                ).show()
-            }
-
-        }
-
-
-
+        val defaultRole = "user"
+        val usersRef = FirebaseDatabase.getInstance().getReference("users")
+        usersRef.child(userId ?: "").child(KEY_ROLE).setValue(defaultRole)
 
         binding.signInButton.setOnClickListener {
             val email = binding.correoedit.text.toString()
-
             val pass = binding.passwordedit.text.toString()
 
-
-
             if (email.isNotEmpty() && pass.isNotEmpty()) {
-
-                firebaseAuth.signInWithEmailAndPassword(email, pass).addOnCompleteListener {
-                    if (it.isSuccessful) {
-                        val texto = binding.correoedit.text.toString()
-                        guardarCorreo(texto)
-                        val otroTexto = binding.passwordedit.text.toString()
-                        guardarContraseña(otroTexto)
-                        val intent = Intent(this, DbIdiotRecycler::class.java)
-                        startActivity(intent)
-                    } else {
-                        Toast.makeText(this, "Datos incorrectos SEEEE!!", Toast.LENGTH_SHORT).show()
-
+                firebaseAuth.signInWithEmailAndPassword(email, pass)
+                    .addOnCompleteListener { task ->
+                        if (task.isSuccessful) {
+                            val user = firebaseAuth.currentUser
+                            checkAdminRole(user?.uid)
+                            saveUserLoggedIn(true)
+                        } else {
+                            Toast.makeText(this, "Datos incorrectos SEEEE!!", Toast.LENGTH_SHORT).show()
+                        }
                     }
-                }
             } else {
                 Toast.makeText(this, "Revisa tus datos Seeee !!", Toast.LENGTH_SHORT).show()
-
             }
         }
-
     }
-    fun guardarCorreo(texto: String) {
+
+    private fun checkAdminRole(userId: String?) {
+        val usersRef = FirebaseDatabase.getInstance().getReference("users")
+        usersRef.child(userId ?: "").addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if (snapshot.exists()) {
+                    val role = snapshot.child(KEY_ROLE).getValue(String::class.java)
+                    if (role == "admin") {
+                        val intent = Intent(this@LoginActivity, DbIdiotRecycler::class.java)
+                        startActivity(intent)
+                        finish()
+                    } else {
+                        Toast.makeText(this@LoginActivity, "No tienes permisos de administrador", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                // Maneja errores de lectura de la base de datos si es necesario
+            }
+        })
+    }
+
+    private fun saveUserLoggedIn(isLoggedIn: Boolean) {
         val editor: SharedPreferences.Editor = sharedPreferences.edit()
-        editor.putString("correoGuardado", texto)
+        editor.putBoolean(KEY_USER_LOGGED_IN, isLoggedIn)
         editor.apply()
     }
-
-    fun guardarContraseña(otroTexto: String) {
-        val editor: SharedPreferences.Editor = sharedPreferences.edit()
-        editor.putString(KEY_PASSWOR_SAVE, otroTexto)
-        editor.apply()
-    }
-
-
 }
