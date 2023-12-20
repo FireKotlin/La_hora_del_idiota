@@ -31,6 +31,7 @@ class LocalList : AppCompatActivity() {
 
     private val localItems = mutableListOf<IdiotaLocal>()
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLocalListBinding.inflate(layoutInflater)
@@ -47,6 +48,7 @@ class LocalList : AppCompatActivity() {
         localStorage = LocalStorage.getInstance(this)
 
         // Recuperar la lista almacenada en SharedPreferences
+
         localItems.addAll(localStorage.getLocalItems())
 
         // Configurar RecyclerView y adaptador
@@ -77,6 +79,11 @@ class LocalList : AppCompatActivity() {
         super.onDestroy()
 
         // Guardar la lista actual en SharedPreferences
+        localStorage.saveLocalItems(localItems)
+    }
+    private fun agregarNuevoIdiota(nuevoIdiota: IdiotaLocal) {
+        localItems.add(nuevoIdiota)
+        adapter.submitList(localItems)
         localStorage.saveLocalItems(localItems)
     }
 }

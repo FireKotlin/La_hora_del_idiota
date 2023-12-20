@@ -2,11 +2,13 @@ package com.example.lahoradelidiota.localList
 
 import android.net.Uri
 import android.os.Parcelable
+import com.google.gson.annotations.JsonAdapter
 import kotlinx.android.parcel.Parcelize
 
 @Suppress("DEPRECATED_ANNOTATION")
 @Parcelize
 data class IdiotaLocal(
+    @field:JsonAdapter(UriTypeAdapter::class)
     val imagenUri: Uri?,
     val numeroDeIdiota: String,
     val nombre: String,

@@ -1,5 +1,6 @@
 package com.example.lahoradelidiota.localList
 import android.net.Uri
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -23,7 +24,9 @@ class LocalAdapter : ListAdapter<IdiotaLocal, LocalAdapter.ViewHolder>(DiffCallb
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val idiotaLocal = getItem(position)
         holder.bind(idiotaLocal)
+        Log.d("LocalAdapter", "Item at position $position bound: ${idiotaLocal.nombre}")
     }
+
 
     fun getItemAtPosition(position: Int): IdiotaLocal {
         return getItem(position)

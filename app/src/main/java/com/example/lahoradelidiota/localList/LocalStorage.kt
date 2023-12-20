@@ -2,6 +2,7 @@ package com.example.lahoradelidiota.localList
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.net.Uri
 import com.google.common.reflect.TypeToken
 import com.google.gson.Gson
 
@@ -24,13 +25,14 @@ class LocalStorage private constructor(context: Context) {
         }
     }
 
+
     // En el método saveLocalItems
     fun saveLocalItems(localItems: List<IdiotaLocal>) {
         val json = Gson().toJson(localItems)
         sharedPreferences.edit().putString(KEY_LOCAL_ITEMS, json).apply()
     }
 
-    // En el método getLocalItems
+    /// En el método getLocalItems
     fun getLocalItems(): List<IdiotaLocal> {
         val json = sharedPreferences.getString(KEY_LOCAL_ITEMS, "")
         val type = object : TypeToken<List<IdiotaLocal>>() {}.type
@@ -38,7 +40,12 @@ class LocalStorage private constructor(context: Context) {
 
         // Reconstruir la Uri para cada IdiotaLocal
         return localItems.map { idiotaLocal ->
-            idiotaLocal.copy(imagenUri = idiotaLocal.imagenUri)
+            // Si la imagenUri es nula, no se necesita reconstruir
+            if (idiotaLocal.imagenUri != null) {
+                idiotaLocal.copy(imagenUri = Uri.parse(idiotaLocal.imagenUri.toString()))
+            } else {
+                idiotaLocal
+            }
         }
     }
 }
