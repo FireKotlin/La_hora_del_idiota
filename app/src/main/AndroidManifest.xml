@@ -2,15 +2,15 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"
+    <!-- Permisos de la aplicación -->
+    <uses-permission
+        android:name="android.permission.READ_EXTERNAL_STORAGE"
         android:maxSdkVersion="32" />
-
-
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
 
+    <!-- Configuración de la aplicación -->
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -20,37 +20,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.LaHoraDelIdiota"
         tools:targetApi="31">
-        <activity
-            android:name=".localList.DetailLocal"
-            android:exported="false" />
-        <activity
-            android:name=".localList.AddLocal"
-            android:exported="false" />
-        <activity
-            android:name=".videoActivity.VideoActivity"
-            android:exported="false"
-            android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity" />
-        <activity
-            android:name=".database.AddIdiot"
-            android:exported="false"
-            android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivit" />
-        <activity
-            android:name=".database.DbIdiotRecycler"
-            android:exported="false"
-            android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivit" />
-        <activity
-            android:name=".database.PantallaIdiota"
-            android:exported="false"
-            android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivit" />
-        <activity
-            android:name=".database.LoginActivity"
-            android:exported="false"
-            android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivit" />
+
+        <!-- Actividades de la aplicación -->
         <activity
             android:name=".main.MainActivity"
             android:exported="true"
@@ -59,26 +30,64 @@
             tools:ignore="LockedOrientationActivit">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!-- Otras actividades -->
+
         <activity
-            android:name=".detail.IDetailActivity"
+            android:name=".localList.DetailLocal"
+            android:exported="false" />
+        <activity
+            android:name=".database.DbIdiotRecycler"
+            android:exported="false"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivit" />
+
         <activity
-            android:name=".photoactivity.ImageActivity"
-            android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivit" />
-        <activity android:name=".others.Idiota" />
+            android:name="com.example.lahoradelidiota.login.CloseActivity"
+            android:exported="true"/>
+
+
         <activity
             android:name=".localList.LocalList"
             android:label="Mis Idiotas"
             android:parentActivityName=".main.MainActivity"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivit" />
+        <activity
+            android:name=".photoactivity.ImageActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivit" />
 
+        <activity
+            android:name=".detail.IDetailActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivit" />
+
+        <activity
+            android:name=".localList.AddLocal"
+            android:exported="false" />
+        <activity
+            android:name=".login.LoginActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivit" />
+        <activity
+            android:name=".database.PantallaIdiota"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivit" />
+
+        <activity
+            android:name=".videoActivity.VideoActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+        <!-- ... otras actividades ... -->
+
+        <!-- Proveedor de contenido -->
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.provider"
@@ -86,7 +95,7 @@
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths" /> <!-- Crea un archivo XML en la carpeta "res/xml" llamado "file_paths.xml" -->
+                android:resource="@xml/file_paths" /> <!-- Asegúrate de crear un archivo XML en "res/xml" llamado "file_paths.xml" -->
         </provider>
     </application>
 

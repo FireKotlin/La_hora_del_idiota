@@ -2,7 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/menu_option1"
-        android:title="@string/iniciar_sesion"
+        android:title="@string/iniciar_o_cerrar_sesi_n"
         android:iconTint="@color/black"
         />
     <item

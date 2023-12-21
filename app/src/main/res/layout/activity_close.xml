@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/dise_o_sin_t_tulo"
+        tools:context=".login.CloseActivity">
+
+        <TextView
+            android:id="@+id/closetv"
+            android:textColor="@color/white"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/quieres_cerrar_sesion_idiota"
+            android:fontFamily="sans-serif-condensed-medium"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+           android:layout_marginTop="300dp"
+            android:textSize="26sp"
+            android:textAlignment="center"/>
+
+        <Button
+            android:id="@+id/cerrarBttn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/closetv"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="32sp"
+            android:backgroundTint="@color/white"
+            android:text="Cerrar sesion"/>
+
+        <Button
+            android:id="@+id/cancelarBttn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32sp"
+            android:text="Cancelar"
+            android:backgroundTint="@color/white"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cerrarBttn"/>
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

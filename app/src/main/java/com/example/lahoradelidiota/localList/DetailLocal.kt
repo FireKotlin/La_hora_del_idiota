@@ -12,6 +12,7 @@ import androidx.core.view.ViewCompat
 import com.example.lahoradelidiota.R
 import com.example.lahoradelidiota.databinding.ActivityDetailLocalBinding
 
+
 class DetailLocal : AppCompatActivity() {
 
     private lateinit var handler: Handler
@@ -53,25 +54,10 @@ class DetailLocal : AppCompatActivity() {
 
         handler.postDelayed(hideFabRunnable, 6000)
 
-        binding.extendedFab.visibility = View.VISIBLE
-        binding.extendedFab1.visibility = View.GONE
-        binding.extendedFab2.visibility = View.GONE
-
         val idiotaLocal: IdiotaLocal? = intent.getParcelableExtra("idiotaLocal")
 
         if (idiotaLocal != null) {
-            val imagePath = idiotaLocal.imagenUri?.toString()
-            if (imagePath != null) {
-                val imageUri = Uri.parse(imagePath)
-                binding.detailImage.setImageURI(imageUri)
-            } else {
-                // Manejar caso donde la ruta de la imagen es nula
-            }
-            binding.detailName.text = idiotaLocal.nombre
-            binding.nivelDeIdiotes.text = idiotaLocal.nivel
-            binding.sitioFrecuente.text = idiotaLocal.site
-            binding.habilidadEspecial.text = idiotaLocal.habilidadEspecial
-            binding.descripcion.text = idiotaLocal.descripcion
+            cargarDetalles(idiotaLocal)
         }
 
         val toolbar = binding.detailtoolbar
@@ -87,10 +73,27 @@ class DetailLocal : AppCompatActivity() {
         }
         binding.extendedFab1.setOnClickListener {
             // Lógica para guardar imagen en la galería
+            // Puedes implementar esta lógica según tus requisitos
         }
         binding.extendedFab2.setOnClickListener {
             // Lógica para compartir captura de pantalla
+            // Puedes implementar esta lógica según tus requisitos
         }
+    }
+
+    private fun cargarDetalles(idiotaLocal: IdiotaLocal) {
+        val imagePath = idiotaLocal.imagenUri?.toString()
+        if (imagePath != null) {
+            val imageUri = Uri.parse(imagePath)
+            binding.detailImage.setImageURI(imageUri)
+        } else {
+            // Manejar caso donde la ruta de la imagen es nula
+        }
+        binding.detailName.text = idiotaLocal.nombre
+        binding.nivelDeIdiotes.text = idiotaLocal.nivel
+        binding.sitioFrecuente.text = idiotaLocal.site
+        binding.habilidadEspecial.text = idiotaLocal.habilidadEspecial
+        binding.descripcion.text = idiotaLocal.descripcion
     }
 
     private fun fadeOutFab(extendedFab: View) {
@@ -158,4 +161,5 @@ class DetailLocal : AppCompatActivity() {
         }
     }
 }
+
 

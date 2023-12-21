@@ -4,20 +4,20 @@ import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import androidx.activity.result.contract.ActivityResultContracts
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.lahoradelidiota.databinding.ActivityAddLocalBinding
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.storage.FirebaseStorage
+import java.util.UUID
+
 class AddLocal : AppCompatActivity() {
 
     private lateinit var binding: ActivityAddLocalBinding
     private var selectedImageUri: Uri? = null
+    private val PICK_IMAGE_REQUEST = 1
 
-    private val requestPermissionLauncher =
-        registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
-            if (isGranted) {
-                openGallery()
-            }
-        }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAddLocalBinding.inflate(layoutInflater)
@@ -46,23 +46,89 @@ class AddLocal : AppCompatActivity() {
         val habilidadEspecial = binding.habilidadEdit.text.toString()
         val descripcion = binding.descripcionEdit.text.toString()
 
-        // Validar la entrada del usuario si es necesario
-        val imagenPath: String? = selectedImageUri?.toString()
+        // Verificar si algún campo está vacío
+        if (numeroDeIdiota.isEmpty() || nombre.isEmpty() || nivel.isEmpty() || site.isEmpty() || habilidadEspecial.isEmpty() || descripcion.isEmpty()) {
+            mostrarMensaje("Por favor, completa todos los campos.")
+            return
+        }
 
-        val nuevoIdiota = IdiotaLocal(
-            imagenUri = selectedImageUri,
-            numeroDeIdiota = numeroDeIdiota,
-            nombre = nombre,
-            nivel = nivel,
-            site = site,
-            habilidadEspecial = habilidadEspecial,
-            descripcion = descripcion
-        )
+        val userId = FirebaseAuth.getInstance().currentUser?.uid
+        if (userId != null) {
+            val referenciaIdiotasLocales = FirebaseDatabase.getInstance().getReference("usuarios/$userId/idiotasLocales")
 
-        val intent = Intent()
-        intent.putExtra("nuevoIdiota", nuevoIdiota)
-        setResult(RESULT_OK, intent)
-        finish()
+            if (selectedImageUri != null) {
+                subirImagenFirebaseStorage(selectedImageUri!!) { urlDeDescarga ->
+                    val nuevoIdiota = IdiotaLocal(
+                        imagenUri = urlDeDescarga,
+                        numeroDeIdiota = numeroDeIdiota,
+                        nombre = nombre,
+                        nivel = nivel,
+                        site = site,
+                        habilidadEspecial = habilidadEspecial,
+                        descripcion = descripcion
+                    )
+
+                    referenciaIdiotasLocales.push().setValue(nuevoIdiota)
+                        .addOnCompleteListener { task ->
+                            if (task.isSuccessful) {
+                                mostrarMensaje("Idiota local agregado exitosamente.")
+                                finish()
+                            } else {
+                                mostrarMensaje("Error al agregar el idiota local. Por favor, intenta nuevamente. Error: ${task.exception?.message}")
+                            }
+                        }
+                }
+            } else {
+                val nuevoIdiota = IdiotaLocal(
+                    imagenUri = null,
+                    numeroDeIdiota = numeroDeIdiota,
+                    nombre = nombre,
+                    nivel = nivel,
+                    site = site,
+                    habilidadEspecial = habilidadEspecial,
+                    descripcion = descripcion
+                )
+
+                referenciaIdiotasLocales.push().setValue(nuevoIdiota)
+                    .addOnCompleteListener { task ->
+                        if (task.isSuccessful) {
+                            mostrarMensaje("Idiota local agregado exitosamente.")
+                            finish()
+                        } else {
+                            mostrarMensaje("Error al agregar el idiota local. Por favor, intenta nuevamente. Error: ${task.exception?.message}")
+                        }
+                    }
+            }
+        } else {
+            // Manejar el caso en que el usuario no esté autenticado
+            mostrarMensaje("Usuario no autenticado. Inicia sesión e intenta nuevamente.")
+        }
+    }
+
+    private fun subirImagenFirebaseStorage(imagenUri: Uri, callback: (String) -> Unit) {
+        val storageRef = FirebaseStorage.getInstance().reference
+        val imagenRef = storageRef.child("imagenes/${UUID.randomUUID()}.jpg")
+
+        imagenRef.putFile(imagenUri)
+            .addOnSuccessListener { taskSnapshot ->
+                // La imagen se subió exitosamente, obtener la URL de descarga
+                imagenRef.downloadUrl.addOnSuccessListener { uri ->
+                    val urlDeDescarga = uri.toString()
+                    callback(urlDeDescarga)
+                }
+                    .addOnFailureListener { exception ->
+                        // Manejar la falla al obtener la URL de descarga
+                        mostrarMensaje("Error al obtener la URL de descarga. Por favor, intenta nuevamente.")
+                    }
+            }
+            .addOnFailureListener { exception ->
+                // Manejar la falla en la subida de la imagen
+                mostrarMensaje("Error al subir la imagen. Por favor, intenta nuevamente. Error: ${exception.message}")
+            }
+    }
+
+    private fun mostrarMensaje(mensaje: String) {
+        Toast.makeText(this, mensaje, Toast.LENGTH_SHORT).show()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -71,9 +137,6 @@ class AddLocal : AppCompatActivity() {
             selectedImageUri = data?.data
             binding.insertImage.setImageURI(selectedImageUri)
         }
-
     }
-        companion object {
-            private const val PICK_IMAGE_REQUEST = 1
-        }
 }
+

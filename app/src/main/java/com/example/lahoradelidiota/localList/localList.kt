@@ -9,28 +9,30 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.lahoradelidiota.R
 import com.example.lahoradelidiota.databinding.ActivityLocalListBinding
 import com.example.lahoradelidiota.main.MainActivity
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 
 class LocalList : AppCompatActivity() {
 
     private lateinit var binding: ActivityLocalListBinding
     private lateinit var adapter: LocalAdapter
-    private lateinit var localStorage: LocalStorage
+    private lateinit var userId: String // Variable para almacenar el ID del usuario actual
 
-    // Use ActivityResultContracts para manejar el resultado de AddLocal
     private val addLocalLauncher: ActivityResultLauncher<Intent> =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == RESULT_OK) {
                 val nuevoIdiota = result.data?.getParcelableExtra<IdiotaLocal>("nuevoIdiota")
                 nuevoIdiota?.let {
-                    localItems.add(it)
-                    adapter.submitList(localItems.toList())
-                    localStorage.saveLocalItems(localItems.toList())
+                    // Agregar el nuevo idiota a Firebase
+                    agregarNuevoIdiotaFirebase(it)
                 }
             }
         }
 
     private val localItems = mutableListOf<IdiotaLocal>()
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,12 +46,8 @@ class LocalList : AppCompatActivity() {
             startActivity(Intent(this, MainActivity::class.java))
         }
 
-        // Inicializar la instancia de LocalStorage
-        localStorage = LocalStorage.getInstance(this)
-
-        // Recuperar la lista almacenada en SharedPreferences
-
-        localItems.addAll(localStorage.getLocalItems())
+        // Recuperar el ID del usuario actual
+        userId = FirebaseAuth.getInstance().currentUser?.uid ?: ""
 
         // Configurar RecyclerView y adaptador
         adapter = LocalAdapter()
@@ -62,7 +60,6 @@ class LocalList : AppCompatActivity() {
             addLocalLauncher.launch(intent)
         }
 
-
         adapter.setOnItemClickListener { idiotaLocal ->
             // Abrir la actividad de detalles con el idiota seleccionado
             val intent = Intent(this, DetailLocal::class.java)
@@ -70,20 +67,44 @@ class LocalList : AppCompatActivity() {
             startActivity(intent)
         }
 
+        // Cargar la lista desde Firebase
+        cargarDatosDesdeFirebase()
 
         // Cargar la lista en el adaptador
         adapter.submitList(localItems)
     }
 
+    private fun cargarDatosDesdeFirebase() {
+        val referenciaUsuario =
+            FirebaseDatabase.getInstance().getReference("usuarios/$userId/idiotasLocales")
+
+        referenciaUsuario.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                localItems.clear()
+                for (childSnapshot in snapshot.children) {
+                    val idiotaLocal = childSnapshot.getValue(IdiotaLocal::class.java)
+                    idiotaLocal?.let {
+                        localItems.add(it)
+                    }
+                }
+                adapter.notifyDataSetChanged()
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                // Manejar el error de la base de datos
+            }
+        })
+    }
+
+    private fun agregarNuevoIdiotaFirebase(nuevoIdiota: IdiotaLocal) {
+        val referenciaUsuario =
+            FirebaseDatabase.getInstance().getReference("usuarios/$userId/idiotasLocales")
+
+        referenciaUsuario.push().setValue(nuevoIdiota)
+    }
+
     override fun onDestroy() {
         super.onDestroy()
 
-        // Guardar la lista actual en SharedPreferences
-        localStorage.saveLocalItems(localItems)
-    }
-    private fun agregarNuevoIdiota(nuevoIdiota: IdiotaLocal) {
-        localItems.add(nuevoIdiota)
-        adapter.submitList(localItems)
-        localStorage.saveLocalItems(localItems)
     }
 }

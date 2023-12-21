@@ -2,7 +2,6 @@ package com.example.lahoradelidiota.main
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
@@ -18,7 +17,7 @@ import com.example.lahoradelidiota.R
 import com.example.lahoradelidiota.R.color.nav2
 import com.example.lahoradelidiota.videoActivity.VideoActivity
 import com.example.lahoradelidiota.database.DbIdiotRecycler
-import com.example.lahoradelidiota.database.LoginActivity
+import com.example.lahoradelidiota.login.LoginActivity
 import com.example.lahoradelidiota.database.PantallaIdiota
 import com.example.lahoradelidiota.databinding.ActivityMainBinding
 import com.example.lahoradelidiota.localList.LocalList
