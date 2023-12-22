@@ -35,7 +35,7 @@
 
 
 
-                <com.ortiz.touchview.TouchImageView
+                <com.github.chrisbanes.photoview.PhotoView
                     android:id="@+id/detail_image"
                     android:layout_width="267dp"
                     android:layout_height="256dp"

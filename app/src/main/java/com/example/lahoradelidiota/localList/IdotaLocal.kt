@@ -8,7 +8,7 @@ import kotlinx.android.parcel.Parcelize
 @Suppress("DEPRECATED_ANNOTATION")
 @Parcelize
 data class IdiotaLocal(
-    val imagenUri: String?, // Ahora se almacena la URL de la imagen en lugar de Uri
+    var imagenUri: Uri?, // Cambiado a Uri
     val numeroDeIdiota: String,
     val nombre: String,
     val nivel: String,
@@ -16,3 +16,4 @@ data class IdiotaLocal(
     val habilidadEspecial: String,
     val descripcion: String
 ) : Parcelable
+

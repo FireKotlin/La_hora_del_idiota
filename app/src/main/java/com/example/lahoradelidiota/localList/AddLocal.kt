@@ -6,17 +6,17 @@ import android.net.Uri
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.FileProvider
 import com.example.lahoradelidiota.databinding.ActivityAddLocalBinding
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.storage.FirebaseStorage
-import java.util.UUID
+import java.io.File
+import java.util.*
 
 class AddLocal : AppCompatActivity() {
 
     private lateinit var binding: ActivityAddLocalBinding
     private var selectedImageUri: Uri? = null
     private val PICK_IMAGE_REQUEST = 1
+    private var copiedImageUri: Uri? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,79 +52,40 @@ class AddLocal : AppCompatActivity() {
             return
         }
 
-        val userId = FirebaseAuth.getInstance().currentUser?.uid
-        if (userId != null) {
-            val referenciaIdiotasLocales = FirebaseDatabase.getInstance().getReference("usuarios/$userId/idiotasLocales")
+        // Copiar la imagen a la ubicación de tu aplicación
+        copiedImageUri = copyImageToAppLocation(selectedImageUri)
 
-            if (selectedImageUri != null) {
-                subirImagenFirebaseStorage(selectedImageUri!!) { urlDeDescarga ->
-                    val nuevoIdiota = IdiotaLocal(
-                        imagenUri = urlDeDescarga,
-                        numeroDeIdiota = numeroDeIdiota,
-                        nombre = nombre,
-                        nivel = nivel,
-                        site = site,
-                        habilidadEspecial = habilidadEspecial,
-                        descripcion = descripcion
-                    )
+        // Aquí puedes realizar la lógica para almacenar el ítem localmente
+        val nuevoIdiota = IdiotaLocal(
+            imagenUri = copiedImageUri,
+            numeroDeIdiota = numeroDeIdiota,
+            nombre = nombre,
+            nivel = nivel,
+            site = site,
+            habilidadEspecial = habilidadEspecial,
+            descripcion = descripcion
+        )
 
-                    referenciaIdiotasLocales.push().setValue(nuevoIdiota)
-                        .addOnCompleteListener { task ->
-                            if (task.isSuccessful) {
-                                mostrarMensaje("Idiota local agregado exitosamente.")
-                                finish()
-                            } else {
-                                mostrarMensaje("Error al agregar el idiota local. Por favor, intenta nuevamente. Error: ${task.exception?.message}")
-                            }
-                        }
-                }
-            } else {
-                val nuevoIdiota = IdiotaLocal(
-                    imagenUri = null,
-                    numeroDeIdiota = numeroDeIdiota,
-                    nombre = nombre,
-                    nivel = nivel,
-                    site = site,
-                    habilidadEspecial = habilidadEspecial,
-                    descripcion = descripcion
-                )
+        // Enviar el nuevo idiota de vuelta a la actividad anterior
+        val resultIntent = Intent()
+        resultIntent.putExtra("nuevoIdiota", nuevoIdiota)
+        setResult(Activity.RESULT_OK, resultIntent)
 
-                referenciaIdiotasLocales.push().setValue(nuevoIdiota)
-                    .addOnCompleteListener { task ->
-                        if (task.isSuccessful) {
-                            mostrarMensaje("Idiota local agregado exitosamente.")
-                            finish()
-                        } else {
-                            mostrarMensaje("Error al agregar el idiota local. Por favor, intenta nuevamente. Error: ${task.exception?.message}")
-                        }
-                    }
-            }
-        } else {
-            // Manejar el caso en que el usuario no esté autenticado
-            mostrarMensaje("Usuario no autenticado. Inicia sesión e intenta nuevamente.")
-        }
+        // Cerrar la actividad después de agregar el ítem
+        finish()
     }
 
-    private fun subirImagenFirebaseStorage(imagenUri: Uri, callback: (String) -> Unit) {
-        val storageRef = FirebaseStorage.getInstance().reference
-        val imagenRef = storageRef.child("imagenes/${UUID.randomUUID()}.jpg")
+    private fun copyImageToAppLocation(originalUri: Uri?): Uri? {
+        if (originalUri == null) {
+            return null
+        }
 
-        imagenRef.putFile(imagenUri)
-            .addOnSuccessListener { taskSnapshot ->
-                // La imagen se subió exitosamente, obtener la URL de descarga
-                imagenRef.downloadUrl.addOnSuccessListener { uri ->
-                    val urlDeDescarga = uri.toString()
-                    callback(urlDeDescarga)
-                }
-                    .addOnFailureListener { exception ->
-                        // Manejar la falla al obtener la URL de descarga
-                        mostrarMensaje("Error al obtener la URL de descarga. Por favor, intenta nuevamente.")
-                    }
-            }
-            .addOnFailureListener { exception ->
-                // Manejar la falla en la subida de la imagen
-                mostrarMensaje("Error al subir la imagen. Por favor, intenta nuevamente. Error: ${exception.message}")
-            }
+        val originalInputStream = contentResolver.openInputStream(originalUri)
+        val destinationFile = File(getExternalFilesDir(null), "copied_image.jpg")
+        destinationFile.outputStream().use { originalInputStream?.copyTo(it) }
+
+        // Devolver la nueva URI después de copiar la imagen
+        return FileProvider.getUriForFile(this, "com.example.lahoradelidiota.fileprovider", destinationFile)
     }
 
     private fun mostrarMensaje(mensaje: String) {

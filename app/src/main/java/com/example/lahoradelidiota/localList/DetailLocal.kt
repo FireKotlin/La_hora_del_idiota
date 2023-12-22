@@ -1,17 +1,22 @@
 package com.example.lahoradelidiota.localList
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
+import android.database.Cursor
 import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
+import android.provider.MediaStore
+import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
+import com.bumptech.glide.Glide
 import com.example.lahoradelidiota.R
 import com.example.lahoradelidiota.databinding.ActivityDetailLocalBinding
-
+import com.github.chrisbanes.photoview.PhotoView
 
 class DetailLocal : AppCompatActivity() {
 
@@ -79,16 +84,21 @@ class DetailLocal : AppCompatActivity() {
             // Lógica para compartir captura de pantalla
             // Puedes implementar esta lógica según tus requisitos
         }
+
+        // Obtener la URI de la imagen desde MediaStore
+        val imageUri = idiotaLocal?.imagenUri ?: Uri.parse("content://media/external/images/media/0")
+        Log.d("DetailLocal", "Image URI: $imageUri")
+        binding.detailImage.setImageURI(imageUri)
+
+        // Cargar la imagen utilizando Glide
+        if (imageUri != null) {
+            cargarImagenDesdeUri(imageUri, binding.detailImage)
+        } else {
+            // Manejar caso en el que la URI de la imagen es nula
+        }
     }
 
     private fun cargarDetalles(idiotaLocal: IdiotaLocal) {
-        val imagePath = idiotaLocal.imagenUri?.toString()
-        if (imagePath != null) {
-            val imageUri = Uri.parse(imagePath)
-            binding.detailImage.setImageURI(imageUri)
-        } else {
-            // Manejar caso donde la ruta de la imagen es nula
-        }
         binding.detailName.text = idiotaLocal.nombre
         binding.nivelDeIdiotes.text = idiotaLocal.nivel
         binding.sitioFrecuente.text = idiotaLocal.site
@@ -160,6 +170,30 @@ class DetailLocal : AppCompatActivity() {
             }
         }
     }
+
+    private fun cargarImagenDesdeUri(uri: Uri?, photoView: PhotoView) {
+        Glide.with(this)
+            .load(uri)
+            .into(photoView)
+    }
+
+    private fun obtenerUriImagenDesdeMediaStore(context: Context, imageId: Long): Uri? {
+        val projection = arrayOf(MediaStore.Images.Media._ID, MediaStore.Images.Media.DATA)
+        val cursor: Cursor? = context.contentResolver.query(
+            MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+            projection,
+            "${MediaStore.Images.Media._ID} = ?",
+            arrayOf(imageId.toString()),
+            null
+        )
+
+        return cursor?.use {
+            if (it.moveToFirst()) {
+                val columnIndex = it.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
+                Uri.parse("file://" + it.getString(columnIndex))
+            } else {
+                null
+            }
+        }
+    }
 }
-
-

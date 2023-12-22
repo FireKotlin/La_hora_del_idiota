@@ -3,9 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Permisos de la aplicación -->
-    <uses-permission
-        android:name="android.permission.READ_EXTERNAL_STORAGE"
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"
         android:maxSdkVersion="32" />
+    <uses-permission android:name="com.miui.gallery.permission.GALLERY_PROVIDER" />
+
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
@@ -88,14 +89,15 @@
         <!-- ... otras actividades ... -->
 
         <!-- Proveedor de contenido -->
+
         <provider
             android:name="androidx.core.content.FileProvider"
-            android:authorities="${applicationId}.provider"
+            android:authorities="com.example.lahoradelidiota.fileprovider"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths" /> <!-- Asegúrate de crear un archivo XML en "res/xml" llamado "file_paths.xml" -->
+                android:resource="@xml/file_paths" />
         </provider>
     </application>
 
