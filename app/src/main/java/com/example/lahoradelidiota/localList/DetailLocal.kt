@@ -1,16 +1,14 @@
 package com.example.lahoradelidiota.localList
 
 import android.annotation.SuppressLint
-import android.content.Context
+import android.app.Activity
 import android.content.Intent
-import android.database.Cursor
 import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
-import android.provider.MediaStore
-import android.util.Log
 import android.view.MotionEvent
 import android.view.View
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import com.bumptech.glide.Glide
@@ -26,6 +24,7 @@ class DetailLocal : AppCompatActivity() {
     private var fabHidden = false
     private var stopHideFabTimer = false
     private var clicked = false
+    private var idiotaLocal: IdiotaLocal? = null
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -59,17 +58,17 @@ class DetailLocal : AppCompatActivity() {
 
         handler.postDelayed(hideFabRunnable, 6000)
 
-        val idiotaLocal: IdiotaLocal? = intent.getParcelableExtra("idiotaLocal")
+        idiotaLocal = intent.getParcelableExtra("idiotaLocal")
 
         if (idiotaLocal != null) {
-            cargarDetalles(idiotaLocal)
+            cargarDetalles(idiotaLocal!!)
         }
 
         val toolbar = binding.detailtoolbar
         toolbar.title = idiotaLocal?.nombre ?: ""
         toolbar.setNavigationIcon(R.drawable.baseline_arrow_back_24)
         toolbar.setNavigationOnClickListener {
-            startActivity(Intent(this, LocalList::class.java))
+            onBackPressed()
         }
 
         binding.extendedFab.setOnClickListener {
@@ -78,23 +77,21 @@ class DetailLocal : AppCompatActivity() {
         }
         binding.extendedFab1.setOnClickListener {
             // Lógica para guardar imagen en la galería
-            // Puedes implementar esta lógica según tus requisitos
         }
         binding.extendedFab2.setOnClickListener {
             // Lógica para compartir captura de pantalla
-            // Puedes implementar esta lógica según tus requisitos
+        }
+        binding.extendedFab3.setOnClickListener {
+            showConfirmationDialog()
         }
 
         // Obtener la URI de la imagen desde MediaStore
-        val imageUri = idiotaLocal?.imagenUri ?: Uri.parse("content://media/external/images/media/0")
-        Log.d("DetailLocal", "Image URI: $imageUri")
+        val imageUri =
+            idiotaLocal?.imagenUri ?: Uri.parse("content://media/external/images/media/0")
         binding.detailImage.setImageURI(imageUri)
 
-        // Cargar la imagen utilizando Glide
         if (imageUri != null) {
             cargarImagenDesdeUri(imageUri, binding.detailImage)
-        } else {
-            // Manejar caso en el que la URI de la imagen es nula
         }
     }
 
@@ -123,7 +120,10 @@ class DetailLocal : AppCompatActivity() {
         setAnimation(clicked)
         clicked = !clicked
 
-        if (binding.extendedFab1.visibility == View.INVISIBLE && binding.extendedFab2.visibility == View.INVISIBLE) {
+        if (binding.extendedFab1.visibility == View.INVISIBLE &&
+            binding.extendedFab2.visibility == View.INVISIBLE &&
+            binding.extendedFab3.visibility == View.INVISIBLE
+        ) {
             fabHidden = true
             fadeOutFab(binding.extendedFab)
         } else {
@@ -135,9 +135,11 @@ class DetailLocal : AppCompatActivity() {
         if (!clicked) {
             binding.extendedFab1.visibility = View.VISIBLE
             binding.extendedFab2.visibility = View.VISIBLE
+            binding.extendedFab3.visibility = View.VISIBLE
         } else {
             binding.extendedFab1.visibility = View.INVISIBLE
             binding.extendedFab2.visibility = View.INVISIBLE
+            binding.extendedFab3.visibility = View.INVISIBLE
         }
     }
 
@@ -149,6 +151,10 @@ class DetailLocal : AppCompatActivity() {
             }
 
             binding.extendedFab2.apply {
+                visibility = View.VISIBLE
+                translationY = 0f
+            }
+            binding.extendedFab3.apply {
                 visibility = View.VISIBLE
                 translationY = 0f
             }
@@ -164,6 +170,9 @@ class DetailLocal : AppCompatActivity() {
             binding.extendedFab2.apply {
                 translationY = 600f
             }
+            binding.extendedFab3.apply {
+                translationY = 300f
+            }
 
             binding.extendedFab.apply {
                 rotation = 180f
@@ -171,29 +180,37 @@ class DetailLocal : AppCompatActivity() {
         }
     }
 
-    private fun cargarImagenDesdeUri(uri: Uri?, photoView: PhotoView) {
+    private fun cargarImagenDesdeUri(uri: Uri?, touchImageView: PhotoView) {
         Glide.with(this)
             .load(uri)
-            .into(photoView)
+            .into(touchImageView)
     }
 
-    private fun obtenerUriImagenDesdeMediaStore(context: Context, imageId: Long): Uri? {
-        val projection = arrayOf(MediaStore.Images.Media._ID, MediaStore.Images.Media.DATA)
-        val cursor: Cursor? = context.contentResolver.query(
-            MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
-            projection,
-            "${MediaStore.Images.Media._ID} = ?",
-            arrayOf(imageId.toString()),
-            null
-        )
-
-        return cursor?.use {
-            if (it.moveToFirst()) {
-                val columnIndex = it.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
-                Uri.parse("file://" + it.getString(columnIndex))
-            } else {
-                null
-            }
+    private fun showConfirmationDialog() {
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("Confirmación")
+        builder.setMessage("¿Estás seguro de que quieres eliminar este elemento?")
+        builder.setPositiveButton("Sí") { _, _ ->
+            eliminarIdiotaLocal(idiotaLocal)
         }
+        builder.setNegativeButton("No") { _, _ ->
+            // No hacer nada si se cancela la eliminación
+        }
+        val dialog = builder.create()
+        dialog.show()
+    }
+
+    private fun eliminarIdiotaLocal(idiotaLocal: IdiotaLocal?) {
+        idiotaLocal?.let {
+            // Enviar información a LocalList para eliminar el elemento
+            val intent = Intent()
+            intent.putExtra("eliminarIdiotaLocal", idiotaLocal)
+            setResult(Activity.RESULT_OK, intent)
+        }
+        finish()
+    }
+
+    companion object {
+        const val DELETE_RESULT_CODE = 1001
     }
 }
