@@ -16,10 +16,9 @@ import com.example.lahoradelidiota.others.IdiotaAdapter
 import com.example.lahoradelidiota.R
 import com.example.lahoradelidiota.R.color.nav2
 import com.example.lahoradelidiota.videoActivity.VideoActivity
-import com.example.lahoradelidiota.database.DbIdiotRecycler
 import com.example.lahoradelidiota.login.LoginActivity
 import com.example.lahoradelidiota.database.PantallaIdiota
-import com.example.lahoradelidiota.databinding.ActivityDetailLocalBinding
+import com.example.lahoradelidiota.database.PassActivity
 import com.example.lahoradelidiota.databinding.ActivityMainBinding
 import com.example.lahoradelidiota.localList.LocalList
 import com.example.lahoradelidiota.photoactivity.ImageActivity
@@ -91,7 +90,7 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 R.id.menudb -> {
-                    val intent = Intent(this, DbIdiotRecycler::class.java)
+                    val intent = Intent(this, PassActivity::class.java)
                     startActivity(intent)
                 }
 

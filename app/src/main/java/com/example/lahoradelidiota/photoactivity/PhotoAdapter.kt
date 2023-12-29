@@ -1,5 +1,6 @@
 package com.example.lahoradelidiota
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,6 +13,7 @@ class photoAdapter : RecyclerView.Adapter<photoAdapter.ViewHolder>() {
 
     var dataList = emptyList<image>()
 
+    @SuppressLint("NotifyDataSetChanged")
     internal fun setDataList(dataList: MutableList<image>) {
         this.dataList = dataList
         notifyDataSetChanged()

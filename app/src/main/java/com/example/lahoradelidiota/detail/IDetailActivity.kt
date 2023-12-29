@@ -3,7 +3,6 @@ package com.example.lahoradelidiota.detail
 import android.annotation.SuppressLint
 import android.content.ContentValues
 import android.content.Intent
-import android.content.pm.ActivityInfo
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.Canvas
@@ -202,7 +201,7 @@ class IDetailActivity : AppCompatActivity() {
         if (uri != null) {
             resolver.openOutputStream(uri).use { outputStream ->
                 bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream!!)
-                Toast.makeText(this, "Image saved to gallery", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Idiota guardado en la galeria", Toast.LENGTH_SHORT).show()
             }
         } else {
             Toast.makeText(this, "Failed to save image", Toast.LENGTH_SHORT).show()

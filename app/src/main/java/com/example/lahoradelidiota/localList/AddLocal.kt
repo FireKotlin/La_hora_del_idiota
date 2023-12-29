@@ -18,7 +18,6 @@ import com.example.lahoradelidiota.localList.db.AppDatabase
 import com.example.lahoradelidiota.localList.db.IdiotaRepository
 import com.example.lahoradelidiota.localList.db.IdiotaViewModel
 import com.example.lahoradelidiota.localList.db.IdiotaViewModelFactory
-import com.example.lahoradelidiota.main.MainActivity
 import java.io.File
 import java.io.FileOutputStream
 

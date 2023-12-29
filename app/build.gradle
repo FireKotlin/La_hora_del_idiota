@@ -42,7 +42,6 @@ android {
 
 dependencies {
 
-
     //FireBase
     implementation platform('com.google.firebase:firebase-bom:32.6.0')
     implementation("com.google.firebase:firebase-firestore")
@@ -57,7 +56,8 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
     apply plugin: 'com.google.gms.google-services'
-
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.1'
+    
     //PHOTO ZOOM
     implementation 'com.github.MikeOrtiz:TouchImageView:1.4.1'
 
@@ -76,13 +76,10 @@ dependencies {
     implementation 'androidx.fragment:fragment-ktx:1.7.0-alpha07'
     implementation 'androidx.activity:activity-ktx:1.9.0-alpha01'
 
-
-
     implementation 'pub.devrel:easypermissions:3.0.0'
 
     implementation "androidx.room:room-runtime:2.6.1"
-    implementation "androidx.room:room-ktx:2.6.1" // Agrega esta línea para soporte de coroutines en Room
+    implementation "androidx.room:room-ktx:2.6.1"
+
     kapt "androidx.room:room-compiler:2.6.1"
-
-
 }

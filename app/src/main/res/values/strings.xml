@@ -19,4 +19,7 @@
     <string name="mis_idiotas">Mis Idiotas</string>
     <string name="quieres_cerrar_sesion_idiota">Quieres cerrar sesion?? Idiota!!</string>
     <string name="iniciar_o_cerrar_sesi_n">Iniciar o cerrar sesión</string>
+    <string name="euuu">Euuu</string>
+    <string name="inserta_contrase_a_de_administrador">Inserta contraseña de administrador</string>
+    <string name="inserta_contrase_a_especial">Inserta contraseña especial:</string>
 </resources>

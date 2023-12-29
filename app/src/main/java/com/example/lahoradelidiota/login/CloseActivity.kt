@@ -4,7 +4,6 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.lahoradelidiota.databinding.ActivityCloseBinding
-import com.example.lahoradelidiota.login.LoginActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.example.lahoradelidiota.main.MainActivity
 

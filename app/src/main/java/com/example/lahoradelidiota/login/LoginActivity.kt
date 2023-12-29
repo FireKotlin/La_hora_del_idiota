@@ -7,7 +7,6 @@ import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
-import com.example.lahoradelidiota.database.DbIdiotRecycler
 import com.example.lahoradelidiota.database.PantallaIdiota
 import com.example.lahoradelidiota.databinding.ActivityLoginBinding
 import com.google.firebase.FirebaseApp
@@ -17,7 +16,6 @@ class LoginActivity : AppCompatActivity() {
 
     private lateinit var firebaseAuth: FirebaseAuth
     private lateinit var sharedPreferences: SharedPreferences
-   // private val KEY_PASSWORD_SAVE = "passwordGuardado"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,11 +59,19 @@ class LoginActivity : AppCompatActivity() {
         firebaseAuth.createUserWithEmailAndPassword(email, pass)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
-                    abrirActividadPrincipal()
+                    // Registro exitoso, abrir la actividad especial
+                    abrirActividadEspecial()
                 } else {
+                    // Error en el registro, mostrar mensaje
                     mostrarMensaje("Error al crear usuario: ${task.exception?.message}")
                 }
             }
+    }
+
+    private fun abrirActividadEspecial() {
+        val intent = Intent(this, PantallaIdiota::class.java)
+        startActivity(intent)
+        finish()
     }
 
     private fun iniciarSesion(email: String, pass: String) {

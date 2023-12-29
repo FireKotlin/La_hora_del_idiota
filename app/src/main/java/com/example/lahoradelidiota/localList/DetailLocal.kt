@@ -1,6 +1,5 @@
 package com.example.lahoradelidiota.localList
 
-import android.Manifest
 import android.annotation.SuppressLint
 import android.content.ContentValues
 import android.content.Intent
@@ -11,9 +10,9 @@ import android.os.Bundle
 import android.os.Handler
 import android.provider.MediaStore
 import android.util.Log
+import android.view.MotionEvent
 import android.view.View
 import android.widget.Toast
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -31,7 +30,6 @@ import com.example.lahoradelidiota.localList.db.AppDatabase
 import com.example.lahoradelidiota.localList.db.IdiotaRepository
 import com.example.lahoradelidiota.localList.db.IdiotaViewModel
 import com.example.lahoradelidiota.localList.db.IdiotaViewModelFactory
-import com.example.lahoradelidiota.main.MainActivity
 import java.io.File
 import java.io.FileOutputStream
 
@@ -45,7 +43,6 @@ class DetailLocal : AppCompatActivity() {
     private var clicked = false
     private var idiotaLocalActual: IdiotaLocal? = null
 
-
     private val idiotaRepository: IdiotaRepository by lazy {
         // Obtener la base de datos
         val database = AppDatabase.getDatabase(this)
@@ -57,12 +54,32 @@ class DetailLocal : AppCompatActivity() {
     private val idiotaViewModel: IdiotaViewModel by viewModels {
         IdiotaViewModelFactory(idiotaRepository)
     }
-
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityDetailLocalBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        binding.scrollView.setOnTouchListener { _, event ->
+            when (event.action) {
+                MotionEvent.ACTION_DOWN, MotionEvent.ACTION_MOVE -> {
+                    if (fabHidden) {
+                        // Cancela la animación de desvanecimiento y muestra el FAB nuevamente
+                        ViewCompat.animate(binding.extendedFab).cancel()
+                        binding.extendedFab.alpha = 1f
+                        binding.extendedFab.visibility = View.VISIBLE
+                        fabHidden = false
+                    }
+
+                    // Reinicia el temporizador de ocultar el FAB
+                    handler.removeCallbacks(hideFabRunnable)
+                    handler.postDelayed(
+                        hideFabRunnable,
+                        4100)
+                }
+            }
+            false
+        }
 
         handler = Handler()
         hideFabRunnable = Runnable {
@@ -72,13 +89,11 @@ class DetailLocal : AppCompatActivity() {
                 fabHidden = true
             }
         }
-        handler.postDelayed(hideFabRunnable, 4100)
 
         binding.extendedFab.visibility = View.VISIBLE
         binding.extendedFab1.visibility = View.GONE
         binding.extendedFab2.visibility = View.GONE
         binding.extendedFab3.visibility = View.GONE
-
 
 
         val idiotaId = intent.getLongExtra("IDIOTA_ID", -1)
@@ -113,8 +128,8 @@ class DetailLocal : AppCompatActivity() {
     private fun showDeleteConfirmationDialog(idiotaLocal: IdiotaLocal) {
         AlertDialog.Builder(this)
             .setTitle("Eliminar Idiota")
-            .setMessage("¿Estás seguro de que quieres eliminar este idiota?")
-            .setPositiveButton("Eliminar") { dialog, _ ->
+            .setMessage("¿Seguro de que quieres eliminar este idiota?")
+            .setPositiveButton("Si, soy marica") { dialog, _ ->
                 idiotaLocalActual?.let {
                     idiotaViewModel.deleteIdiota(it)
                     idiotaLocalActual = null // Establecer a null después de eliminar
@@ -122,7 +137,7 @@ class DetailLocal : AppCompatActivity() {
                 dialog.dismiss()
                 finish() // Regresa a la actividad anterior después de eliminar
             }
-            .setNegativeButton("Cancelar") { dialog, _ ->
+            .setNegativeButton("Ño") { dialog, _ ->
                 dialog.dismiss()
             }
             .create()
@@ -146,13 +161,11 @@ class DetailLocal : AppCompatActivity() {
         }
     }
 
-
     private fun loadImagen(rutaArchivo: String) {
         val file = File(rutaArchivo)
         if (file.exists()) {
             Glide.with(this)
                 .load(file)
-                .error(R.drawable.p31) // Reemplaza con tu imagen de error
                 .listener(object : RequestListener<Drawable> {
                     override fun onLoadFailed(
                         e: GlideException?,
@@ -182,7 +195,11 @@ class DetailLocal : AppCompatActivity() {
 
     }
 
-
+    override fun onPause() {
+        super.onPause()
+        // Detener el temporizador de ocultar el FAB al pausar la actividad
+        handler.removeCallbacks(hideFabRunnable)
+    }
     private fun onAddButtonClicked() {
         setVisibility(clicked)
         setAnimation(clicked)
@@ -261,7 +278,7 @@ class DetailLocal : AppCompatActivity() {
         if (uri != null) {
             resolver.openOutputStream(uri).use { outputStream ->
                 bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream!!)
-                Toast.makeText(this, "Image saved to gallery", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Idiota guardado en la galeria", Toast.LENGTH_SHORT).show()
             }
         } else {
             Toast.makeText(this, "Failed to save image", Toast.LENGTH_SHORT).show()

@@ -1,32 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
-
     <!-- Permisos de la aplicación -->
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"
+    <uses-permission
+        android:name="android.permission.READ_EXTERNAL_STORAGE"
         tools:ignore="ScopedStorage" />
-
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
 
-
-    <!-- Configuración de la aplicación -->
     <application
-        android:exported="false"
-        android:screenOrientation="portrait"
-        tools:ignore="LockedOrientationActivit"
-    android:allowBackup="true"
+        android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
+        android:exported="false"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:requestLegacyExternalStorage="true"
+        android:screenOrientation="portrait"
         android:supportsRtl="true"
         android:theme="@style/Theme.LaHoraDelIdiota"
-        android:requestLegacyExternalStorage="true"
+        tools:ignore="LockedOrientationActivit"
         tools:targetApi="31">
-
+        <activity
+            android:name=".database.PassActivity"
+            android:exported="false" />
         <!-- Actividades de la aplicación -->
         <activity
             android:name=".main.MainActivity"
@@ -36,17 +35,15 @@
             tools:ignore="LockedOrientationActivit">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-
-        <!-- Otras actividades -->
+        </activity> <!-- Otras actividades -->
         <activity
             android:name=".login.CloseActivity"
             android:exported="false"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivit" />
-
         <activity
             android:name=".database.DbIdiotRecycler"
             android:exported="false"
@@ -57,50 +54,40 @@
             android:exported="false"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivit" />
-
         <activity
             android:name=".localList.DetailLocal"
             android:exported="false" />
-
         <activity
             android:name=".localList.LocalList"
             android:exported="false"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivit" />
-
         <activity
             android:name=".photoactivity.ImageActivity"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivit" />
-
         <activity
             android:name=".detail.IDetailActivity"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivit" />
-
         <activity
             android:name=".localList.AddLocal"
             android:exported="true" />
-
         <activity
             android:name=".login.LoginActivity"
             android:exported="false"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivit" />
-
         <activity
             android:name=".database.PantallaIdiota"
             android:exported="false"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivit" />
-
         <activity
             android:name=".videoActivity.VideoActivity"
             android:exported="false"
             android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity" />
-
-        <!-- Proveedor de contenido -->
+            tools:ignore="LockedOrientationActivity" /> <!-- Proveedor de contenido -->
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.provider"

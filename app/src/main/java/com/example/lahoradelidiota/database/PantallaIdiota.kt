@@ -1,6 +1,5 @@
 package com.example.lahoradelidiota.database
 
-import android.content.pm.ActivityInfo
 import android.media.MediaPlayer
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

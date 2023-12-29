@@ -41,8 +41,7 @@ class VideoActivity : AppCompatActivity() {
 
                 updatePlaylist(videoItems)
             }
-            .addOnFailureListener { exception ->
-                // Manejar errores
+            .addOnFailureListener {
             }
     }
 

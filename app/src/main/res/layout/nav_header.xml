@@ -16,7 +16,8 @@
           android:id="@+id/pinaBttn"
           android:layout_width="match_parent"
           android:layout_height="230dp"
-          android:src="@drawable/nav2" />
+          android:src="@drawable/nav2"
+          android:contentDescription="@string/euuu" />
 
    </LinearLayout>
 </layout>
