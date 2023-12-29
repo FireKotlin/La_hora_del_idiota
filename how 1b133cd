@@ -1,0 +1,66 @@
+[33m25bf885[m[33m ([m[1;36mHEAD -> [m[1;32mdevelop[m[33m, [m[1;31morigin/develop[m[33m)[m HEAD@{0}: reset: moving to 25bf8853d95528180b80a06ffb31f9a489c59c54
+[33mb5b93da[m HEAD@{1}: commit (merge): Merge remote-tracking branch 'origin/develop' into develop
+[33m1b133cd[m HEAD@{2}: commit: Password, optimization, clean, bugs fixed, toast changed, details changed, project 99% complete.
+[33m813818f[m HEAD@{3}: commit: Nav visibility and more.
+[33mbdff232[m HEAD@{4}: commit: LocalListist with room.
+[33m7801950[m HEAD@{5}: reset: moving to 7801950c294d772523948dcdbd758db8358fbca2
+[33m199e3e9[m[33m ([m[1;31morigin/dev[m[33m, [m[1;32merrordev[m[33m)[m HEAD@{6}: reset: moving to 199e3e90413991c00065e2a30a6ecf6fc57bdd6e
+[33m25bf885[m[33m ([m[1;36mHEAD -> [m[1;32mdevelop[m[33m, [m[1;31morigin/develop[m[33m)[m HEAD@{7}: reset: moving to 25bf8853d95528180b80a06ffb31f9a489c59c54
+[33m25bf885[m[33m ([m[1;36mHEAD -> [m[1;32mdevelop[m[33m, [m[1;31morigin/develop[m[33m)[m HEAD@{8}: reset: moving to 25bf8853d95528180b80a06ffb31f9a489c59c54
+[33md986f93[m HEAD@{9}: reset: moving to d986f9346e791b7860a0f2617eed2c8b945d32cc
+[33m25bf885[m[33m ([m[1;36mHEAD -> [m[1;32mdevelop[m[33m, [m[1;31morigin/develop[m[33m)[m HEAD@{10}: reset: moving to 25bf8853d95528180b80a06ffb31f9a489c59c54
+[33m25bf885[m[33m ([m[1;36mHEAD -> [m[1;32mdevelop[m[33m, [m[1;31morigin/develop[m[33m)[m HEAD@{11}: commit: LocalListist fixed.
+[33m014efff[m HEAD@{12}: reset: moving to 014efffcd808962a6ade45a2b73bfb4c2630ccce
+[33mec9a629[m HEAD@{13}: commit: LocalListist delete bttn added.
+[33m47aeac0[m HEAD@{14}: commit: Local image detail.
+[33m014efff[m HEAD@{15}: commit: Local detail.
+[33m7801950[m HEAD@{16}: reset: moving to 7801950c294d772523948dcdbd758db8358fbca2
+[33m370fa48[m HEAD@{17}: reset: moving to 370fa485ccd76cad03960a7f890c291fd527e0f3
+[33m7801950[m HEAD@{18}: commit: Login cancel.
+[33m4ff5da7[m HEAD@{19}: pull origin develop: Fast-forward
+[33m370fa48[m HEAD@{20}: commit: Detail local.
+[33m77bd795[m HEAD@{21}: commit (amend): Edit bttn fix and local list implementation.
+[33m1de0f17[m HEAD@{22}: commit: Edit bttn fix and local list implementation.
+[33md986f93[m HEAD@{23}: reset: moving to d986f9346e791b7860a0f2617eed2c8b945d32cc
+[33md986f93[m HEAD@{24}: reset: moving to d986f93
+[33md986f93[m HEAD@{25}: reset: moving to d986f93
+[33md986f93[m HEAD@{26}: reset: moving to HEAD
+[33md986f93[m HEAD@{27}: reset: moving to HEAD
+[33md986f93[m HEAD@{28}: reset: moving to HEAD
+[33md986f93[m HEAD@{29}: commit: Vertical mode.
+[33m5c4e3cd[m HEAD@{30}: commit: Foto db.
+[33m4929369[m HEAD@{31}: commit: Video db.
+[33m7ae34ed[m HEAD@{32}: commit: Search bar added.
+[33m7f6d3e6[m HEAD@{33}: commit: Clean.
+[33mf879e41[m HEAD@{34}: commit: Clean.
+[33m673d41d[m HEAD@{35}: commit: Video Activity added.
+[33m4a93744[m HEAD@{36}: commit: Glide error fixed.
+[33m833f6f3[m HEAD@{37}: commit: Main error fixed.
+[33mdbcd74e[m HEAD@{38}: commit: Main error fixed
+[33m2278cc0[m HEAD@{39}: reset: moving to 2278cc039c8315dbdbe82daf271eb80020eee700
+[33m23b7139[m HEAD@{40}: checkout: moving from develop to develop
+[33m23b7139[m HEAD@{41}: reset: moving to HEAD
+[33m23b7139[m HEAD@{42}: reset: moving to 23b71397eb3c6c570e2f26877dad061e90346e6c
+[33m23b7139[m HEAD@{43}: reset: moving to HEAD
+[33m23b7139[m HEAD@{44}: checkout: moving from develop to develop
+[33m23b7139[m HEAD@{45}: pull: Fast-forward
+[33m20980c0[m HEAD@{46}: reset: moving to HEAD
+[33m20980c0[m HEAD@{47}: merge origin/develop: Merge made by the 'ort' strategy.
+[33m3e6cb19[m HEAD@{48}: commit (amend): Navigation Menu added.
+[33md02fc14[m HEAD@{49}: commit (amend): Navigation Menu added.
+[33m85e11e6[m HEAD@{50}: commit: Navigation Menu added.
+[33m6b8f21e[m HEAD@{51}: commit (cherry-pick): Download image added.
+[33mad8e55d[m HEAD@{52}: reset: moving to HEAD
+[33mad8e55d[m HEAD@{53}: reset: moving to ad8e55d7be6834a5d15340bd6f1cdc6f32db9dba
+[33mad8e55d[m HEAD@{54}: reset: moving to HEAD
+[33mad8e55d[m HEAD@{55}: checkout: moving from develop to develop
+[33mad8e55d[m HEAD@{56}: branch: Reset to origin/develop
+[33mad8e55d[m HEAD@{57}: commit: Extended FAB fixed.
+[33mec6060f[m HEAD@{58}: commit: Extended FAB added.
+[33m602a278[m HEAD@{59}: commit: FAB added.
+[33mde49d60[m HEAD@{60}: commit: Splash Screen added.
+[33mcce456a[m HEAD@{61}: commit: Bug fix.
+[33m199e3e9[m[33m ([m[1;31morigin/dev[m[33m, [m[1;32merrordev[m[33m)[m HEAD@{62}: checkout: moving from errordev to develop
+[33m199e3e9[m[33m ([m[1;31morigin/dev[m[33m, [m[1;32merrordev[m[33m)[m HEAD@{63}: pull origin dev: Fast-forward
+[33m841e6f2[m[33m ([m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmaster[m[33m)[m HEAD@{64}: checkout: moving from master to errordev
+[33m841e6f2[m[33m ([m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmaster[m[33m)[m HEAD@{65}: clone: from https://github.com/FireKotlin/La_hora_del_idiota.git
