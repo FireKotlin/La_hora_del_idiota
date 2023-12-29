@@ -1,0 +1,204 @@
+[33mcommit d986f9346e791b7860a0f2617eed2c8b945d32cc[m[33m ([m[1;36mHEAD -> [m[1;32mdevelop[m[33m, [m[1;31morigin/develop[m[33m)[m
+Author: FireKotlin <fire3456gamer@gmail.com>
+Date:   Wed Nov 29 10:54:37 2023 -0600
+
+    Vertical mode.
+
+[33mcommit 5c4e3cdbb8c383092bffdbf7aeefff618feba8bc[m
+Author: FireKotlin <fire3456gamer@gmail.com>
+Date:   Wed Nov 29 10:20:56 2023 -0600
+
+    Foto db.
+
+[33mcommit 4929369af6751eb81d46bf94097b71d3dcd2de80[m
+Author: FireKotlin <fire3456gamer@gmail.com>
+Date:   Wed Nov 29 00:09:35 2023 -0600
+
+    Video db.
+
+[33mcommit 7ae34ed7f62e5c241b304a3edd0f861bba426e9e[m
+Author: FireKotlin <fire3456gamer@gmail.com>
+Date:   Mon Nov 27 23:33:48 2023 -0600
+
+    Search bar added.
+
+[33mcommit 7f6d3e6a42ed890c3725f154725cc4c39ba53c5c[m
+Author: FireKotlin <fire3456gamer@gmail.com>
+Date:   Mon Nov 27 12:40:16 2023 -0600
+
+    Clean.
+
+[33mcommit f879e419d091bc39a9641bb106d0b0ffafbdd726[m
+Author: FireKotlin <fire3456gamer@gmail.com>
+Date:   Mon Nov 27 12:40:05 2023 -0600
+
+    Clean.
+
+[33mcommit 673d41d7fd7368a9435515fd8b43bf45cc80f76d[m
+Author: FireKotlin <fire3456gamer@gmail.com>
+Date:   Sun Nov 26 12:19:57 2023 -0600
+
+    Video Activity added.
+
+[33mcommit 4a937442b29cebb204726444a4042cd1454ed931[m
+Author: FireKotlin <fire3456gamer@gmail.com>
+Date:   Sat Nov 25 12:34:41 2023 -0600
+
+    Glide error fixed.
+
+[33mcommit 833f6f338d0e836e539141badb9c9ed5379601f8[m
+Author: FireKotlin <fire3456gamer@gmail.com>
+Date:   Sun Oct 22 15:56:44 2023 -0600
+
+    Main error fixed.
+
+[33mcommit dbcd74efdeb4871495ae04d95a7b44083fcc397b[m
+Author: FireKotlin <fire3456gamer@gmail.com>
+Date:   Sun Oct 22 15:53:24 2023 -0600
+
+    Main error fixed
+    .
+
+[33mcommit 2278cc039c8315dbdbe82daf271eb80020eee700[m
+Author: FireKotlin <fire3456gamer@gmail.com>
+Date:   Tue Aug 15 14:16:46 2023 -0600
+
+    Main activity db list.
+
+[33mcommit 076512ee08f9ebb0d05ab35348f2bf46961dbe27[m
+Author: FireKotlin <fire3456gamer@gmail.com>
+Date:   Tue Aug 15 13:52:47 2023 -0600
+
+    Delete button added.
+
+[33mcommit eaf98e9b96b7dacceabe203c3aad4976fe58da5e[m
+Author: FireKotlin <fire3456gamer@gmail.com>
+Date:   Wed Aug 9 19:47:00 2023 -0600
+
+    List, delete and edit added.
+
+[33mcommit 8a68123ef2afe44737cb1b4fcf46e6edd926d50f[m
+Author: FireKotlin <fire3456gamer@gmail.com>
+Date:   Fri Aug 4 01:57:13 2023 -0600
+
+    nav color 2.
+
+[33mcommit cca8b95a8c6ef65563e92de957675c6ac252b2a9[m
+Author: FireKotlin <fire3456gamer@gmail.com>
+Date:   Fri Aug 4 01:42:28 2023 -0600
+
+    activity_add_idiot.xml added.
+
+[33mcommit 525d4be05286274d34b1a1eb1af50a6f9fc88578[m
+Author: FireKotlin <fire3456gamer@gmail.com>
+Date:   Thu Aug 3 00:28:11 2023 -0600
+
+    IDetailActivity images loaded with Glide.
+
+[33mcommit 94e5475a32c4d9f101a1a25a4039e0eea2242a36[m
+Author: FireKotlin <fire3456gamer@gmail.com>
+Date:   Tue Aug 1 10:48:12 2023 -0600
+
+    Background nav.
+
+[33mcommit 5f2e8486c69f9e9136256dc8d895e9c849b79992[m
+Author: FireKotlin <fire3456gamer@gmail.com>
+Date:   Sun Jul 30 15:41:24 2023 -0600
+
+    Share screenshot added.
+
+[33mcommit 5db7ba39de634ace087ffbf5778d47b4e1be161d[m
+Author: FireKotlin <fire3456gamer@gmail.com>
+Date:   Sun Jul 30 13:34:27 2023 -0600
+
+    Images changed.
+
+[33mcommit 20980c078b43e440f995058ce15f8d803e105abe[m
+Merge: 3e6cb19 d02fc14
+Author: FireKotlin <fire3456gamer@gmail.com>
+Date:   Fri Jul 21 01:58:58 2023 -0600
+
+    Merge remote-tracking branch 'origin/develop' into develop
+
+[33mcommit 3e6cb197bc8317c6e777be2ff5d75d3362f10261[m
+Author: FireKotlin <fire3456gamer@gmail.com>
+Date:   Fri Jul 21 01:57:56 2023 -0600
+
+    Navigation Menu added.
+
+[33mcommit d02fc14920f63720a48ea282af28c22b197eee16[m
+Author: FireKotlin <fire3456gamer@gmail.com>
+Date:   Fri Jul 21 01:57:56 2023 -0600
+
+    Navigation Menu added.
+
+[33mcommit 6b8f21ea08201bd96a3c56acfbbf67072c906da9[m
+Author: FireKotlin <fire3456gamer@gmail.com>
+Date:   Thu Jul 20 16:42:16 2023 -0600
+
+    Download image added.
+
+[33mcommit ad8e55d7be6834a5d15340bd6f1cdc6f32db9dba[m
+Author: FireKotlin <fire3456gamer@gmail.com>
+Date:   Thu Jul 20 16:42:16 2023 -0600
+
+    Extended FAB fixed.
+
+[33mcommit ec6060f6c21711458efa6047630b6edb61f646c1[m
+Author: FireKotlin <fire3456gamer@gmail.com>
+Date:   Wed Jul 19 02:16:01 2023 -0600
+
+    Extended FAB added.
+
+[33mcommit 602a2782a3d55ac294a22cf5ca15b6f4c4123d0c[m
+Author: FireKotlin <fire3456gamer@gmail.com>
+Date:   Tue Jul 18 22:09:33 2023 -0600
+
+    FAB added.
+
+[33mcommit de49d60532450a5a42f0561ce985c7cd0786c8aa[m
+Author: FireKotlin <fire3456gamer@gmail.com>
+Date:   Tue Jul 18 02:28:42 2023 -0600
+
+    Splash Screen added.
+
+[33mcommit cce456a476aff8a7c999be3e2fbac4aa324acb99[m
+Author: FireKotlin <fire3456gamer@gmail.com>
+Date:   Tue Jul 18 00:52:39 2023 -0600
+
+    Bug fix.
+
+[33mcommit 199e3e90413991c00065e2a30a6ecf6fc57bdd6e[m[33m ([m[1;31morigin/dev[m[33m, [m[1;32merrordev[m[33m)[m
+Author: FireKotlin <fire3456gamer@gmail.com>
+Date:   Thu Jun 8 18:06:41 2023 -0600
+
+    Login layout implementation.
+
+[33mcommit 02cd30c305251e2a3549cdaf607adeb7d6fb4586[m
+Merge: 6f6fd54 dbcd415
+Author: FireKotlin <fire3456gamer@gmail.com>
+Date:   Mon May 29 23:03:28 2023 -0600
+
+    Merge remote-tracking branch 'origin/dev' into dev
+    
+    # Conflicts:
+    #       app/src/main/res/layout/activity_login.xml
+    #       app/src/main/res/values/strings.xml
+
+[33mcommit 6f6fd54b7560c1e1a2697ba95f5991edac88f38c[m
+Author: FireKotlin <fire3456gamer@gmail.com>
+Date:   Mon May 29 21:50:14 2023 -0600
+
+    Login layout implementation.
+
+[33mcommit dbcd415dbc4a542f10c26371813066ba2583315d[m
+Author: FireKotlin <fire3456gamer@gmail.com>
+Date:   Mon May 29 21:50:14 2023 -0600
+
+    Toolbar added, access to login screen.
+
+[33mcommit 841e6f2bec21569d0e834ebefa56eab6459c697d[m[33m ([m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmaster[m[33m)[m
+Author: FireKotlin <fire3456gamer@gmail.com>
+Date:   Wed May 24 22:33:40 2023 -0600
+
+    Initial commit

@@ -13,4 +13,5 @@
     <color name="blue">#5C0005FF</color>
     <color name="nav">#C82E2E2E</color>
     <color name="nav2">#99FFFFFF</color>
+    <color name="fabColor">#99E4E4E4</color>
 </resources>

@@ -15,4 +15,9 @@ class IdiotaViewModel(private val repository: IdiotaRepository) : ViewModel() {
     fun getIdiotaById(id: Long): LiveData<IdiotaLocal> {
         return repository.getIdiotaById(id)
     }
+    fun deleteIdiota(idiotaLocal: IdiotaLocal) {
+        viewModelScope.launch {
+            repository.delete(idiotaLocal)
+        }
+    }
 }

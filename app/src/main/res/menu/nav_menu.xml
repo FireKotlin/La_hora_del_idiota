@@ -9,13 +9,13 @@
         android:id="@+id/menu_option2"
         android:title="@string/pantalla_idiota" />
     <item
-        android:id="@+id/menu_option3"
-        android:title="DB" />
-    <item
         android:id="@+id/videoBtn"
         android:title="@string/videos_idiotas" />
     <item
         android:id="@+id/localBttn"
         android:title="@string/mis_idiotas" />
+    <item
+        android:id="@+id/menudb"
+        android:title="Base de datos" />
 
 </menu>

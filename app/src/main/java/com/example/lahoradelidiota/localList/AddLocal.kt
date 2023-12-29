@@ -8,14 +8,17 @@ import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.activity.viewModels
+import com.example.lahoradelidiota.R
 import com.example.lahoradelidiota.databinding.ActivityAddLocalBinding
 import com.example.lahoradelidiota.localList.db.AppDatabase
 import com.example.lahoradelidiota.localList.db.IdiotaRepository
 import com.example.lahoradelidiota.localList.db.IdiotaViewModel
 import com.example.lahoradelidiota.localList.db.IdiotaViewModelFactory
+import com.example.lahoradelidiota.main.MainActivity
 import java.io.File
 import java.io.FileOutputStream
 
@@ -54,6 +57,14 @@ class AddLocal : AppCompatActivity() {
 
         setupSaveButton()
         setupImageSelection()
+
+        setSupportActionBar(binding.addToolbar)
+        val toolbar = binding.addToolbar
+        toolbar.setNavigationIcon(R.drawable.baseline_menu_24)
+        toolbar.setNavigationIcon(R.drawable.baseline_arrow_back_24)
+        toolbar.setNavigationOnClickListener {
+            startActivity(Intent(this, LocalList::class.java))
+        }
     }
 
     private fun setupSaveButton() {
@@ -76,11 +87,18 @@ class AddLocal : AppCompatActivity() {
         val habilidadEspecial = binding.habilidadEdit.text.toString()
         val descripcion = binding.descripcionEdit.text.toString()
 
+        // Verificar si hay campos vacíos
+        if (nombre.isEmpty() || numeroDeIdiota.isEmpty() || nivel.isEmpty() ||
+            site.isEmpty() || habilidadEspecial.isEmpty() || descripcion.isEmpty()) {
+            // Mostrar un mensaje de error
+            Toast.makeText(this, "Llena todos los campos IDIOTA!!", Toast.LENGTH_SHORT).show()
+            return
+        }
+
         val imagePath = selectedImageUri?.let { uri -> saveImageInInternalStorage(uri) }
         Log.d("SaveImage", "Guardando ruta de la imagen: $imagePath")
 
         val idiotaLocal = IdiotaLocal(
-
             imagenUri = imagePath ?: "",
             nombre = nombre,
             numeroDeIdiota = numeroDeIdiota,
@@ -93,6 +111,7 @@ class AddLocal : AppCompatActivity() {
         idiotaViewModel.insert(idiotaLocal)
         finish() // Cierra la actividad después de guardar
     }
+
 
     private fun openGallery() {
         val galleryIntent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)

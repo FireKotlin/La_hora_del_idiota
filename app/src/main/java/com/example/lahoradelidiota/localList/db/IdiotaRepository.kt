@@ -13,4 +13,7 @@ class IdiotaRepository(private val idiotaLocalDao: IdiotaLocalDao) {
     fun getIdiotaById(id: Long): LiveData<IdiotaLocal> {
         return idiotaLocalDao.getIdiotaById(id)
     }
+    suspend fun delete(idiotaLocal: IdiotaLocal) {
+        idiotaLocalDao.delete(idiotaLocal)
+    }
 }

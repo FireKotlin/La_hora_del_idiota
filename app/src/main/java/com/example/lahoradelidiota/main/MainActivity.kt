@@ -19,10 +19,12 @@ import com.example.lahoradelidiota.videoActivity.VideoActivity
 import com.example.lahoradelidiota.database.DbIdiotRecycler
 import com.example.lahoradelidiota.login.LoginActivity
 import com.example.lahoradelidiota.database.PantallaIdiota
+import com.example.lahoradelidiota.databinding.ActivityDetailLocalBinding
 import com.example.lahoradelidiota.databinding.ActivityMainBinding
 import com.example.lahoradelidiota.localList.LocalList
 import com.example.lahoradelidiota.photoactivity.ImageActivity
 import com.google.android.material.navigation.NavigationView
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import java.util.Locale
 
@@ -33,15 +35,14 @@ class MainActivity : AppCompatActivity() {
     private var idiotList = mutableListOf<Idiota>()
     private lateinit var searchView: SearchView
     val adapter = IdiotaAdapter()
+    private lateinit var binding: ActivityMainBinding
 
     @SuppressLint("NotifyDataSetChanged")
     override fun onCreate(savedInstanceState: Bundle?) {
-
-        Thread.sleep(700)
-        setTheme(R.style.Theme_LaHoraDelIdiota)
-
         super.onCreate(savedInstanceState)
-        val binding = ActivityMainBinding.inflate(layoutInflater)
+
+        // Inicialización correcta de binding
+        binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         binding.recyclerIdiot.layoutManager = LinearLayoutManager(this)
@@ -62,21 +63,21 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        // Inicialización correcta de drawerLayout
+        drawerLayout = binding.drawerLayout
+
         setSupportActionBar(binding.maintoolbar)
         val mainToolbar = binding.maintoolbar
         mainToolbar.setNavigationIcon(R.drawable.baseline_menu_24)
         mainToolbar.setNavigationOnClickListener {
-
             drawerLayout.openDrawer(GravityCompat.START)
         }
 
-        drawerLayout = binding.drawerLayout
         val navigationView: NavigationView = binding.navigationView
         val backgroundColor = ContextCompat.getColor(this, nav2)
         navigationView.setBackgroundColor(backgroundColor)
 
         navigationView.setNavigationItemSelectedListener { menuItem ->
-
             drawerLayout.closeDrawers()
 
             when (menuItem.itemId) {
@@ -84,13 +85,12 @@ class MainActivity : AppCompatActivity() {
                     val intent = Intent(this, LoginActivity::class.java)
                     startActivity(intent)
                 }
-
                 R.id.menu_option2 -> {
                     val intent = Intent(this, PantallaIdiota::class.java)
                     startActivity(intent)
                 }
 
-                R.id.menu_option3 -> {
+                R.id.menudb -> {
                     val intent = Intent(this, DbIdiotRecycler::class.java)
                     startActivity(intent)
                 }
@@ -142,7 +142,6 @@ class MainActivity : AppCompatActivity() {
         searchView = binding.searchView
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
-                // No necesitas hacer nada aquí, ya que se manejará en onQueryTextChange
                 return true
             }
 
@@ -151,17 +150,37 @@ class MainActivity : AppCompatActivity() {
                 return true
             }
         })
+        actualizarVisibilidadMenu()
     }
     private fun openDetailActivity(earthquake: Idiota) {
         val intent = Intent(this, IDetailActivity::class.java)
         intent.putExtra(IDetailActivity.IDIOT_KEY, earthquake)
         startActivity(intent)
     }
+    @SuppressLint("NotifyDataSetChanged")
     private fun filterIdiotList(query: String?) {
         val filteredList = idiotList.filter {
             it.nombre.toLowerCase(Locale.getDefault()).contains(query?.toLowerCase(Locale.getDefault()) ?: "")
         }
         adapter.submitList(filteredList)
         adapter.notifyDataSetChanged()
+    }
+
+    private fun actualizarVisibilidadMenu() {
+        val isLoggedIn = FirebaseAuth.getInstance().currentUser != null
+        binding.navigationView.menu.findItem(R.id.menu_option2).isVisible = isLoggedIn
+        binding.navigationView.menu.findItem(R.id.menudb).isVisible = isLoggedIn
+        binding.navigationView.menu.findItem(R.id.videoBtn).isVisible = isLoggedIn
+        binding.navigationView.menu.findItem(R.id.localBttn).isVisible = isLoggedIn
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+        try {
+            actualizarVisibilidadMenu()
+        } catch (e: Exception) {
+            Log.e("MainActivity", "Error en onResume: ", e)
+        }
     }
 }

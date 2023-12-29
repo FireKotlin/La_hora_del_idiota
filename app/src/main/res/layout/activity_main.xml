@@ -72,7 +72,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom|end"
                 android:elevation="@dimen/cardview_compat_inset_shadow"
-                android:src="@drawable/baseline_arrow_forward_ios_24"
+                android:src="@drawable/baseline_double_arrow_24"
                 app:backgroundTint="@color/white"
                 android:contentDescription="@string/button"
                 app:layout_constraintBottom_toBottomOf="parent"

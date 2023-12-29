@@ -74,7 +74,7 @@ class IDetailActivity : AppCompatActivity() {
                     handler.removeCallbacks(hideFabRunnable)
                     handler.postDelayed(
                         hideFabRunnable,
-                        6000)
+                        4100)
                 }
             }
             false

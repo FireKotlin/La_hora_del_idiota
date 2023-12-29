@@ -48,6 +48,17 @@
             tools:ignore="LockedOrientationActivit" />
 
         <activity
+            android:name=".database.DbIdiotRecycler"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivit" />
+        <activity
+            android:name=".database.AddIdiot"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivit" />
+
+        <activity
             android:name=".localList.DetailLocal"
             android:exported="false" />
 
