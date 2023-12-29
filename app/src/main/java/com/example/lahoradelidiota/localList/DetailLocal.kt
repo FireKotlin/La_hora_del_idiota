@@ -1,17 +1,28 @@
 package com.example.lahoradelidiota.localList
 
+import android.Manifest
 import android.annotation.SuppressLint
-import android.content.Intent
-import android.net.Uri
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.os.Handler
-import android.view.MotionEvent
+import android.util.Log
 import android.view.View
+import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.DataSource
+import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.request.RequestListener
 import com.example.lahoradelidiota.R
 import com.example.lahoradelidiota.databinding.ActivityDetailLocalBinding
-
+import com.example.lahoradelidiota.localList.db.AppDatabase
+import com.example.lahoradelidiota.localList.db.IdiotaRepository
+import com.example.lahoradelidiota.localList.db.IdiotaViewModel
+import com.example.lahoradelidiota.localList.db.IdiotaViewModelFactory
+import java.io.File
 
 class DetailLocal : AppCompatActivity() {
 
@@ -22,78 +33,90 @@ class DetailLocal : AppCompatActivity() {
     private var stopHideFabTimer = false
     private var clicked = false
 
+    private val idiotaRepository: IdiotaRepository by lazy {
+        // Obtener la base de datos
+        val database = AppDatabase.getDatabase(this)
+        // Obtener el DAO
+        val dao = database.UserDao()
+        // Crear el repositorio
+        IdiotaRepository(dao)
+    }
+    private val idiotaViewModel: IdiotaViewModel by viewModels {
+        IdiotaViewModelFactory(idiotaRepository)
+    }
+
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityDetailLocalBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        handler = Handler()
-        hideFabRunnable = Runnable {
-            if (!fabHidden && !stopHideFabTimer) {
-                fadeOutFab(binding.extendedFab)
-                fabHidden = true
+        val idiotaId = intent.getLongExtra("IDIOTA_ID", -1)
+        if (idiotaId != -1L) {
+            idiotaViewModel.getIdiotaById(idiotaId).observe(this) { idiotaLocal ->
+                displayIdiotaDetails(idiotaLocal)
             }
-        }
-
-        binding.scrollView.setOnTouchListener { _, event ->
-            when (event.action) {
-                MotionEvent.ACTION_DOWN, MotionEvent.ACTION_MOVE -> {
-                    if (fabHidden) {
-                        ViewCompat.animate(binding.extendedFab).cancel()
-                        binding.extendedFab.alpha = 1f
-                        binding.extendedFab.visibility = View.VISIBLE
-                        fabHidden = false
-                    }
-                    handler.removeCallbacks(hideFabRunnable)
-                    handler.postDelayed(hideFabRunnable, 6000)
-                }
-            }
-            false
-        }
-
-        handler.postDelayed(hideFabRunnable, 6000)
-
-        val idiotaLocal: IdiotaLocal? = intent.getParcelableExtra("idiotaLocal")
-
-        if (idiotaLocal != null) {
-            cargarDetalles(idiotaLocal)
-        }
-
-        val toolbar = binding.detailtoolbar
-        toolbar.title = idiotaLocal?.nombre ?: ""
-        toolbar.setNavigationIcon(R.drawable.baseline_arrow_back_24)
-        toolbar.setNavigationOnClickListener {
-            startActivity(Intent(this, LocalList::class.java))
-        }
-
-        binding.extendedFab.setOnClickListener {
-            stopHideFabTimer = true
-            onAddButtonClicked()
-        }
-        binding.extendedFab1.setOnClickListener {
-            // Lógica para guardar imagen en la galería
-            // Puedes implementar esta lógica según tus requisitos
-        }
-        binding.extendedFab2.setOnClickListener {
-            // Lógica para compartir captura de pantalla
-            // Puedes implementar esta lógica según tus requisitos
+        } else {
+            Toast.makeText(this, "Error: No se pudo cargar los detalles.", Toast.LENGTH_LONG).show()
         }
     }
+    private fun displayIdiotaDetails(idiotaLocal: IdiotaLocal) {
+        Log.d("LoadImage", "Recuperando ruta de la imagen: ${idiotaLocal.imagenUri}")
 
-    private fun cargarDetalles(idiotaLocal: IdiotaLocal) {
-        val imagePath = idiotaLocal.imagenUri?.toString()
-        if (imagePath != null) {
-            val imageUri = Uri.parse(imagePath)
-            binding.detailImage.setImageURI(imageUri)
-        } else {
-            // Manejar caso donde la ruta de la imagen es nula
-        }
         binding.detailName.text = idiotaLocal.nombre
         binding.nivelDeIdiotes.text = idiotaLocal.nivel
         binding.sitioFrecuente.text = idiotaLocal.site
         binding.habilidadEspecial.text = idiotaLocal.habilidadEspecial
         binding.descripcion.text = idiotaLocal.descripcion
+
+        idiotaLocal.imagenUri?.let { loadImagen(it) }
+    }
+
+    private fun loadImagen(rutaArchivo: String) {
+        val file = File(rutaArchivo)
+        if (file.exists()) {
+            Glide.with(this)
+                .load(file)
+                .error(R.drawable.p31) // Reemplaza con tu imagen de error
+                .listener(object : RequestListener<Drawable> {
+                    override fun onLoadFailed(e: GlideException?, model: Any?, target: com.bumptech.glide.request.target.Target<Drawable>?, isFirstResource: Boolean): Boolean {
+                        Log.e("Glide", "Error al cargar la imagen", e)
+                        return false
+                    }
+
+                    override fun onResourceReady(resource: Drawable?, model: Any?, target: com.bumptech.glide.request.target.Target<Drawable>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
+                        return false
+                    }
+                })
+                .into(binding.detailImage)
+        } else {
+            Log.e("LoadImage", "El archivo no existe: $rutaArchivo")
+            // Aquí puedes manejar el caso de que el archivo no exista
+        }
+
+    }
+    private fun setupFabButtons() {
+        binding.extendedFab.setOnClickListener {
+            stopHideFabTimer = true
+            onAddButtonClicked()
+        }
+        binding.extendedFab1.setOnClickListener {
+        }
+        binding.extendedFab2.setOnClickListener {
+            // Share logic...
+        }
+        binding.extendedFab3.setOnClickListener {
+        }
+    }
+
+
+    private fun onAddButtonClicked() {
+        setVisibility(clicked)
+        setAnimation(clicked)
+        clicked = !clicked
+        fadeOutFab(binding.extendedFab1)
+        fadeOutFab(binding.extendedFab2)
+        fadeOutFab(binding.extendedFab3)
     }
 
     private fun fadeOutFab(extendedFab: View) {
@@ -107,30 +130,6 @@ class DetailLocal : AppCompatActivity() {
                 .start()
         }
     }
-
-    private fun onAddButtonClicked() {
-        setVisibility(clicked)
-        setAnimation(clicked)
-        clicked = !clicked
-
-        if (binding.extendedFab1.visibility == View.INVISIBLE && binding.extendedFab2.visibility == View.INVISIBLE) {
-            fabHidden = true
-            fadeOutFab(binding.extendedFab)
-        } else {
-            fabHidden = false
-        }
-    }
-
-    private fun setVisibility(clicked: Boolean) {
-        if (!clicked) {
-            binding.extendedFab1.visibility = View.VISIBLE
-            binding.extendedFab2.visibility = View.VISIBLE
-        } else {
-            binding.extendedFab1.visibility = View.INVISIBLE
-            binding.extendedFab2.visibility = View.INVISIBLE
-        }
-    }
-
     private fun setAnimation(clicked: Boolean) {
         if (!clicked) {
             binding.extendedFab1.apply {
@@ -160,6 +159,15 @@ class DetailLocal : AppCompatActivity() {
             }
         }
     }
+    private fun setVisibility(clicked: Boolean) {
+        if (!clicked) {
+            binding.extendedFab1.visibility = View.VISIBLE
+            binding.extendedFab2.visibility = View.VISIBLE
+            binding.extendedFab3.visibility = View.VISIBLE
+        } else {
+            binding.extendedFab1.visibility = View.INVISIBLE
+            binding.extendedFab2.visibility = View.INVISIBLE
+            binding.extendedFab3.visibility = View.INVISIBLE
+        }
+    }
 }
-
-

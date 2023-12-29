@@ -35,17 +35,19 @@
 
 
 
-                <com.ortiz.touchview.TouchImageView
+                <ImageView
                     android:id="@+id/detail_image"
                     android:layout_width="267dp"
                     android:layout_height="256dp"
-                    tools:src="@drawable/pabro"
+                    app:srcCompat="@drawable/pabro"
                     app:layout_constraintTop_toBottomOf="@id/detailtoolbar"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     android:elevation="12dp"
                     android:layout_marginTop="30sp"
-                    android:contentDescription="@string/image_description" />
+                    android:contentDescription="@string/image_description"
+                    android:clickable="true"
+                    android:focusable="true"/>
 
                 <TextView
                     android:id="@+id/detail_name"
@@ -221,6 +223,22 @@
                 android:clickable="true"
                 android:focusable="true"
                 android:src="@drawable/baseline_share_24"
+                android:visibility="gone"
+                android:contentDescription="TODO" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/extendedFab3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toTopOf="@id/extendedFab2"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginBottom="10dp"
+                android:layout_marginEnd="16dp"
+                app:backgroundTint="@color/white"
+                android:tint="@color/white"
+                android:clickable="true"
+                android:focusable="true"
+                android:src="@drawable/baseline_delete_24"
                 android:visibility="gone"
                 android:contentDescription="TODO" />
 

@@ -2,13 +2,17 @@ package com.example.lahoradelidiota.localList
 
 import android.net.Uri
 import android.os.Parcelable
-import com.google.gson.annotations.JsonAdapter
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import kotlinx.android.parcel.Parcelize
+import java.io.File
 
 @Suppress("DEPRECATED_ANNOTATION")
 @Parcelize
+@Entity(tableName = "idiota_local_table")
 data class IdiotaLocal(
-    val imagenUri: String?, // Ahora se almacena la URL de la imagen en lugar de Uri
+    @PrimaryKey(autoGenerate = true) val id: Long = 0,
+    val imagenUri: String,
     val numeroDeIdiota: String,
     val nombre: String,
     val nivel: String,
