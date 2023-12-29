@@ -12,3 +12,4 @@ data class Idiota(
     val site: String,
     val habilidadEspecial: String,
     val descripcion: String) : Parcelable
+//Jijijija
